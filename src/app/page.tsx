@@ -8,6 +8,7 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { InvestmentPlans } from "@/components/sections/InvestmentPlans";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Security } from "@/components/sections/Security";
+import { BTCSection } from "@/components/sections/BTCSection";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { LiveTradeFeed } from "@/components/ui/LiveTradeFeed";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
+        <BTCSection />
         <Features />
         <DashboardPreview />
         <HowItWorks />
