@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ArrowDownToLine, ArrowUpFromLine, TrendingUp, ArrowUpRight, ShieldAlert, X, History, Loader2 } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/TopBar'
-import { BTCChart } from '@/components/dashboard/BTCChart'
+import { LandingBTCChart } from '@/components/sections/LandingBTCChart'
 import { createClient } from '@/lib/supabase/client'
 
 interface Profile {
@@ -194,7 +194,9 @@ export default function DashboardPage() {
         </div>
 
         {/* BTC live chart */}
-        <BTCChart />
+        <div className="rounded-xl overflow-hidden">
+          <LandingBTCChart />
+        </div>
 
         {/* Chart */}
         {balance > 0 && (
