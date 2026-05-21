@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, TrendingUp, TrendingDown } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
 import { chartData, portfolioAssets } from '@/data'
 
 const chartPath = (() => {
@@ -34,7 +33,7 @@ const liveMetrics = [
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-28 sm:pt-24 lg:pt-20 pb-16 overflow-hidden">
       {/* Video background */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -106,18 +105,20 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
-              className="flex flex-col xs:flex-row sm:flex-row gap-3 mb-10 items-stretch sm:items-start"
+              className="flex flex-col xs:flex-row sm:flex-row gap-3 mb-10 items-start"
             >
-              <Link href="/auth/register">
-                <Button size="lg" className="justify-center">
-                  Start Trading
-                  <ArrowRight size={16} />
-                </Button>
+              <Link
+                href="/auth/register"
+                className="inline-flex items-center justify-center gap-2 font-bold tracking-tight px-7 py-3.5 text-base bg-red-primary text-white hover:bg-red-dim border border-red-primary transition-all duration-150"
+              >
+                Start Trading
+                <ArrowRight size={16} />
               </Link>
-              <Link href="/auth/login">
-                <Button variant="outline" size="lg" className="justify-center !border-white/30 !text-white hover:!bg-white/10">
-                  Sign In
-                </Button>
+              <Link
+                href="/auth/login"
+                className="inline-flex items-center justify-center gap-2 font-bold tracking-tight px-7 py-3.5 text-base border border-white/30 text-white hover:bg-white/10 transition-all duration-150"
+              >
+                Sign In
               </Link>
             </motion.div>
 

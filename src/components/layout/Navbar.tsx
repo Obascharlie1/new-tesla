@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { Menu, X, TrendingUp } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { Button } from '@/components/ui/Button'
 import { navLinks } from '@/data'
 import { cn } from '@/lib/utils'
 
@@ -25,13 +24,13 @@ export function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="fixed top-0 left-0 right-0 z-50 pt-3 px-4 sm:px-6 lg:px-8"
+        className="fixed top-0 left-0 right-0 z-50 pt-2 px-4 sm:px-6 lg:px-8"
       >
         <div className={cn(
-          'max-w-7xl mx-auto rounded-2xl border transition-all duration-300 px-4 sm:px-5',
+          'max-w-7xl mx-auto rounded-xl border transition-all duration-300 px-4 sm:px-5',
           scrolled
-            ? 'bg-white/95 dark:bg-dark-card/95 border-light-border dark:border-dark-border backdrop-blur-md shadow-lg shadow-black/5 dark:shadow-black/25 py-3'
-            : 'bg-white/80 dark:bg-dark-card/80 border-light-border/60 dark:border-dark-border/60 backdrop-blur-sm py-4'
+            ? 'bg-white/95 dark:bg-dark-card/95 border-light-border dark:border-dark-border backdrop-blur-md shadow-lg shadow-black/5 dark:shadow-black/25 py-2'
+            : 'bg-white/80 dark:bg-dark-card/80 border-light-border/60 dark:border-dark-border/60 backdrop-blur-sm py-2.5'
         )}>
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -66,8 +65,11 @@ export function Navbar() {
               >
                 Sign In
               </Link>
-              <Link href="/auth/register">
-                <Button size="sm">Get Started</Button>
+              <Link
+                href="/auth/register"
+                className="inline-flex items-center justify-center gap-2 font-bold tracking-tight px-4 py-2 text-sm bg-red-primary text-white hover:bg-red-dim border border-red-primary transition-all duration-150"
+              >
+                Get Started
               </Link>
             </div>
 
@@ -95,7 +97,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed top-[72px] left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 z-40 max-w-7xl mx-auto rounded-2xl border border-light-border dark:border-dark-border bg-white/95 dark:bg-dark-card/95 backdrop-blur-md shadow-xl shadow-black/10 dark:shadow-black/30 overflow-hidden"
+            className="fixed top-[60px] left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 z-40 max-w-7xl mx-auto rounded-xl border border-light-border dark:border-dark-border bg-white/95 dark:bg-dark-card/95 backdrop-blur-md shadow-xl shadow-black/10 dark:shadow-black/30 overflow-hidden"
           >
             <nav className="px-4 py-4 flex flex-col gap-1">
               {navLinks.map((link, i) => (
@@ -115,11 +117,19 @@ export function Navbar() {
                 </motion.div>
               ))}
               <div className="pt-3 flex flex-col gap-2 border-t border-light-border dark:border-dark-border mt-2">
-                <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full">Sign In</Button>
+                <Link
+                  href="/auth/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 font-bold tracking-tight px-4 py-2 text-sm border border-light-border dark:border-dark-border text-dark-base dark:text-white hover:border-red-primary hover:text-red-primary transition-all duration-150"
+                >
+                  Sign In
                 </Link>
-                <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
-                  <Button size="sm" className="w-full">Get Started Free</Button>
+                <Link
+                  href="/auth/register"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 font-bold tracking-tight px-4 py-2 text-sm bg-red-primary text-white hover:bg-red-dim border border-red-primary transition-all duration-150"
+                >
+                  Get Started Free
                 </Link>
               </div>
             </nav>
