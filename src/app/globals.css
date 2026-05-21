@@ -16,7 +16,7 @@
   --color-light-surface: #F7F7F7;
   --color-light-border: #E5E7EB;
 
-  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-geist-sans);
 }
 
 html {
