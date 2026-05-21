@@ -107,7 +107,7 @@ export default function WithdrawPinPage() {
         </Link>
 
         {phase === 'success' ? (
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-8 text-center">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-8 text-center">
             <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center mx-auto mb-5">
               <CheckCircle className="text-emerald-600 dark:text-emerald-400" size={32} />
             </div>
@@ -126,7 +126,7 @@ export default function WithdrawPinPage() {
             </Link>
           </div>
         ) : (
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-8 max-w-sm mx-auto">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-8 max-w-sm mx-auto">
             {/* Amount display */}
             <div className="text-center mb-6">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Withdrawal Amount</p>

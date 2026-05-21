@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
-const rubik = Rubik({
-  variable: "--font-rubik",
+/*
+ * DM Sans — closest free match to ABC Diatype (ABC Dinamo).
+ * To switch to the real ABC Diatype once you have the licensed files:
+ *   1. Place .woff2 files in /public/fonts/
+ *   2. Replace this block with next/font/local pointing to those files
+ *      and set variable: "--font-sans"
+ */
+const dmSans = DM_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
@@ -22,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${rubik.variable} antialiased`}>
+      <body className={`${dmSans.variable} antialiased`}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

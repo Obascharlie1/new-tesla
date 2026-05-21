@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ variant = 'primary', size = 'md', className, children, ...props }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-none transition-all duration-150 cursor-pointer select-none'
+  const base = 'inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-lg transition-all duration-150 cursor-pointer select-none'
 
   const variants = {
     primary: 'bg-red-primary text-white hover:bg-red-dim border border-red-primary',

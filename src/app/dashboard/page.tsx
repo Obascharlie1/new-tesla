@@ -125,7 +125,7 @@ export default function DashboardPage() {
 
         {/* Metrics grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          <div className="col-span-2 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-5 sm:p-6">
+          <div className="col-span-2 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Total Balance</p>
             <p className="text-3xl sm:text-4xl font-bold text-dark-base dark:text-white tracking-tight">
               ${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -138,18 +138,18 @@ export default function DashboardPage() {
             )}
           </div>
 
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-5 sm:p-6">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Deposited</p>
             <p className="text-xl sm:text-2xl font-bold text-dark-base dark:text-white">${totalDeposited.toLocaleString()}</p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Principal</p>
           </div>
 
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-5 sm:p-6">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Total Profit</p>
             <p className="text-xl sm:text-2xl font-bold text-red-primary">+${(profile?.profit ?? 0).toLocaleString()}</p>
           </div>
 
-          <div className="col-span-2 lg:col-span-4 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-5 sm:p-6 flex items-center gap-4">
+          <div className="col-span-2 lg:col-span-4 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6 flex items-center gap-4">
             <div>
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Active Plan</p>
               <div className="flex items-center gap-3 flex-wrap">
@@ -198,7 +198,7 @@ export default function DashboardPage() {
 
         {/* Chart */}
         {balance > 0 && (
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-5 sm:p-6">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
             <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
               <div>
                 <h2 className="text-sm font-bold text-dark-base dark:text-white">Portfolio Performance</h2>
@@ -224,7 +224,7 @@ export default function DashboardPage() {
         )}
 
         {/* Recent transactions */}
-        <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border">
+        <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
           <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-light-border dark:border-dark-border">
             <h2 className="text-sm font-bold text-dark-base dark:text-white">Recent Transactions</h2>
             <Link href="/dashboard/transactions" className="text-xs font-semibold text-red-primary hover:text-red-dim transition-colors">View all</Link>

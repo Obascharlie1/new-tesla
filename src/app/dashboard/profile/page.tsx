@@ -50,7 +50,7 @@ const labelCls = 'block text-[10px] font-semibold text-slate-500 dark:text-slate
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border">
+    <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
       <div className="px-5 py-4 border-b border-light-border dark:border-dark-border">
         <h2 className="text-sm font-bold text-dark-base dark:text-white">{title}</h2>
       </div>
@@ -155,7 +155,7 @@ export default function ProfilePage() {
       <div className="p-4 sm:p-6 max-w-2xl mx-auto space-y-5 pb-16">
 
         {/* Avatar + name block */}
-        <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-5 flex items-center gap-4">
+        <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 flex items-center gap-4">
           <div className="w-16 h-16 bg-red-primary flex items-center justify-center flex-shrink-0 text-white font-bold text-xl">
             {initials}
           </div>

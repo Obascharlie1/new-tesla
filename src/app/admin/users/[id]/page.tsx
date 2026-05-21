@@ -371,7 +371,7 @@ export default function AdminUserDetailPage() {
       )}
 
       {/* ── Section 1: Details & Balance ───────────────────────────────── */}
-      <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border">
+      <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
         <div className="px-5 py-4 border-b border-light-border dark:border-dark-border">
           <h2 className="text-sm font-bold text-dark-base dark:text-white">Details &amp; Balance</h2>
         </div>
@@ -462,7 +462,7 @@ export default function AdminUserDetailPage() {
       </section>
 
       {/* ── Section 2: KYC ─────────────────────────────────────────────── */}
-      <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border">
+      <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
         <div className="px-5 py-4 border-b border-light-border dark:border-dark-border">
           <h2 className="text-sm font-bold text-dark-base dark:text-white">KYC Verification</h2>
         </div>
@@ -472,7 +472,7 @@ export default function AdminUserDetailPage() {
       </section>
 
       {/* ── Section 3: Transactions ─────────────────────────────────────── */}
-      <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border">
+      <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
         <div className="px-5 py-4 border-b border-light-border dark:border-dark-border flex items-center gap-3 flex-wrap">
           <div>
             <h2 className="text-sm font-bold text-dark-base dark:text-white">Transactions</h2>
@@ -664,7 +664,7 @@ export default function AdminUserDetailPage() {
       {/* Delete confirmation modal */}
       {confirmDel && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6 max-w-sm w-full">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6 max-w-sm w-full">
             <h3 className="text-base font-bold text-dark-base dark:text-white mb-2">
               Delete {profile.full_name || profile.email}?
             </h3>

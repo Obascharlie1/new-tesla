@@ -95,7 +95,7 @@ export function Security() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 + i * 0.06 }}
-                className="px-4 py-2 rounded-sm border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-card text-xs font-semibold text-dark-base dark:text-light-base"
+                className="px-4 py-2 rounded-lg border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-card text-xs font-semibold text-dark-base dark:text-light-base"
               >
                 {badge}
               </motion.div>

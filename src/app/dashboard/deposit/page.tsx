@@ -43,7 +43,7 @@ export default function DepositPage() {
             <Link
               key={method.href}
               href={method.href}
-              className="flex items-center gap-5 p-6 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border hover:border-red-primary transition-all group"
+              className="flex items-center gap-5 p-6 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-red-primary transition-all group"
             >
               {/* Icon */}
               <div className="w-12 h-12 bg-red-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-red-primary/15 transition-colors">

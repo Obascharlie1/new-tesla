@@ -73,7 +73,7 @@ export default function WithdrawPage() {
         ) : (
           <form onSubmit={handleContinue} className="space-y-5">
             {/* Available balance */}
-            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6">
+            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                 Available Balance
               </p>
@@ -83,7 +83,7 @@ export default function WithdrawPage() {
             </div>
 
             {/* Amount input */}
-            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6">
+            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6">
               <label className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider mb-2">
                 Withdrawal Amount (USD)
               </label>
@@ -131,7 +131,7 @@ export default function WithdrawPage() {
             </div>
 
             {/* Method selection */}
-            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6">
+            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6">
               <p className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider mb-4">
                 Withdrawal Method
               </p>
@@ -175,7 +175,7 @@ export default function WithdrawPage() {
             </div>
 
             {/* Conditional recipient fields */}
-            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6 space-y-5">
+            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6 space-y-5">
               <p className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider">
                 Recipient Details
               </p>

@@ -55,7 +55,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-sm bg-red-primary flex items-center justify-center">
+              <div className="w-8 h-8 rounded-md bg-red-primary flex items-center justify-center">
                 <TrendingUp size={16} className="text-dark-base" strokeWidth={2.5} />
               </div>
               <span className="font-bold text-lg text-dark-base dark:text-light-base tracking-tight">
@@ -71,7 +71,7 @@ export function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-sm bg-light-border dark:bg-dark-card border border-light-border dark:border-dark-border flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-red-primary hover:border-red-primary transition-colors duration-200"
+                  className="w-9 h-9 rounded-lg bg-light-border dark:bg-dark-card border border-light-border dark:border-dark-border flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-red-primary hover:border-red-primary transition-colors duration-200"
                 >
                   {svg}
                 </Link>

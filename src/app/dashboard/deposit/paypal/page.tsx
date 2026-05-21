@@ -75,7 +75,7 @@ export default function PaypalDepositPage() {
         </Link>
 
         {submitted ? (
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-8 text-center">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-8 text-center">
             <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center mx-auto mb-5">
               <CheckCircle className="text-emerald-600 dark:text-emerald-400" size={32} />
             </div>
@@ -93,7 +93,7 @@ export default function PaypalDepositPage() {
         ) : (
           <div className="space-y-5">
             {/* PayPal email */}
-            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6">
+            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6">
               <p className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider mb-3">
                 PayPal Email
               </p>
@@ -109,7 +109,7 @@ export default function PaypalDepositPage() {
             </div>
 
             {/* Instructions */}
-            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6">
+            <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6">
               <p className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider mb-4">How to Deposit</p>
               <ol className="space-y-3">
                 {steps.map((step, i) => (
@@ -124,7 +124,7 @@ export default function PaypalDepositPage() {
             </div>
 
             {/* Amount + reference form */}
-            <form onSubmit={handleSubmit} className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6 space-y-5">
+            <form onSubmit={handleSubmit} className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6 space-y-5">
               {error && (
                 <div className="px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">
                   {error}

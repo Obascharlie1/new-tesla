@@ -101,7 +101,7 @@ export default function PlansPage() {
               <div
                 key={plan.name}
                 className={cn(
-                  'relative bg-light-base dark:bg-dark-card border p-6 transition-all duration-300',
+                  'relative bg-light-base dark:bg-dark-card border rounded-xl p-6 transition-all duration-300',
                   isCurrent
                     ? 'border-red-primary shadow-lg shadow-red-primary/10'
                     : 'border-light-border dark:border-dark-border'
@@ -199,7 +199,7 @@ export default function PlansPage() {
       {showModal && selectedPlanData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-dark-base/60 backdrop-blur-sm" onClick={closeModal} />
-          <div className="relative bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border w-full max-w-sm p-6 shadow-2xl">
+          <div className="relative bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl w-full max-w-sm p-6 shadow-2xl">
             <button onClick={closeModal} className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center text-slate-400 hover:text-dark-base dark:hover:text-white transition-colors">
               <X size={16} />
             </button>

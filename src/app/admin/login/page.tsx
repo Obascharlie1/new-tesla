@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-6 space-y-4"
+          className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6 space-y-4"
         >
           {error && (
             <div className="flex items-start gap-2.5 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">

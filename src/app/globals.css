@@ -16,7 +16,7 @@
   --color-light-surface: #F7F7F7;
   --color-light-border: #E5E7EB;
 
-  --font-sans: var(--font-rubik);
+  --font-sans: var(--font-sans);
 }
 
 html {
@@ -27,7 +27,16 @@ html {
 body {
   transition: background-color 0.25s ease, color 0.25s ease;
   overflow-x: hidden;
-  font-family: var(--font-rubik), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* ── Global rounding ─────────────────────────────────────── */
+input, select, textarea {
+  border-radius: 0.5rem; /* 8px */
+}
+
+button {
+  border-radius: 0.5rem;
 }
 
 ::selection {
@@ -39,17 +48,19 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #DC2626; }
 
-/* Sharp card — solid border, no blur */
+/* Card — solid border, subtle rounding */
 .glass-card {
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 0.75rem;
 }
 
 .dark .glass-card {
   background: #161616;
   border: 1px solid #262626;
   box-shadow: none;
+  border-radius: 0.75rem;
 }
 
 /* Red gradient text */

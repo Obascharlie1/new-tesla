@@ -66,7 +66,7 @@ export function MobileApp() {
                     transition={{ delay: 0.15 + i * 0.08 }}
                     className="flex items-center gap-3"
                   >
-                    <div className="w-8 h-8 rounded-sm bg-red-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-md bg-red-primary/10 flex items-center justify-center flex-shrink-0">
                       <Icon size={16} className="text-red-primary" />
                     </div>
                     <span className="text-sm text-light-base/80">{feature.label}</span>
@@ -112,7 +112,7 @@ export function MobileApp() {
             >
               {/* Phone outer frame */}
               <div className="relative w-[260px] mx-auto">
-                <div className="rounded-sm bg-dark-card border-2 border-white/10 shadow-2xl overflow-hidden" style={{ height: '540px' }}>
+                <div className="rounded-3xl bg-dark-card border-2 border-white/10 shadow-2xl overflow-hidden" style={{ height: '540px' }}>
                   {/* Status bar */}
                   <div className="flex items-center justify-between px-6 py-3 bg-dark-surface/80">
                     <span className="text-[10px] text-light-base/60 font-medium">9:41</span>
@@ -198,7 +198,7 @@ export function MobileApp() {
                 </div>
 
                 {/* Glow */}
-                <div className="absolute inset-0 rounded-sm bg-red-primary/10 blur-xl -z-10 scale-110" />
+                <div className="absolute inset-0 rounded-3xl bg-red-primary/10 blur-xl -z-10 scale-110" />
               </div>
 
               {/* Floating notification */}

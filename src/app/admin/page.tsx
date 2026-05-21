@@ -91,7 +91,7 @@ export default function AdminUsersListPage() {
       </div>
 
       {/* User list */}
-      <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border divide-y divide-light-border dark:divide-dark-border">
+      <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl divide-y divide-light-border dark:divide-dark-border">
         {users.length === 0 && (
           <div className="py-10 text-center">
             <p className="text-sm text-slate-500 dark:text-slate-400">No users yet.</p>

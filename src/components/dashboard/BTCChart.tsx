@@ -141,7 +141,7 @@ export function BTCChart() {
   const periodLow  = allLows.length  ? Math.min(...allLows)  : 0
 
   return (
-    <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-5 sm:p-6">
+    <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
       {/* Header */}
       <div className="flex items-start justify-between mb-4 flex-wrap gap-3">
         <div>

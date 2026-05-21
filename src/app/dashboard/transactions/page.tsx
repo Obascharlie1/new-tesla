@@ -87,19 +87,19 @@ export default function TransactionsPage() {
 
         {/* Summary cards */}
         <div className="grid grid-cols-3 gap-3 sm:gap-4">
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-4">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-4">
             <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Total In</p>
             <p className="text-base sm:text-lg font-bold text-dark-base dark:text-white">
               +${totalIn.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-4">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-4">
             <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Total Out</p>
             <p className="text-base sm:text-lg font-bold text-red-primary">
               -${totalOut.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border p-4">
+          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-4">
             <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Pending</p>
             <p className="text-base sm:text-lg font-bold text-amber-600 dark:text-amber-400">{pending}</p>
           </div>
@@ -135,7 +135,7 @@ export default function TransactionsPage() {
         </div>
 
         {/* Table */}
-        <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border">
+        <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
           {/* Desktop */}
           <div className="hidden sm:block overflow-x-auto">
             <table className="w-full">
