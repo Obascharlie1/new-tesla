@@ -87,6 +87,7 @@ export default function AdminUserDetailPage() {
   const [confirmDel,  setConfirmDel]  = useState(false)
   const [deleting,    setDeleting]    = useState(false)
   const [txLoading,   setTxLoading]   = useState<string | null>(null) // txId being approved/rejected
+  const [actionError, setActionError] = useState('')
 
   /* ── load data ────────────────────────────────────────────────────────── */
 
@@ -109,6 +110,7 @@ export default function AdminUserDetailPage() {
   /* ── mutations ────────────────────────────────────────────────────────── */
 
   async function patchProfile(updates: Record<string, unknown>) {
+    setActionError('')
     const res = await fetch(`/api/admin/users/${userId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -116,7 +118,7 @@ export default function AdminUserDetailPage() {
     })
     const json = await res.json()
     if (!res.ok) {
-      setError(json?.error ?? 'Update failed')
+      setActionError(json?.error ?? 'Update failed. Please try again.')
       return false
     }
     setProfile(json.data)
@@ -136,9 +138,18 @@ export default function AdminUserDetailPage() {
     const v = parseFloat(profitInput)
     if (isNaN(v) || v < 0) { setEditingProfit(false); return }
     setSavingProfit(true)
-    // Keep the principal (balance − current profit) and add the new profit
-    const principal  = Math.max(0, (profile?.balance ?? 0) - (profile?.profit ?? 0))
-    const newBalance = principal + v
+
+    // Use sum of completed deposits as the true base (most accurate)
+    const trackedDeposits = transactions
+      .filter(t => t.type === 'Deposit' && t.status === 'Completed')
+      .reduce((sum, t) => sum + Number(t.amount), 0)
+
+    // Fall back to (balance − old profit) only when there are no tracked deposits
+    const depositBase = trackedDeposits > 0
+      ? trackedDeposits
+      : Math.max(0, Number(profile?.balance ?? 0) - Number(profile?.profit ?? 0))
+
+    const newBalance = depositBase + v
     const ok = await patchProfile({ profit: v, balance: newBalance })
     if (ok) await load()
     setSavingProfit(false)
@@ -350,6 +361,14 @@ export default function AdminUserDetailPage() {
           </button>
         </div>
       </div>
+
+      {/* Action error */}
+      {actionError && (
+        <div className="flex items-center justify-between gap-3 px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-sm text-red-primary">
+          <span>{actionError}</span>
+          <button onClick={() => setActionError('')} className="flex-shrink-0"><X size={14} /></button>
+        </div>
+      )}
 
       {/* ── Section 1: Details & Balance ───────────────────────────────── */}
       <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border">
