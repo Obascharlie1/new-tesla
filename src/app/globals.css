@@ -16,7 +16,7 @@
   --color-light-surface: #F7F7F7;
   --color-light-border: #E5E7EB;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 html {
