@@ -136,8 +136,11 @@ export default function AdminUserDetailPage() {
     const v = parseFloat(profitInput)
     if (isNaN(v) || v < 0) { setEditingProfit(false); return }
     setSavingProfit(true)
-    const ok = await patchProfile({ profit: v })
-    if (ok) await load()   // re-fetch from DB so balance reflects the new value
+    // Keep the principal (balance − current profit) and add the new profit
+    const principal  = Math.max(0, (profile?.balance ?? 0) - (profile?.profit ?? 0))
+    const newBalance = principal + v
+    const ok = await patchProfile({ profit: v, balance: newBalance })
+    if (ok) await load()
     setSavingProfit(false)
     setEditingProfit(false)
   }
