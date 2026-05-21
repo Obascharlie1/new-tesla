@@ -114,9 +114,12 @@ export default function AdminUserDetailPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updates),
     })
-    if (!res.ok) return false
-    const { data } = await res.json()
-    setProfile(data)
+    const json = await res.json()
+    if (!res.ok) {
+      setError(json?.error ?? 'Update failed')
+      return false
+    }
+    setProfile(json.data)
     return true
   }
 
@@ -133,7 +136,8 @@ export default function AdminUserDetailPage() {
     const v = parseFloat(profitInput)
     if (isNaN(v) || v < 0) { setEditingProfit(false); return }
     setSavingProfit(true)
-    await patchProfile({ profit: v })
+    const ok = await patchProfile({ profit: v })
+    if (ok) await load()   // re-fetch from DB so balance reflects the new value
     setSavingProfit(false)
     setEditingProfit(false)
   }
