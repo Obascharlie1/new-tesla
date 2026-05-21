@@ -8,6 +8,7 @@ import {
   ArrowUpFromLine,
   TrendingUp,
   History,
+  User,
   LogOut,
   X,
 } from 'lucide-react'
@@ -21,6 +22,7 @@ const navItems = [
   { href: '/dashboard/withdraw',     label: 'Withdraw',     icon: ArrowUpFromLine },
   { href: '/dashboard/plans',        label: 'My Plans',     icon: TrendingUp },
   { href: '/dashboard/transactions', label: 'Transactions', icon: History },
+  { href: '/dashboard/profile',      label: 'Profile',      icon: User },
 ]
 
 interface SidebarProps {
