@@ -41,7 +41,7 @@ export function Navbar() {
                 alt="BIT-TESLA"
                 width={130}
                 height={22}
-                className="h-7 w-auto"
+                className="h-5 w-auto sm:h-7"
                 priority
               />
             </Link>
