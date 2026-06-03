@@ -7,7 +7,7 @@ export function TawkChat() {
     const w = window as any
     if (w.chaport) return
 
-    w.chaportConfig = { appId: '6a1f6cc8e5e5ce985ae308d5' }
+    w.chaportConfig = { appId: '6a1f77074dab3ead5e840604' }
 
     const v3: any = {}
     w.chaport = v3
