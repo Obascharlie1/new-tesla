@@ -112,7 +112,7 @@ export default function KYCPage() {
       .upload(frontPath, frontFile!.file, { upsert: true })
 
     if (frontErr) {
-      setError('Failed to upload front document. Please try again.')
+      setError(`Upload failed: ${frontErr.message}`)
       setLoading(false)
       return
     }
