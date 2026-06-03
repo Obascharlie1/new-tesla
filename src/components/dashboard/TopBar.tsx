@@ -4,6 +4,7 @@ import { Menu, BadgeCheck } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { useTopBarContext } from './TopBarContext'
 import { NotificationBell } from './NotificationBell'
+import { MessagesBell } from './MessagesBell'
 
 interface TopBarProps {
   title: string
@@ -42,6 +43,7 @@ export function TopBar({ title, subtitle, verified }: TopBarProps) {
 
       {/* Right: actions */}
       <div className="flex items-center gap-2 sm:gap-3">
+        <MessagesBell />
         <NotificationBell />
         <ThemeToggle />
       </div>
