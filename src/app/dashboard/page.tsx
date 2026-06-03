@@ -99,7 +99,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <TopBar title="Dashboard" subtitle={`Welcome back, ${firstName}`} />
+      <TopBar title="Dashboard" subtitle={`Welcome back, ${firstName}`} verified={profile?.kyc_status === 'Verified'} />
 
       <div className="p-4 sm:p-6 max-w-6xl mx-auto space-y-4 sm:space-y-6">
 
