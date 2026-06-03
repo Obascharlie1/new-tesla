@@ -15,9 +15,8 @@ async function notifyTelegram(userId: string, content: string) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      chat_id:    chatId,
-      parse_mode: 'Markdown',
-      text: `💬 *New message from ${name}*\n🆔 ${userId}\n\n${content}\n\n_Reply to this message to respond to the user_`,
+      chat_id: chatId,
+      text: `💬 New message from ${name}\n🆔 ${userId}\n\n${content}\n\nReply to THIS message to respond to the user.`,
     }),
   })
 }
