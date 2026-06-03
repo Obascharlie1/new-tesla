@@ -4,41 +4,37 @@ import { createAdminClient } from '@/lib/supabase/admin'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    console.log('Telegram webhook body:', JSON.stringify(body))
-
     const message = body.message
     if (!message?.text) return NextResponse.json({ ok: true })
 
-    // Only handle replies to forwarded user messages
+    // Must be a reply to another message
     const replyTo = message.reply_to_message
-    if (!replyTo?.text) {
-      console.log('No reply_to_message found')
-      return NextResponse.json({ ok: true })
-    }
+    if (!replyTo) return NextResponse.json({ ok: true })
 
-    console.log('Reply to text:', replyTo.text)
+    const telegramMessageId = replyTo.message_id
+    const replyText = message.text.trim()
+    const admin = createAdminClient()
 
-    // Extract user ID embedded in the original forwarded message
-    const match = replyTo.text.match(/\[UID:([a-f0-9-]{36})\]/i)
-    if (!match) {
-      console.log('No user ID found in:', replyTo.text)
-      return NextResponse.json({ ok: true })
-    }
+    // Look up which user this Telegram message belongs to
+    const { data: original } = await admin
+      .from('messages')
+      .select('user_id')
+      .eq('telegram_message_id', telegramMessageId)
+      .single()
 
-    const userId  = match[1]
-    const content = message.text.trim()
-    const admin   = createAdminClient()
+    if (!original?.user_id) return NextResponse.json({ ok: true })
 
     // Save admin reply to DB
     await admin.from('messages').insert({
-      user_id: userId,
+      user_id: original.user_id,
       sender:  'admin',
-      content,
+      content: replyText,
       read:    false,
     })
 
-    // Confirm delivery back to Telegram
-    await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    // Send confirmation back to Telegram
+    const token = process.env.TELEGRAM_BOT_TOKEN
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -48,7 +44,8 @@ export async function POST(req: NextRequest) {
     })
 
     return NextResponse.json({ ok: true })
-  } catch {
+  } catch (err) {
+    console.error('Telegram webhook error:', err)
     return NextResponse.json({ ok: true })
   }
 }
