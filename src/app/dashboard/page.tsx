@@ -128,9 +128,9 @@ export default function DashboardPage() {
           <div className="col-span-2 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Total Balance</p>
             <p className="text-3xl sm:text-4xl font-bold text-dark-base dark:text-white tracking-tight">
-              ${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ${(profile?.profit ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
-            {balance > 0 && (
+            {(profile?.profit ?? 0) > 0 && (
               <div className="flex items-center gap-1.5 mt-2">
                 <ArrowUpRight size={13} className="text-emerald-500" />
                 <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Portfolio growing</span>
