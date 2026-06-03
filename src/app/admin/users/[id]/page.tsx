@@ -9,6 +9,7 @@ import {
   CheckCircle, XCircle, Plus,
   ShieldCheck, ShieldAlert, ShieldOff,
   FileText, Loader2, Bell, Send, ZoomIn,
+  RotateCcw,
 } from 'lucide-react'
 
 /* ─── types ─────────────────────────────────────────────────────────────── */
@@ -83,11 +84,12 @@ export default function AdminUserDetailPage() {
   const [addLoading,  setAddLoading]  = useState(false)
 
   /* action state */
-  const [suspending,  setSuspending]  = useState(false)
-  const [confirmDel,  setConfirmDel]  = useState(false)
-  const [deleting,    setDeleting]    = useState(false)
-  const [txLoading,   setTxLoading]   = useState<string | null>(null)
-  const [actionError, setActionError] = useState('')
+  const [suspending,   setSuspending]   = useState(false)
+  const [confirmDel,   setConfirmDel]   = useState(false)
+  const [deleting,     setDeleting]     = useState(false)
+  const [txLoading,    setTxLoading]    = useState<string | null>(null)
+  const [confirmTxDel, setConfirmTxDel] = useState<string | null>(null) // txId pending delete confirm
+  const [actionError,  setActionError]  = useState('')
 
   /* kyc docs state */
   const [kycDocs,       setKycDocs]       = useState<{ front?: string; back?: string } | null>(null)
@@ -197,6 +199,24 @@ export default function AdminUserDetailPage() {
       // Refresh profile + transactions
       await load()
     }
+    setTxLoading(null)
+  }
+
+  async function handleTxDelete(txId: string) {
+    setTxLoading(txId)
+    const res = await fetch(`/api/admin/transactions/${txId}`, { method: 'DELETE' })
+    if (res.ok) { setConfirmTxDel(null); await load() }
+    setTxLoading(null)
+  }
+
+  async function handleTxRevert(txId: string) {
+    setTxLoading(txId)
+    const res = await fetch(`/api/admin/transactions/${txId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'Pending' }),
+    })
+    if (res.ok) await load()
     setTxLoading(null)
   }
 
@@ -675,24 +695,56 @@ export default function AdminUserDetailPage() {
                         </span>
                       </td>
                       <td className="px-5 py-3.5">
-                        {tx.status === 'Pending' && (
-                          <div className="flex gap-1.5">
+                        <div className="flex gap-1.5 flex-wrap">
+                          {tx.status === 'Pending' && (
+                            <>
+                              <button
+                                onClick={() => handleTxAction(tx.id, 'Completed')}
+                                disabled={txLoading === tx.id}
+                                className="flex items-center gap-1 px-2.5 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors whitespace-nowrap disabled:opacity-50"
+                              >
+                                {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : <><CheckCircle size={12} /> Approve</>}
+                              </button>
+                              <button
+                                onClick={() => handleTxAction(tx.id, 'Rejected')}
+                                disabled={txLoading === tx.id}
+                                className="flex items-center gap-1 px-2.5 py-1.5 bg-red-primary/10 text-red-primary text-xs font-semibold hover:bg-red-primary/20 transition-colors whitespace-nowrap disabled:opacity-50"
+                              >
+                                <XCircle size={12} /> Reject
+                              </button>
+                            </>
+                          )}
+                          {tx.status === 'Completed' && tx.type === 'Deposit' && (
                             <button
-                              onClick={() => handleTxAction(tx.id, 'Completed')}
+                              onClick={() => handleTxRevert(tx.id)}
                               disabled={txLoading === tx.id}
-                              className="flex items-center gap-1 px-2.5 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors whitespace-nowrap disabled:opacity-50"
+                              className="flex items-center gap-1 px-2.5 py-1.5 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs font-semibold hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors whitespace-nowrap disabled:opacity-50"
                             >
-                              {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : <><CheckCircle size={12} /> Approve</>}
+                              {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : <><RotateCcw size={12} /> Pending</>}
                             </button>
+                          )}
+                          {confirmTxDel === tx.id ? (
+                            <div className="flex gap-1">
+                              <button
+                                onClick={() => handleTxDelete(tx.id)}
+                                disabled={txLoading === tx.id}
+                                className="flex items-center gap-1 px-2.5 py-1.5 bg-red-primary text-white text-xs font-semibold hover:bg-red-dim transition-colors whitespace-nowrap disabled:opacity-50"
+                              >
+                                {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : 'Confirm'}
+                              </button>
+                              <button onClick={() => setConfirmTxDel(null)} className="px-2 py-1.5 border border-light-border dark:border-dark-border text-xs text-slate-500 hover:bg-light-surface dark:hover:bg-dark-surface">
+                                <X size={12} />
+                              </button>
+                            </div>
+                          ) : (
                             <button
-                              onClick={() => handleTxAction(tx.id, 'Rejected')}
-                              disabled={txLoading === tx.id}
-                              className="flex items-center gap-1 px-2.5 py-1.5 bg-red-primary/10 text-red-primary text-xs font-semibold hover:bg-red-primary/20 transition-colors whitespace-nowrap disabled:opacity-50"
+                              onClick={() => setConfirmTxDel(tx.id)}
+                              className="flex items-center gap-1 px-2.5 py-1.5 border border-red-200 dark:border-red-800/60 text-red-600 dark:text-red-400 text-xs font-semibold hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors whitespace-nowrap"
                             >
-                              <XCircle size={12} /> Reject
+                              <Trash2 size={12} /> Delete
                             </button>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -722,24 +774,42 @@ export default function AdminUserDetailPage() {
                       {tx.status}
                     </span>
                   </div>
-                  {tx.status === 'Pending' && (
-                    <div className="flex gap-2 pt-1">
-                      <button
-                        onClick={() => handleTxAction(tx.id, 'Completed')}
-                        disabled={txLoading === tx.id}
-                        className="flex-1 flex items-center justify-center gap-1 py-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold hover:bg-emerald-100 transition-colors disabled:opacity-50"
-                      >
-                        {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : <><CheckCircle size={12} /> Approve</>}
+                  <div className="flex gap-2 pt-1 flex-wrap">
+                    {tx.status === 'Pending' && (
+                      <>
+                        <button onClick={() => handleTxAction(tx.id, 'Completed')} disabled={txLoading === tx.id}
+                          className="flex-1 flex items-center justify-center gap-1 py-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold hover:bg-emerald-100 transition-colors disabled:opacity-50">
+                          {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : <><CheckCircle size={12} /> Approve</>}
+                        </button>
+                        <button onClick={() => handleTxAction(tx.id, 'Rejected')} disabled={txLoading === tx.id}
+                          className="flex-1 flex items-center justify-center gap-1 py-2 bg-red-primary/10 text-red-primary text-xs font-semibold hover:bg-red-primary/20 transition-colors disabled:opacity-50">
+                          <XCircle size={12} /> Reject
+                        </button>
+                      </>
+                    )}
+                    {tx.status === 'Completed' && tx.type === 'Deposit' && (
+                      <button onClick={() => handleTxRevert(tx.id)} disabled={txLoading === tx.id}
+                        className="flex items-center gap-1 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs font-semibold hover:bg-amber-100 transition-colors disabled:opacity-50">
+                        <RotateCcw size={12} /> Set Pending
                       </button>
-                      <button
-                        onClick={() => handleTxAction(tx.id, 'Rejected')}
-                        disabled={txLoading === tx.id}
-                        className="flex-1 flex items-center justify-center gap-1 py-2 bg-red-primary/10 text-red-primary text-xs font-semibold hover:bg-red-primary/20 transition-colors disabled:opacity-50"
-                      >
-                        <XCircle size={12} /> Reject
+                    )}
+                    {confirmTxDel === tx.id ? (
+                      <div className="flex gap-1">
+                        <button onClick={() => handleTxDelete(tx.id)} disabled={txLoading === tx.id}
+                          className="flex items-center gap-1 px-3 py-2 bg-red-primary text-white text-xs font-semibold hover:bg-red-dim transition-colors disabled:opacity-50">
+                          {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : 'Confirm Delete'}
+                        </button>
+                        <button onClick={() => setConfirmTxDel(null)} className="px-2 py-2 border border-light-border dark:border-dark-border text-xs text-slate-500">
+                          <X size={12} />
+                        </button>
+                      </div>
+                    ) : (
+                      <button onClick={() => setConfirmTxDel(tx.id)}
+                        className="flex items-center gap-1 px-3 py-2 border border-red-200 dark:border-red-800/60 text-red-600 dark:text-red-400 text-xs font-semibold hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                        <Trash2 size={12} /> Delete
                       </button>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

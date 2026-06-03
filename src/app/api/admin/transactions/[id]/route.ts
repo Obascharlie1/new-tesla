@@ -22,7 +22,10 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     .single()
 
   if (fetchErr || !tx) return NextResponse.json({ error: 'Transaction not found' }, { status: 404 })
-  if (tx.status !== 'Pending') return NextResponse.json({ error: 'Transaction already resolved' }, { status: 400 })
+
+  // Allow reverting a completed deposit back to pending
+  const isRevertToPending = status === 'Pending' && tx.status === 'Completed' && tx.type === 'Deposit'
+  if (tx.status !== 'Pending' && !isRevertToPending) return NextResponse.json({ error: 'Transaction already resolved' }, { status: 400 })
 
   // Update transaction status
   const { error: updateErr } = await admin
@@ -55,6 +58,13 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     }
   }
 
+  // Revert completed deposit → deduct from balance
+  if (isRevertToPending) {
+    const { data: profile } = await admin.from('profiles').select('balance').eq('id', tx.user_id).single()
+    const newBalance = Math.max(0, (profile?.balance ?? 0) - tx.amount)
+    await admin.from('profiles').update({ balance: newBalance }).eq('id', tx.user_id)
+  }
+
   if (status === 'Rejected') {
     const fmt = (n: number) => `$${Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
     if (tx.type === 'Deposit') {
@@ -63,6 +73,32 @@ export async function PATCH(request: NextRequest, { params }: Params) {
       await createNotification(tx.user_id, 'Withdrawal Rejected', `Your withdrawal of ${fmt(tx.amount)} via ${tx.method} was rejected. Please contact support if you have questions.`, 'error')
     }
   }
+
+  return NextResponse.json({ success: true })
+}
+
+export async function DELETE(request: NextRequest, { params }: Params) {
+  if (!isAdmin(request)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  const { id } = await params
+  const admin = createAdminClient()
+
+  const { data: tx, error: fetchErr } = await admin
+    .from('transactions')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (fetchErr || !tx) return NextResponse.json({ error: 'Transaction not found' }, { status: 404 })
+
+  // If deposit was completed, deduct from balance before deleting
+  if (tx.type === 'Deposit' && tx.status === 'Completed') {
+    const { data: profile } = await admin.from('profiles').select('balance').eq('id', tx.user_id).single()
+    const newBalance = Math.max(0, (profile?.balance ?? 0) - tx.amount)
+    await admin.from('profiles').update({ balance: newBalance }).eq('id', tx.user_id)
+  }
+
+  const { error: deleteErr } = await admin.from('transactions').delete().eq('id', id)
+  if (deleteErr) return NextResponse.json({ error: deleteErr.message }, { status: 400 })
 
   return NextResponse.json({ success: true })
 }
