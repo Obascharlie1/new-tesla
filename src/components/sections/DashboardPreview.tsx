@@ -31,7 +31,7 @@ export function DashboardPreview() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-xs font-semibold tracking-widest text-red-primary uppercase mb-4"
+            className="inline-block text-xs font-semibold tracking-widest text-orange-primary uppercase mb-4"
           >
             Live Dashboard
           </motion.span>
@@ -59,7 +59,7 @@ export function DashboardPreview() {
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-red-400" />
               <div className="w-3 h-3 bg-amber-400" />
-              <div className="w-3 h-3 bg-red-primary" />
+              <div className="w-3 h-3 bg-orange-primary" />
             </div>
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <RefreshCw size={12} className="animate-spin" style={{ animationDuration: '3s' }} />
@@ -69,7 +69,7 @@ export function DashboardPreview() {
               {['1D', '1W', '1M', '3M', '1Y', 'ALL'].map((range, i) => (
                 <button
                   key={range}
-                  className={`px-2 py-0.5 text-[10px] font-semibold transition-colors ${i === 2 ? 'bg-red-primary text-dark-base' : 'text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-light-base'}`}
+                  className={`px-2 py-0.5 text-[10px] font-semibold transition-colors ${i === 2 ? 'bg-orange-primary text-dark-base' : 'text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-light-base'}`}
                 >
                   {range}
                 </button>
@@ -86,7 +86,7 @@ export function DashboardPreview() {
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Portfolio Value</p>
                   <p className="text-4xl font-bold text-dark-base dark:text-light-base">$847,392.00</p>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-red-primary font-semibold text-sm flex items-center gap-1">
+                    <span className="text-orange-primary font-semibold text-sm flex items-center gap-1">
                       <TrendingUp size={14} />
                       +$47,218.43
                     </span>
@@ -101,7 +101,7 @@ export function DashboardPreview() {
                   ].map((metric) => (
                     <div key={metric.label}>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mb-0.5">{metric.label}</p>
-                      <p className={`text-sm font-bold ${metric.positive ? 'text-red-primary' : 'text-red-500'}`}>{metric.value}</p>
+                      <p className={`text-sm font-bold ${metric.positive ? 'text-orange-primary' : 'text-red-500'}`}>{metric.value}</p>
                     </div>
                   ))}
                 </div>
@@ -152,7 +152,7 @@ export function DashboardPreview() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-dark-base dark:text-light-base">{asset.symbol}</span>
-                        <span className={`text-xs font-semibold ${asset.changePercent >= 0 ? 'text-red-primary' : 'text-red-500'}`}>
+                        <span className={`text-xs font-semibold ${asset.changePercent >= 0 ? 'text-orange-primary' : 'text-red-500'}`}>
                           {asset.changePercent >= 0 ? '+' : ''}{asset.changePercent}%
                         </span>
                       </div>
@@ -163,7 +163,7 @@ export function DashboardPreview() {
                           whileInView={{ width: `${asset.allocation}%` }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.8, delay: 0.5 + i * 0.06 }}
-                          className="h-full bg-red-primary"
+                          className="h-full bg-orange-primary"
                         />
                       </div>
                     </div>

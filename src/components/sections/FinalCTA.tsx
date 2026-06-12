@@ -17,7 +17,7 @@ export function FinalCTA() {
     <section className="bg-light-base dark:bg-dark-base py-24 lg:py-32 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-red-primary/6 dark:bg-red-primary/8 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-orange-primary/6 dark:bg-orange-primary/8 blur-3xl" />
       </div>
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -28,7 +28,7 @@ export function FinalCTA() {
           transition={{ duration: 0.6 }}
         >
           {/* Label */}
-          <span className="inline-block text-xs font-semibold tracking-widest text-red-primary uppercase mb-6">
+          <span className="inline-block text-xs font-semibold tracking-widest text-orange-primary uppercase mb-6">
             Start Today
           </span>
 
@@ -52,13 +52,13 @@ export function FinalCTA() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="flex-1 px-4 py-3.5 border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-card text-dark-base dark:text-light-base placeholder:text-slate-500 dark:placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-all duration-200"
+                className="flex-1 px-4 py-3.5 border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-card text-dark-base dark:text-light-base placeholder:text-slate-500 dark:placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-all duration-200"
               />
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 type="submit"
-                className="flex items-center justify-center gap-2 px-6 py-3.5 bg-red-primary text-white font-bold text-sm cursor-pointer hover:bg-red-dim transition-colors duration-200 whitespace-nowrap"
+                className="flex items-center justify-center gap-2 px-6 py-3.5 bg-orange-primary text-white font-bold text-sm cursor-pointer hover:bg-orange-dim transition-colors duration-200 whitespace-nowrap"
               >
                 Get Started Free
                 <ArrowRight size={16} />
@@ -70,7 +70,7 @@ export function FinalCTA() {
               animate={{ opacity: 1, scale: 1 }}
               className="flex items-center justify-center gap-3 py-4 mb-6"
             >
-              <CheckCircle size={20} className="text-red-primary" />
+              <CheckCircle size={20} className="text-orange-primary" />
               <span className="text-base font-semibold text-dark-base dark:text-light-base">
                 You&apos;re on the list — check your inbox.
               </span>
@@ -86,7 +86,7 @@ export function FinalCTA() {
               'Bank-grade security',
             ].map((item) => (
               <span key={item} className="flex items-center gap-1.5">
-                <CheckCircle size={12} className="text-red-primary" />
+                <CheckCircle size={12} className="text-orange-primary" />
                 {item}
               </span>
             ))}

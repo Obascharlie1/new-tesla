@@ -60,7 +60,7 @@ export default function AdminUsersListPage() {
   if (loading) {
     return (
       <div className="p-6 flex items-center justify-center h-64">
-        <Loader2 size={24} className="animate-spin text-red-primary" />
+        <Loader2 size={24} className="animate-spin text-orange-primary" />
       </div>
     )
   }
@@ -68,7 +68,7 @@ export default function AdminUsersListPage() {
   if (error) {
     return (
       <div className="p-6">
-        <p className="text-sm text-red-primary">{error}</p>
+        <p className="text-sm text-orange-primary">{error}</p>
       </div>
     )
   }
@@ -110,7 +110,7 @@ export default function AdminUsersListPage() {
               className="flex items-center gap-4 px-5 py-4 hover:bg-light-surface dark:hover:bg-dark-surface transition-colors group"
             >
               {/* Avatar */}
-              <div className="w-10 h-10 bg-red-primary/10 flex items-center justify-center flex-shrink-0 text-red-primary font-bold text-sm">
+              <div className="w-10 h-10 bg-orange-primary/10 flex items-center justify-center flex-shrink-0 text-orange-primary font-bold text-sm">
                 {initials}
               </div>
 
@@ -121,7 +121,7 @@ export default function AdminUsersListPage() {
                     {user.full_name || user.email}
                   </p>
                   {user.is_suspended && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-red-primary/10 text-red-primary uppercase tracking-wider">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-orange-primary/10 text-orange-primary uppercase tracking-wider">
                       Suspended
                     </span>
                   )}
@@ -148,7 +148,7 @@ export default function AdminUsersListPage() {
               </span>
 
               {/* Arrow */}
-              <ChevronRight size={16} className="text-slate-400 group-hover:text-red-primary transition-colors flex-shrink-0" />
+              <ChevronRight size={16} className="text-slate-400 group-hover:text-orange-primary transition-colors flex-shrink-0" />
             </Link>
           )
         })}

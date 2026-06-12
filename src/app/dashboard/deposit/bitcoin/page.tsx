@@ -95,7 +95,7 @@ export default function BitcoinDepositPage() {
             </p>
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-primary hover:bg-red-dim text-white text-sm font-bold transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-primary hover:bg-orange-dim text-white text-sm font-bold transition-colors"
             >
               Back to Dashboard
             </Link>
@@ -131,7 +131,7 @@ export default function BitcoinDepositPage() {
                     </code>
                     <button
                       onClick={copyAddress}
-                      className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors"
+                      className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors"
                     >
                       {copied ? <><Check size={12} /> Copied!</> : <><Copy size={12} /> Copy</>}
                     </button>
@@ -148,7 +148,7 @@ export default function BitcoinDepositPage() {
             {/* Amount + submit */}
             <form onSubmit={handleSubmit} className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6 space-y-5">
               {error && (
-                <div className="px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">
+                <div className="px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-orange-primary text-sm">
                   {error}
                 </div>
               )}
@@ -165,7 +165,7 @@ export default function BitcoinDepositPage() {
                     placeholder="0.00"
                     min="100"
                     step="0.01"
-                    className="w-full pl-8 pr-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+                    className="w-full pl-8 pr-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
                   />
                 </div>
                 {btcAmount && (
@@ -188,7 +188,7 @@ export default function BitcoinDepositPage() {
                   className={`w-full border-2 border-dashed p-5 text-center transition-colors ${
                     receipt
                       ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/10'
-                      : 'border-light-border dark:border-dark-border hover:border-red-primary hover:bg-red-primary/5'
+                      : 'border-light-border dark:border-dark-border hover:border-orange-primary hover:bg-orange-primary/5'
                   }`}
                 >
                   {receipt ? (
@@ -212,7 +212,7 @@ export default function BitcoinDepositPage() {
               <button
                 type="submit"
                 disabled={loading || !amountUsd}
-                className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
               >
                 {loading ? <><Loader2 size={16} className="animate-spin" /> Processing…</> : "I've Sent Bitcoin"}
               </button>

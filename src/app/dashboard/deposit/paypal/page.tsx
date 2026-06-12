@@ -85,7 +85,7 @@ export default function PaypalDepositPage() {
             </p>
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-primary hover:bg-red-dim text-white text-sm font-bold transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-primary hover:bg-orange-dim text-white text-sm font-bold transition-colors"
             >
               Back to Dashboard
             </Link>
@@ -101,7 +101,7 @@ export default function PaypalDepositPage() {
                 <code className="flex-1 font-mono text-sm text-dark-base dark:text-white">{PAYPAL_EMAIL}</code>
                 <button
                   onClick={copyEmail}
-                  className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors"
+                  className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors"
                 >
                   {emailCopied ? <><Check size={12} /> Copied!</> : <><Copy size={12} /> Copy</>}
                 </button>
@@ -114,7 +114,7 @@ export default function PaypalDepositPage() {
               <ol className="space-y-3">
                 {steps.map((step, i) => (
                   <li key={i} className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-red-primary text-white text-xs font-bold flex items-center justify-center">
+                    <span className="flex-shrink-0 w-6 h-6 bg-orange-primary text-white text-xs font-bold flex items-center justify-center">
                       {i + 1}
                     </span>
                     <span className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed pt-0.5">{step}</span>
@@ -126,7 +126,7 @@ export default function PaypalDepositPage() {
             {/* Amount + reference form */}
             <form onSubmit={handleSubmit} className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6 space-y-5">
               {error && (
-                <div className="px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">
+                <div className="px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-orange-primary text-sm">
                   {error}
                 </div>
               )}
@@ -143,7 +143,7 @@ export default function PaypalDepositPage() {
                     placeholder="0.00"
                     min="100"
                     step="0.01"
-                    className="w-full pl-8 pr-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+                    className="w-full pl-8 pr-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
                   />
                 </div>
                 {fee && net && (
@@ -168,7 +168,7 @@ export default function PaypalDepositPage() {
                   <button
                     type="button"
                     onClick={copyRef}
-                    className="flex items-center gap-1.5 px-3 py-3 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-3 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors"
                   >
                     {refCopied ? <><Check size={12} /> Copied!</> : <><Copy size={12} /> Copy</>}
                   </button>
@@ -178,7 +178,7 @@ export default function PaypalDepositPage() {
               <button
                 type="submit"
                 disabled={loading || !amount}
-                className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
               >
                 {loading ? <><Loader2 size={16} className="animate-spin" /> Processing…</> : "I've Sent via PayPal"}
               </button>

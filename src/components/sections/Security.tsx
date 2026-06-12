@@ -33,7 +33,7 @@ export function Security() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-xs font-semibold tracking-widest text-red-primary uppercase mb-4"
+            className="inline-block text-xs font-semibold tracking-widest text-orange-primary uppercase mb-4"
           >
             Security & Trust
           </motion.span>
@@ -64,8 +64,8 @@ export function Security() {
             const Icon = iconMap[feature.icon]
             return (
               <GlassCard key={feature.title} delay={i * 0.07} className="p-5 flex items-start gap-4">
-                <div className="w-10 h-10 rounded bg-red-primary/10 dark:bg-red-primary/15 flex items-center justify-center flex-shrink-0">
-                  <Icon size={18} className="text-red-primary" />
+                <div className="w-10 h-10 rounded bg-orange-primary/10 dark:bg-orange-primary/15 flex items-center justify-center flex-shrink-0">
+                  <Icon size={18} className="text-orange-primary" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-dark-base dark:text-light-base mb-1">{feature.title}</h3>

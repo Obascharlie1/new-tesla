@@ -59,7 +59,7 @@ export default function LoginPage() {
       </div>
 
       {error && (
-        <div className="mb-5 px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">
+        <div className="mb-5 px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-orange-primary text-sm">
           {error}
         </div>
       )}
@@ -76,7 +76,7 @@ export default function LoginPage() {
             placeholder="john@example.com"
             autoComplete="email"
             required
-            className="w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+            className="w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
           />
         </div>
 
@@ -92,7 +92,7 @@ export default function LoginPage() {
               placeholder="••••••••"
               autoComplete="current-password"
               required
-              className="w-full px-4 py-3 pr-11 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+              className="w-full px-4 py-3 pr-11 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
             />
             <button type="button" onClick={() => setShowPw(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -106,11 +106,11 @@ export default function LoginPage() {
               type="checkbox"
               checked={rememberMe}
               onChange={e => setRememberMe(e.target.checked)}
-              className="w-4 h-4 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card accent-red-primary flex-shrink-0"
+              className="w-4 h-4 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card accent-orange-primary flex-shrink-0"
             />
             <span className="text-xs text-slate-500 dark:text-slate-400">Remember me</span>
           </label>
-          <Link href="/auth/forgot-password" className="text-xs text-red-primary hover:text-red-dim transition-colors font-medium">
+          <Link href="/auth/forgot-password" className="text-xs text-orange-primary hover:text-orange-dim transition-colors font-medium">
             Forgot password?
           </Link>
         </div>
@@ -118,7 +118,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <><Loader2 size={16} className="animate-spin" /> Signing in…</> : <>Sign In <ArrowRight size={16} /></>}
         </button>
@@ -126,7 +126,7 @@ export default function LoginPage() {
 
       <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
         Don&apos;t have an account?{' '}
-        <Link href="/auth/register" className="text-red-primary hover:text-red-dim font-medium transition-colors">
+        <Link href="/auth/register" className="text-orange-primary hover:text-orange-dim font-medium transition-colors">
           Create account
         </Link>
       </p>

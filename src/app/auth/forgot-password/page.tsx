@@ -34,10 +34,10 @@ export default function ForgotPasswordPage() {
     <div className="w-full max-w-sm">
       {/* Mobile logo */}
       <div className="lg:hidden flex items-center gap-2 mb-8">
-        <div className="w-8 h-8 bg-red-primary flex items-center justify-center">
+        <div className="w-8 h-8 bg-orange-primary flex items-center justify-center">
           <span className="text-white font-bold text-sm">Q</span>
         </div>
-        <span className="font-bold text-dark-base dark:text-white text-base tracking-tight">QuantumVest</span>
+        <span className="font-bold text-dark-base dark:text-white text-base tracking-tight">Tesla Bridges Capital</span>
       </div>
 
       {submitted ? (
@@ -56,7 +56,7 @@ export default function ForgotPasswordPage() {
             Didn&apos;t receive the email? Check your spam folder or{' '}
             <button
               onClick={() => { setSubmitted(false); setEmail('') }}
-              className="text-red-primary hover:text-red-dim font-medium transition-colors"
+              className="text-orange-primary hover:text-orange-dim font-medium transition-colors"
             >
               try again
             </button>.
@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
           </div>
 
           {error && (
-            <div className="mb-5 px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">
+            <div className="mb-5 px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-orange-primary text-sm">
               {error}
             </div>
           )}
@@ -96,14 +96,14 @@ export default function ForgotPasswordPage() {
                 onChange={(e) => { setEmail(e.target.value); setError('') }}
                 placeholder="john@example.com"
                 autoComplete="email"
-                className="w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+                className="w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

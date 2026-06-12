@@ -19,7 +19,7 @@ export function ThemeToggle() {
     <motion.button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       whileTap={{ scale: 0.95 }}
-      className="w-8 h-8 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors duration-150 cursor-pointer"
+      className="w-8 h-8 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors duration-150 cursor-pointer"
       aria-label="Toggle theme"
     >
       <AnimatePresence mode="wait" initial={false}>

@@ -16,7 +16,7 @@ export function MobileApp() {
       {/* Gradient background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-dark-surface via-dark-base to-dark-base" />
-        <div className="absolute top-1/2 left-1/4 w-[600px] h-[400px] -translate-x-1/2 -translate-y-1/2 bg-red-primary/4 blur-3xl" />
+        <div className="absolute top-1/2 left-1/4 w-[600px] h-[400px] -translate-x-1/2 -translate-y-1/2 bg-orange-primary/4 blur-3xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +27,7 @@ export function MobileApp() {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block text-xs font-semibold tracking-widest text-red-primary uppercase mb-4"
+              className="inline-block text-xs font-semibold tracking-widest text-orange-primary uppercase mb-4"
             >
               Mobile App
             </motion.span>
@@ -50,7 +50,7 @@ export function MobileApp() {
               transition={{ delay: 0.1 }}
               className="text-slate-400 leading-relaxed mb-8"
             >
-              The QuantumVest mobile app gives you full platform power on iOS and Android. Trade, monitor, and manage from anywhere in the world.
+              The Tesla Bridges Capital mobile app gives you full platform power on iOS and Android. Trade, monitor, and manage from anywhere in the world.
             </motion.p>
 
             {/* Feature list */}
@@ -66,8 +66,8 @@ export function MobileApp() {
                     transition={{ delay: 0.15 + i * 0.08 }}
                     className="flex items-center gap-3"
                   >
-                    <div className="w-8 h-8 rounded-md bg-red-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon size={16} className="text-red-primary" />
+                    <div className="w-8 h-8 rounded-md bg-orange-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon size={16} className="text-orange-primary" />
                     </div>
                     <span className="text-sm text-light-base/80">{feature.label}</span>
                   </motion.li>
@@ -89,13 +89,13 @@ export function MobileApp() {
               ].map((badge) => (
                 <button
                   key={badge.store}
-                  className="flex items-center gap-3 px-4 py-3 rounded border border-white/10 bg-white/5 hover:bg-white/10 hover:border-red-primary/40 transition-all duration-200 cursor-pointer backdrop-blur-sm"
+                  className="flex items-center gap-3 px-4 py-3 rounded border border-white/10 bg-white/5 hover:bg-white/10 hover:border-orange-primary/40 transition-all duration-200 cursor-pointer backdrop-blur-sm"
                 >
                   <div className="text-left">
                     <p className="text-[10px] text-light-base/50">{badge.sub}</p>
                     <p className="text-sm font-bold text-light-base">{badge.store}</p>
                   </div>
-                  <span className="text-xs font-semibold text-red-primary">{badge.rating}</span>
+                  <span className="text-xs font-semibold text-orange-primary">{badge.rating}</span>
                 </button>
               ))}
             </motion.div>
@@ -136,13 +136,13 @@ export function MobileApp() {
                         <p className="text-[10px] text-slate-400">Good morning, James</p>
                         <p className="text-sm font-bold text-light-base">Portfolio Overview</p>
                       </div>
-                      <div className="w-7 h-7 bg-red-primary/20 flex items-center justify-center">
-                        <Bell size={12} className="text-red-primary" />
+                      <div className="w-7 h-7 bg-orange-primary/20 flex items-center justify-center">
+                        <Bell size={12} className="text-orange-primary" />
                       </div>
                     </div>
 
                     {/* Balance card */}
-                    <div className="rounded bg-gradient-to-br from-red-primary to-red-secondary p-4">
+                    <div className="rounded bg-gradient-to-br from-orange-primary to-orange-secondary p-4">
                       <p className="text-[10px] text-dark-base/70 font-medium">Total Balance</p>
                       <p className="text-2xl font-black text-dark-base">$847,392</p>
                       <div className="flex items-center gap-1 mt-1">
@@ -173,14 +173,14 @@ export function MobileApp() {
                     ].map((asset) => (
                       <div key={asset.sym} className="flex items-center justify-between py-1.5 border-b border-dark-border">
                         <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 bg-red-primary/15 flex items-center justify-center">
-                            <span className="text-[8px] font-bold text-red-primary">{asset.sym.slice(0, 2)}</span>
+                          <div className="w-6 h-6 bg-orange-primary/15 flex items-center justify-center">
+                            <span className="text-[8px] font-bold text-orange-primary">{asset.sym.slice(0, 2)}</span>
                           </div>
                           <span className="text-[11px] font-bold text-light-base">{asset.sym}</span>
                         </div>
                         <div className="text-right">
                           <p className="text-[11px] font-bold text-light-base">{asset.val}</p>
-                          <p className="text-[9px] text-red-primary font-semibold">{asset.pct}</p>
+                          <p className="text-[9px] text-orange-primary font-semibold">{asset.pct}</p>
                         </div>
                       </div>
                     ))}
@@ -188,8 +188,8 @@ export function MobileApp() {
                     {/* Bottom nav */}
                     <div className="flex justify-around pt-2">
                       {['Home', 'Markets', 'Trade', 'Portfolio'].map((item, idx) => (
-                        <button key={item} className={`flex flex-col items-center gap-0.5 cursor-pointer ${idx === 0 ? 'text-red-primary' : 'text-slate-400'}`}>
-                          <div className={`w-4 h-0.5 ${idx === 0 ? 'bg-red-primary' : 'bg-transparent'}`} />
+                        <button key={item} className={`flex flex-col items-center gap-0.5 cursor-pointer ${idx === 0 ? 'text-orange-primary' : 'text-slate-400'}`}>
+                          <div className={`w-4 h-0.5 ${idx === 0 ? 'bg-orange-primary' : 'bg-transparent'}`} />
                           <span className="text-[8px] font-medium">{item}</span>
                         </button>
                       ))}
@@ -198,7 +198,7 @@ export function MobileApp() {
                 </div>
 
                 {/* Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-red-primary/10 blur-xl -z-10 scale-110" />
+                <div className="absolute inset-0 rounded-3xl bg-orange-primary/10 blur-xl -z-10 scale-110" />
               </div>
 
               {/* Floating notification */}
@@ -208,8 +208,8 @@ export function MobileApp() {
                 className="absolute -right-8 top-16 bg-dark-card border border-dark-border rounded p-3 shadow-xl min-w-[140px]"
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <CheckCircle size={12} className="text-red-primary" />
-                  <span className="text-[9px] font-bold text-red-primary uppercase">Trade Executed</span>
+                  <CheckCircle size={12} className="text-orange-primary" />
+                  <span className="text-[9px] font-bold text-orange-primary uppercase">Trade Executed</span>
                 </div>
                 <p className="text-[11px] font-bold text-light-base">Bought NVDA × 10</p>
                 <p className="text-[9px] text-slate-400">$8,921.70 · 0.04s</p>

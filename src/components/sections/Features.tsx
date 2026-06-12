@@ -25,7 +25,7 @@ export function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="inline-block text-xs font-semibold tracking-widest text-red-primary uppercase mb-4"
+            className="inline-block text-xs font-semibold tracking-widest text-orange-primary uppercase mb-4"
           >
             Platform Features
           </motion.span>
@@ -61,12 +61,12 @@ export function Features() {
                 className="p-6 group cursor-default"
               >
                 {/* Icon */}
-                <div className="w-11 h-11 bg-red-primary/10 dark:bg-red-primary/15 flex items-center justify-center mb-4 group-hover:bg-red-primary/20 transition-colors duration-300">
-                  <Icon size={20} className="text-red-primary" />
+                <div className="w-11 h-11 bg-orange-primary/10 dark:bg-orange-primary/15 flex items-center justify-center mb-4 group-hover:bg-orange-primary/20 transition-colors duration-300">
+                  <Icon size={20} className="text-orange-primary" />
                 </div>
 
                 {/* Tag */}
-                <span className="inline-block text-[10px] font-bold tracking-widest text-red-primary uppercase mb-3 bg-red-primary/10 px-2 py-0.5">
+                <span className="inline-block text-[10px] font-bold tracking-widest text-orange-primary uppercase mb-3 bg-orange-primary/10 px-2 py-0.5">
                   {feature.tag}
                 </span>
 
@@ -78,7 +78,7 @@ export function Features() {
                 </p>
 
                 {/* Bottom accent line */}
-                <div className="mt-5 h-px bg-gradient-to-r from-red-primary/0 via-red-primary/40 to-red-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="mt-5 h-px bg-gradient-to-r from-orange-primary/0 via-orange-primary/40 to-orange-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </GlassCard>
             )
           })}

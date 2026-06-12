@@ -7,7 +7,7 @@ import { TopBar } from '@/components/dashboard/TopBar'
 
 const bankDetails = [
   { label: 'Bank Name',       value: 'Chase Bank' },
-  { label: 'Account Name',   value: 'QuantumVest Ltd' },
+  { label: 'Account Name',   value: 'Tesla Bridges Capital Ltd' },
   { label: 'Account Number', value: '4521 8847 3920 1547' },
   { label: 'Sort Code',      value: '20-19-15' },
   { label: 'SWIFT / BIC',    value: 'CHASUS33' },
@@ -77,7 +77,7 @@ export default function BankDepositPage() {
             <p className="text-xs text-slate-400 mb-6">Reference: <span className="font-mono font-semibold text-dark-base dark:text-white">{REFERENCE}</span></p>
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-primary hover:bg-red-dim text-white text-sm font-bold transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-primary hover:bg-orange-dim text-white text-sm font-bold transition-colors"
             >
               Back to Dashboard
             </Link>
@@ -98,7 +98,7 @@ export default function BankDepositPage() {
                 </code>
                 <button
                   onClick={copyReference}
-                  className="flex items-center gap-1.5 px-3 py-1.5 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors"
                 >
                   {copied ? <><Check size={12} /> Copied!</> : <><Copy size={12} /> Copy</>}
                 </button>
@@ -123,7 +123,7 @@ export default function BankDepositPage() {
             {/* Amount + submit */}
             <form onSubmit={handleSubmit} className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6 space-y-5">
               {error && (
-                <div className="px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">
+                <div className="px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-orange-primary text-sm">
                   {error}
                 </div>
               )}
@@ -140,7 +140,7 @@ export default function BankDepositPage() {
                     placeholder="0.00"
                     min="100"
                     step="0.01"
-                    className="w-full pl-8 pr-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+                    className="w-full pl-8 pr-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
                   />
                 </div>
                 <p className="text-xs text-slate-400 mt-1.5">Minimum: $100.00 · No platform fee</p>
@@ -149,7 +149,7 @@ export default function BankDepositPage() {
               <button
                 type="submit"
                 disabled={loading || !amount}
-                className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
               >
                 {loading ? <><Loader2 size={16} className="animate-spin" /> Processing…</> : "I've Made the Transfer"}
               </button>

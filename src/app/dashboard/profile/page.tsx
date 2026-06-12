@@ -44,7 +44,7 @@ interface Profile {
   created_at:    string
 }
 
-const inputCls = 'w-full px-4 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-red-primary transition-colors placeholder:text-slate-400'
+const inputCls = 'w-full px-4 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-orange-primary transition-colors placeholder:text-slate-400'
 const selectCls = inputCls
 const labelCls = 'block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5'
 
@@ -123,7 +123,7 @@ export default function ProfilePage() {
       <div>
         <TopBar title="Profile" subtitle="Your account details" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-red-primary" />
+          <Loader2 size={24} className="animate-spin text-orange-primary" />
         </div>
       </div>
     )
@@ -156,7 +156,7 @@ export default function ProfilePage() {
 
         {/* Avatar + name block */}
         <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 flex items-center gap-4">
-          <div className="w-16 h-16 bg-red-primary flex items-center justify-center flex-shrink-0 text-white font-bold text-xl">
+          <div className="w-16 h-16 bg-orange-primary flex items-center justify-center flex-shrink-0 text-white font-bold text-xl">
             {initials}
           </div>
           <div className="flex-1 min-w-0">
@@ -176,7 +176,7 @@ export default function ProfilePage() {
           </div>
           <button
             onClick={() => editing ? handleCancel() : setEditing(true)}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors flex-shrink-0"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors flex-shrink-0"
           >
             {editing ? <><X size={13} /> Cancel</> : <><Edit2 size={13} /> Edit</>}
           </button>
@@ -189,7 +189,7 @@ export default function ProfilePage() {
           </div>
         )}
         {error && (
-          <div className="px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">{error}</div>
+          <div className="px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-orange-primary text-sm">{error}</div>
         )}
 
         {/* Personal Info */}
@@ -308,7 +308,7 @@ export default function ProfilePage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm transition-colors flex items-center justify-center gap-2"
           >
             {saving ? <><Loader2 size={16} className="animate-spin" /> Saving…</> : <><Check size={16} /> Save Changes</>}
           </button>

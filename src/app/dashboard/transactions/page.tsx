@@ -20,7 +20,7 @@ const filters = ['All', 'Deposits', 'Withdrawals']
 function statusClasses(status: string) {
   if (status === 'Completed') return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
   if (status === 'Pending')   return 'bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400'
-  if (status === 'Rejected')  return 'bg-red-primary/10 text-red-primary'
+  if (status === 'Rejected')  return 'bg-orange-primary/10 text-orange-primary'
   return 'bg-slate-100 text-slate-600 dark:bg-dark-border dark:text-slate-400'
 }
 
@@ -73,7 +73,7 @@ export default function TransactionsPage() {
       <div>
         <TopBar title="Transactions" subtitle="Full history of your account activity" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-red-primary" />
+          <Loader2 size={24} className="animate-spin text-orange-primary" />
         </div>
       </div>
     )
@@ -95,7 +95,7 @@ export default function TransactionsPage() {
           </div>
           <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-4">
             <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Total Out</p>
-            <p className="text-base sm:text-lg font-bold text-red-primary">
+            <p className="text-base sm:text-lg font-bold text-orange-primary">
               -${totalOut.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
@@ -114,8 +114,8 @@ export default function TransactionsPage() {
                 onClick={() => setActiveFilter(f)}
                 className={`px-3 py-1.5 text-xs font-semibold transition-colors ${
                   activeFilter === f
-                    ? 'bg-red-primary text-white'
-                    : 'border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary'
+                    ? 'bg-orange-primary text-white'
+                    : 'border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary'
                 }`}
               >
                 {f}
@@ -129,7 +129,7 @@ export default function TransactionsPage() {
               placeholder="Search by method, note, or ID..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full sm:w-64 pl-9 pr-4 py-2 text-sm border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-red-primary transition-colors"
+              className="w-full sm:w-64 pl-9 pr-4 py-2 text-sm border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-orange-primary transition-colors"
             />
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function TransactionsPage() {
                 {filtered.map((tx) => (
                   <tr key={tx.id} className="hover:bg-light-surface dark:hover:bg-dark-surface transition-colors">
                     <td className="px-5 py-3.5 text-sm font-medium text-dark-base dark:text-white">{tx.type}</td>
-                    <td className={`px-5 py-3.5 text-sm font-semibold ${tx.type === 'Withdrawal' ? 'text-red-primary' : 'text-dark-base dark:text-white'}`}>
+                    <td className={`px-5 py-3.5 text-sm font-semibold ${tx.type === 'Withdrawal' ? 'text-orange-primary' : 'text-dark-base dark:text-white'}`}>
                       {tx.type === 'Withdrawal' ? '-' : '+'}${tx.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </td>
                     <td className="px-5 py-3.5 text-sm text-slate-500 dark:text-slate-400">{tx.method}</td>
@@ -175,7 +175,7 @@ export default function TransactionsPage() {
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{tx.method} · {formatDate(tx.created_at)}</p>
                 </div>
-                <p className={`text-sm font-bold flex-shrink-0 ${tx.type === 'Withdrawal' ? 'text-red-primary' : 'text-dark-base dark:text-white'}`}>
+                <p className={`text-sm font-bold flex-shrink-0 ${tx.type === 'Withdrawal' ? 'text-orange-primary' : 'text-dark-base dark:text-white'}`}>
                   {tx.type === 'Withdrawal' ? '-' : '+'}${tx.amount.toLocaleString()}
                 </p>
               </div>

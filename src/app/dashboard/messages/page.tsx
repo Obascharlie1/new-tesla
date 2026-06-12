@@ -88,12 +88,12 @@ export default function MessagesPage() {
       <div className="flex-1 overflow-y-auto px-4 py-6 max-w-2xl w-full mx-auto">
         {loading ? (
           <div className="flex items-center justify-center h-40">
-            <Loader2 size={24} className="animate-spin text-red-primary" />
+            <Loader2 size={24} className="animate-spin text-orange-primary" />
           </div>
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-center">
             <div className="w-16 h-16 rounded-full bg-white dark:bg-dark-card shadow-sm flex items-center justify-center mb-4">
-              <MessageCircle size={28} className="text-red-primary" />
+              <MessageCircle size={28} className="text-orange-primary" />
             </div>
             <p className="text-sm font-bold text-dark-base dark:text-white mb-1">No messages yet</p>
             <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs leading-relaxed">
@@ -126,7 +126,7 @@ export default function MessagesPage() {
                         {/* Admin avatar */}
                         {isAdmin && (
                           <div className={`flex-shrink-0 mb-0.5 ${showAvatar ? 'visible' : 'invisible'}`}>
-                            <div className="w-8 h-8 rounded-full bg-red-primary flex items-center justify-center shadow-sm">
+                            <div className="w-8 h-8 rounded-full bg-orange-primary flex items-center justify-center shadow-sm">
                               <ShieldCheck size={14} className="text-white" />
                             </div>
                           </div>
@@ -135,7 +135,7 @@ export default function MessagesPage() {
                         <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} max-w-[72%]`}>
                           {/* Sender label (first in group) */}
                           {showAvatar && (
-                            <p className="text-[10px] font-bold text-red-primary uppercase tracking-wider mb-1 ml-1">
+                            <p className="text-[10px] font-bold text-orange-primary uppercase tracking-wider mb-1 ml-1">
                               Support
                             </p>
                           )}
@@ -143,7 +143,7 @@ export default function MessagesPage() {
                           {/* Bubble */}
                           <div className={`relative px-4 py-3 shadow-sm ${
                             isUser
-                              ? 'bg-red-primary text-white rounded-3xl rounded-br-md'
+                              ? 'bg-orange-primary text-white rounded-3xl rounded-br-md'
                               : 'bg-white dark:bg-dark-card text-dark-base dark:text-white rounded-3xl rounded-bl-md border border-light-border dark:border-dark-border'
                           }`}>
                             <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
@@ -176,12 +176,12 @@ export default function MessagesPage() {
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Type a message…"
-            className="flex-1 px-4 py-3 rounded-full border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-red-primary transition-colors placeholder:text-slate-400"
+            className="flex-1 px-4 py-3 rounded-full border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-orange-primary transition-colors placeholder:text-slate-400"
           />
           <button
             type="submit"
             disabled={!input.trim() || sending}
-            className="w-11 h-11 flex items-center justify-center bg-red-primary hover:bg-red-dim disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-full transition-colors flex-shrink-0 shadow-sm"
+            className="w-11 h-11 flex items-center justify-center bg-orange-primary hover:bg-orange-dim disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-full transition-colors flex-shrink-0 shadow-sm"
           >
             {sending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
           </button>

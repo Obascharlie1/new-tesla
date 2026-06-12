@@ -16,13 +16,13 @@ function TopBar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 h-14 bg-light-base dark:bg-dark-card border-b border-light-border dark:border-dark-border flex items-center px-6 gap-3">
       <div className="flex items-center gap-2.5">
-        <div className="w-7 h-7 bg-red-primary flex items-center justify-center flex-shrink-0">
+        <div className="w-7 h-7 bg-orange-primary flex items-center justify-center flex-shrink-0">
           <Shield size={14} className="text-white" />
         </div>
-        <Link href="/admin" className="text-sm font-bold text-dark-base dark:text-white hover:text-red-primary transition-colors">
-          QuantumVest
+        <Link href="/admin" className="text-sm font-bold text-dark-base dark:text-white hover:text-orange-primary transition-colors">
+          Tesla Bridges Capital
         </Link>
-        <span className="text-[10px] font-bold text-red-primary uppercase tracking-widest px-1.5 py-0.5 border border-red-primary/30">
+        <span className="text-[10px] font-bold text-orange-primary uppercase tracking-widest px-1.5 py-0.5 border border-orange-primary/30">
           Admin
         </span>
       </div>

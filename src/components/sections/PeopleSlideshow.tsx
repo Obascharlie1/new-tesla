@@ -70,7 +70,7 @@ export function PeopleSlideshow() {
   return (
     <section className="bg-light-base dark:bg-dark-base py-16 sm:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-red-primary mb-3">
+        <p className="text-xs font-semibold uppercase tracking-widest text-orange-primary mb-3">
           Our Community
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-dark-base dark:text-white">

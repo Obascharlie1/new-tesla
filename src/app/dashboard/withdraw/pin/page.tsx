@@ -120,7 +120,7 @@ export default function WithdrawPinPage() {
             </p>
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-primary hover:bg-red-dim text-white text-sm font-bold transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-primary hover:bg-orange-dim text-white text-sm font-bold transition-colors"
             >
               Back to Dashboard
             </Link>
@@ -150,7 +150,7 @@ export default function WithdrawPinPage() {
                   key={i}
                   className={`w-3 h-3 rounded-full border-2 transition-all duration-150 ${
                     i < pin.length
-                      ? 'bg-red-primary border-red-primary'
+                      ? 'bg-orange-primary border-orange-primary'
                       : 'bg-transparent border-light-border dark:border-dark-border'
                   }`}
                 />
@@ -159,13 +159,13 @@ export default function WithdrawPinPage() {
 
             {/* Error */}
             {errorMsg && (
-              <p className="text-center text-xs text-red-primary mb-4 font-medium">{errorMsg}</p>
+              <p className="text-center text-xs text-orange-primary mb-4 font-medium">{errorMsg}</p>
             )}
 
             {/* Submitting spinner */}
             {phase === 'submitting' && (
               <div className="flex justify-center mb-4">
-                <Loader2 size={24} className="animate-spin text-red-primary" />
+                <Loader2 size={24} className="animate-spin text-orange-primary" />
               </div>
             )}
 
@@ -175,7 +175,7 @@ export default function WithdrawPinPage() {
                 if (key === 'backspace') {
                   return (
                     <button key={i} type="button" onClick={handleBackspace} disabled={phase === 'submitting'}
-                      className="w-16 h-16 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors disabled:opacity-40">
+                      className="w-16 h-16 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors disabled:opacity-40">
                       <Delete size={18} />
                     </button>
                   )
@@ -183,14 +183,14 @@ export default function WithdrawPinPage() {
                 if (key === 'clear') {
                   return (
                     <button key={i} type="button" onClick={handleClear} disabled={phase === 'submitting'}
-                      className="w-16 h-16 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors text-xs font-bold uppercase tracking-wider disabled:opacity-40">
+                      className="w-16 h-16 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors text-xs font-bold uppercase tracking-wider disabled:opacity-40">
                       CLR
                     </button>
                   )
                 }
                 return (
                   <button key={i} type="button" onClick={() => handleDigit(key)} disabled={phase === 'submitting'}
-                    className="w-16 h-16 flex items-center justify-center border border-light-border dark:border-dark-border text-dark-base dark:text-white hover:border-red-primary hover:text-red-primary hover:bg-red-primary/5 transition-colors text-lg font-bold disabled:opacity-40">
+                    className="w-16 h-16 flex items-center justify-center border border-light-border dark:border-dark-border text-dark-base dark:text-white hover:border-orange-primary hover:text-orange-primary hover:bg-orange-primary/5 transition-colors text-lg font-bold disabled:opacity-40">
                     {key}
                   </button>
                 )

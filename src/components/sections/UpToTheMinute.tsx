@@ -18,7 +18,7 @@ export function UpToTheMinute() {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             {/* Eyebrow */}
-            <p className="text-xs font-semibold uppercase tracking-widest text-red-primary mb-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-orange-primary mb-4">
               Live Intelligence
             </p>
 
@@ -39,8 +39,8 @@ export function UpToTheMinute() {
                 'Personalised alerts for your portfolio',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                  <span className="mt-1 w-4 h-4 flex-shrink-0 rounded-full bg-red-primary/15 flex items-center justify-center">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-primary" />
+                  <span className="mt-1 w-4 h-4 flex-shrink-0 rounded-full bg-orange-primary/15 flex items-center justify-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-primary" />
                   </span>
                   {item}
                 </li>
@@ -49,7 +49,7 @@ export function UpToTheMinute() {
 
             <a
               href="/auth/register"
-              className="inline-flex items-center gap-2 text-sm font-bold text-red-primary hover:text-red-dim transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-bold text-orange-primary hover:text-orange-dim transition-colors"
             >
               Open your account <ArrowRight size={15} />
             </a>
@@ -65,7 +65,7 @@ export function UpToTheMinute() {
           >
             <div className="relative max-w-sm w-full">
               {/* Subtle glow behind phones */}
-              <div className="absolute inset-0 -z-10 blur-3xl opacity-20 bg-red-primary rounded-full scale-75" />
+              <div className="absolute inset-0 -z-10 blur-3xl opacity-20 bg-orange-primary rounded-full scale-75" />
 
               <Image
                 src="/images/phones-mockup.png"

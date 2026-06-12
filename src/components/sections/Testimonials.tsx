@@ -9,7 +9,7 @@ const testimonials = [
     name: 'RUKKY SANDERS',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face',
     quote:
-      'QuantumVest runs a quick and reliable system. It feels great to know that I can always trust their support system to come through for me. Their response speed is prompt and the delivery precise to the last detail.',
+      'Tesla Bridges Capital runs a quick and reliable system. It feels great to know that I can always trust their support system to come through for me. Their response speed is prompt and the delivery precise to the last detail.',
   },
   {
     name: 'SCOTT SMITH',
@@ -132,7 +132,7 @@ export function Testimonials() {
                   {/* Pulse rings */}
                   <span className="absolute inset-0 rounded-full bg-white/20 animate-ping" />
                   <div className="relative w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-200">
-                    <Play size={22} fill="#DC2626" className="text-red-primary ml-1" />
+                    <Play size={22} fill="#DC2626" className="text-orange-primary ml-1" />
                   </div>
                 </div>
               </div>

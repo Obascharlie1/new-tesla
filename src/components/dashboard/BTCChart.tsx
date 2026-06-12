@@ -164,7 +164,7 @@ export function BTCChart() {
               <span className="text-2xl sm:text-3xl font-bold text-dark-base dark:text-white tracking-tight">
                 ${formatPrice(currentPrice)}
               </span>
-              <div className={`flex items-center gap-1 text-sm font-semibold ${isUp ? 'text-emerald-500' : 'text-red-primary'}`}>
+              <div className={`flex items-center gap-1 text-sm font-semibold ${isUp ? 'text-emerald-500' : 'text-orange-primary'}`}>
                 {isUp ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                 {isUp ? '+' : ''}{formatPrice(change)} ({isUp ? '+' : ''}{changePct.toFixed(2)}%)
               </div>
@@ -180,7 +180,7 @@ export function BTCChart() {
               onClick={() => setRange(r)}
               className={`px-2 py-1 text-[11px] font-semibold transition-colors ${
                 range === r
-                  ? 'bg-red-primary text-white'
+                  ? 'bg-orange-primary text-white'
                   : 'text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-white'
               }`}
             >

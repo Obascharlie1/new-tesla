@@ -39,11 +39,11 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-16 h-16 bg-red-primary flex items-center justify-center mb-4">
+          <div className="w-16 h-16 bg-orange-primary flex items-center justify-center mb-4">
             <Shield size={30} className="text-white" />
           </div>
           <h1 className="text-2xl font-bold text-dark-base dark:text-white tracking-tight">Admin Portal</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">QuantumVest — Restricted Access</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Tesla Bridges Capital — Restricted Access</p>
         </div>
 
         <form
@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
               onChange={e => setEmail(e.target.value)}
               placeholder="admin@quantumvest.com"
               required
-              className="w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+              className="w-full px-4 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
             />
           </div>
 
@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full px-4 pr-11 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-red-primary transition-colors"
+                className="w-full px-4 pr-11 py-3 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white placeholder:text-slate-400 text-sm focus:outline-none focus:border-orange-primary transition-colors"
               />
               <button
                 type="button"
@@ -93,7 +93,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 text-sm transition-colors flex items-center justify-center gap-2 mt-2"
+            className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 text-sm transition-colors flex items-center justify-center gap-2 mt-2"
           >
             {loading
               ? <><Loader2 size={16} className="animate-spin" /> Signing in…</>

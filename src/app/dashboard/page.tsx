@@ -29,7 +29,7 @@ const timeRanges = ['1D', '1W', '1M', '3M', '1Y', 'ALL']
 function statusClasses(status: string) {
   if (status === 'Completed') return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
   if (status === 'Pending')   return 'bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400'
-  if (status === 'Rejected')  return 'bg-red-primary/10 text-red-primary'
+  if (status === 'Rejected')  return 'bg-orange-primary/10 text-orange-primary'
   return 'bg-slate-100 text-slate-600 dark:bg-dark-border dark:text-slate-400'
 }
 
@@ -89,7 +89,7 @@ export default function DashboardPage() {
       <div>
         <TopBar title="Dashboard" subtitle="Loading…" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-red-primary" />
+          <Loader2 size={24} className="animate-spin text-orange-primary" />
         </div>
       </div>
     )
@@ -146,7 +146,7 @@ export default function DashboardPage() {
 
           <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Total Profit</p>
-            <p className="text-xl sm:text-2xl font-bold text-red-primary">+${(profile?.profit ?? 0).toLocaleString()}</p>
+            <p className="text-xl sm:text-2xl font-bold text-orange-primary">+${(profile?.profit ?? 0).toLocaleString()}</p>
           </div>
 
           <div className="col-span-2 lg:col-span-4 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6 flex items-center gap-4">
@@ -159,7 +159,7 @@ export default function DashboardPage() {
                 )}
               </div>
             </div>
-            <Link href="/dashboard/plans" className="ml-auto flex items-center gap-1.5 text-xs font-semibold text-red-primary hover:text-red-dim transition-colors whitespace-nowrap">
+            <Link href="/dashboard/plans" className="ml-auto flex items-center gap-1.5 text-xs font-semibold text-orange-primary hover:text-orange-dim transition-colors whitespace-nowrap">
               {profile?.plan === 'None' ? 'Choose a plan' : 'Manage plan'} <ArrowUpRight size={12} />
             </Link>
           </div>
@@ -175,19 +175,19 @@ export default function DashboardPage() {
           </Link>
           <Link
             href="/dashboard/withdraw"
-            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 text-xs sm:text-sm font-semibold bg-red-primary hover:bg-red-dim text-white border border-red-primary hover:border-red-dim transition-colors"
+            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 text-xs sm:text-sm font-semibold bg-orange-primary hover:bg-orange-dim text-white border border-orange-primary hover:border-orange-dim transition-colors"
           >
             <ArrowUpFromLine size={15} /><span>Withdraw</span>
           </Link>
           <Link
             href="/dashboard/plans"
-            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 border border-light-border dark:border-dark-border text-xs sm:text-sm font-semibold text-dark-base dark:text-white hover:border-red-primary hover:text-red-primary transition-colors"
+            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 border border-light-border dark:border-dark-border text-xs sm:text-sm font-semibold text-dark-base dark:text-white hover:border-orange-primary hover:text-orange-primary transition-colors"
           >
             <TrendingUp size={15} /><span>Plans</span>
           </Link>
           <Link
             href="/dashboard/transactions"
-            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 border border-light-border dark:border-dark-border text-xs sm:text-sm font-semibold text-dark-base dark:text-white hover:border-red-primary hover:text-red-primary transition-colors"
+            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 border border-light-border dark:border-dark-border text-xs sm:text-sm font-semibold text-dark-base dark:text-white hover:border-orange-primary hover:text-orange-primary transition-colors"
           >
             <History size={15} /><span>History</span>
           </Link>
@@ -208,7 +208,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex gap-1">
                 {timeRanges.map(r => (
-                  <button key={r} onClick={() => setActiveRange(r)} className={`px-2 py-1 text-[11px] font-semibold transition-colors ${activeRange === r ? 'bg-red-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-white'}`}>{r}</button>
+                  <button key={r} onClick={() => setActiveRange(r)} className={`px-2 py-1 text-[11px] font-semibold transition-colors ${activeRange === r ? 'bg-orange-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-white'}`}>{r}</button>
                 ))}
               </div>
             </div>
@@ -229,13 +229,13 @@ export default function DashboardPage() {
         <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
           <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-light-border dark:border-dark-border">
             <h2 className="text-sm font-bold text-dark-base dark:text-white">Recent Transactions</h2>
-            <Link href="/dashboard/transactions" className="text-xs font-semibold text-red-primary hover:text-red-dim transition-colors">View all</Link>
+            <Link href="/dashboard/transactions" className="text-xs font-semibold text-orange-primary hover:text-orange-dim transition-colors">View all</Link>
           </div>
 
           {transactions.length === 0 ? (
             <div className="py-10 text-center">
               <p className="text-sm text-slate-500 dark:text-slate-400">No transactions yet.</p>
-              <Link href="/dashboard/deposit" className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-red-primary hover:text-red-dim transition-colors">
+              <Link href="/dashboard/deposit" className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-orange-primary hover:text-orange-dim transition-colors">
                 Make your first deposit <ArrowUpRight size={14} />
               </Link>
             </div>
@@ -255,7 +255,7 @@ export default function DashboardPage() {
                     {transactions.map(tx => (
                       <tr key={tx.id} className="hover:bg-light-surface dark:hover:bg-dark-surface transition-colors">
                         <td className="px-6 py-4 text-sm font-medium text-dark-base dark:text-white">{tx.type}</td>
-                        <td className={`px-6 py-4 text-sm font-semibold ${tx.type === 'Withdrawal' ? 'text-red-primary' : 'text-dark-base dark:text-white'}`}>
+                        <td className={`px-6 py-4 text-sm font-semibold ${tx.type === 'Withdrawal' ? 'text-orange-primary' : 'text-dark-base dark:text-white'}`}>
                           {tx.type === 'Withdrawal' ? '-' : '+'}${tx.amount.toLocaleString()}
                         </td>
                         <td className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">{tx.method}</td>
@@ -277,7 +277,7 @@ export default function DashboardPage() {
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{tx.method} · {formatDate(tx.created_at)}</p>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className={`text-sm font-semibold ${tx.type === 'Withdrawal' ? 'text-red-primary' : 'text-dark-base dark:text-white'}`}>
+                      <p className={`text-sm font-semibold ${tx.type === 'Withdrawal' ? 'text-orange-primary' : 'text-dark-base dark:text-white'}`}>
                         {tx.type === 'Withdrawal' ? '-' : '+'}${tx.amount.toLocaleString()}
                       </p>
                       <span className={`inline-flex mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${statusClasses(tx.status)}`}>{tx.status}</span>

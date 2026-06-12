@@ -16,7 +16,7 @@ export function InvestmentPlans() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-xs font-semibold tracking-widest text-red-primary uppercase mb-4"
+            className="inline-block text-xs font-semibold tracking-widest text-orange-primary uppercase mb-4"
           >
             Investment Plans
           </motion.span>
@@ -53,14 +53,14 @@ export function InvestmentPlans() {
               className={cn(
                 'relative rounded p-6 transition-all duration-300',
                 plan.highlighted
-                  ? 'glass-card ring-2 ring-red-primary shadow-2xl shadow-red-primary/20 scale-[1.02] z-10'
+                  ? 'glass-card ring-2 ring-orange-primary shadow-2xl shadow-orange-primary/20 scale-[1.02] z-10'
                   : 'glass-card'
               )}
             >
               {/* Best value badge */}
               {plan.highlighted && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-red-primary text-white text-[10px] font-bold uppercase tracking-wider">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-primary text-white text-[10px] font-bold uppercase tracking-wider">
                     <Sparkles size={10} />
                     Most Popular
                   </span>
@@ -71,7 +71,7 @@ export function InvestmentPlans() {
               <div className="mb-5">
                 <h3 className={cn(
                   'text-sm font-bold uppercase tracking-widest mb-1',
-                  plan.highlighted ? 'text-red-primary' : 'text-slate-500 dark:text-slate-400'
+                  plan.highlighted ? 'text-orange-primary' : 'text-slate-500 dark:text-slate-400'
                 )}>
                   {plan.name}
                 </h3>
@@ -93,7 +93,7 @@ export function InvestmentPlans() {
               <div className={cn(
                 'h-px mb-5',
                 plan.highlighted
-                  ? 'bg-gradient-to-r from-red-primary/0 via-red-primary/50 to-red-primary/0'
+                  ? 'bg-gradient-to-r from-orange-primary/0 via-orange-primary/50 to-orange-primary/0'
                   : 'bg-light-border dark:bg-dark-border'
               )} />
 
@@ -104,8 +104,8 @@ export function InvestmentPlans() {
                     <span className={cn(
                       'mt-0.5 w-4 h-4 flex items-center justify-center flex-shrink-0',
                       plan.highlighted
-                        ? 'bg-red-primary text-dark-base'
-                        : 'bg-red-primary/15 text-red-primary'
+                        ? 'bg-orange-primary text-dark-base'
+                        : 'bg-orange-primary/15 text-orange-primary'
                     )}>
                       <Check size={10} strokeWidth={3} />
                     </span>

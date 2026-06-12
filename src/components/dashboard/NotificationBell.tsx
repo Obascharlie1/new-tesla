@@ -25,7 +25,7 @@ function formatRelative(iso: string) {
 function TypeIcon({ type }: { type: Notification['type'] }) {
   const cls = {
     success: 'text-emerald-500',
-    error:   'text-red-primary',
+    error:   'text-orange-primary',
     warning: 'text-amber-500',
     info:    'text-slate-400',
   }[type]
@@ -90,12 +90,12 @@ export function NotificationBell() {
       {/* Bell button */}
       <button
         onClick={handleBellClick}
-        className="w-8 h-8 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary transition-colors relative"
+        className="w-8 h-8 flex items-center justify-center border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary transition-colors relative"
         aria-label="Notifications"
       >
         <Bell size={15} />
         {unread > 0 && (
-          <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-0.5 bg-red-primary text-white text-[9px] font-bold flex items-center justify-center rounded-full">
+          <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-0.5 bg-orange-primary text-white text-[9px] font-bold flex items-center justify-center rounded-full">
             {unread > 9 ? '9+' : unread}
           </span>
         )}
@@ -111,7 +111,7 @@ export function NotificationBell() {
               {unread > 0 && (
                 <button
                   onClick={markAllRead}
-                  className="text-xs text-slate-500 dark:text-slate-400 hover:text-red-primary transition-colors font-medium"
+                  className="text-xs text-slate-500 dark:text-slate-400 hover:text-orange-primary transition-colors font-medium"
                 >
                   Mark all read
                 </button>
@@ -136,7 +136,7 @@ export function NotificationBell() {
               notifications.map(n => (
                 <div
                   key={n.id}
-                  className={`px-4 py-3 flex items-start gap-3 transition-colors ${!n.read ? 'bg-red-primary/[0.04] dark:bg-red-primary/[0.06]' : ''}`}
+                  className={`px-4 py-3 flex items-start gap-3 transition-colors ${!n.read ? 'bg-orange-primary/[0.04] dark:bg-orange-primary/[0.06]' : ''}`}
                 >
                   <div className="mt-0.5 flex-shrink-0">
                     <TypeIcon type={n.type} />
@@ -145,7 +145,7 @@ export function NotificationBell() {
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-xs font-semibold text-dark-base dark:text-white leading-snug">{n.title}</p>
                       {!n.read && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-red-primary flex-shrink-0 mt-1" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange-primary flex-shrink-0 mt-1" />
                       )}
                     </div>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{n.message}</p>

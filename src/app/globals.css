@@ -3,9 +3,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-red-primary: #DC2626;
-  --color-red-secondary: #EF4444;
-  --color-red-dim: #991B1B;
+  --color-orange-primary: #FF9800;
+  --color-orange-secondary: #FFA726;
+  --color-orange-dim: #E65100;
 
   --color-dark-base: #0A0A0A;
   --color-dark-surface: #111111;
@@ -40,13 +40,13 @@ button {
 }
 
 ::selection {
-  background: rgba(220, 38, 38, 0.2);
-  color: #DC2626;
+  background: rgba(255, 152, 0, 0.2);
+  color: #FF9800;
 }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #DC2626; }
+::-webkit-scrollbar-thumb { background: #FF9800; }
 
 /* Card — grey bg / no stroke in light; dark bg / border in dark */
 .glass-card {

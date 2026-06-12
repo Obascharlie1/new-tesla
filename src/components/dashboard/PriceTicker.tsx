@@ -34,7 +34,7 @@ export function PriceTicker() {
             <span className="text-[11px] font-mono font-semibold text-dark-base dark:text-white">
               {asset.price}
             </span>
-            <span className={`flex items-center gap-0.5 text-[11px] font-bold ${asset.up ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-primary'}`}>
+            <span className={`flex items-center gap-0.5 text-[11px] font-bold ${asset.up ? 'text-emerald-600 dark:text-emerald-400' : 'text-orange-primary'}`}>
               {asset.up
                 ? <TrendingUp size={10} />
                 : <TrendingDown size={10} />}

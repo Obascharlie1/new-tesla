@@ -9,7 +9,7 @@ export function FeatureImages() {
           <div className="relative overflow-hidden rounded-xl aspect-video">
             <Image
               src="/images/team-handshake.jpg"
-              alt="QuantumVest partners — building trusted investor relationships"
+              alt="Tesla Bridges Capital partners — building trusted investor relationships"
               fill
               className="object-cover"
               sizes="(max-width: 640px) 100vw, 50vw"

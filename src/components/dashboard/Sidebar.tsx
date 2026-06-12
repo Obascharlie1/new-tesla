@@ -105,14 +105,14 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors duration-150',
                 active
-                  ? 'bg-red-primary/10 text-red-primary border-l-2 border-red-primary pl-[10px]'
+                  ? 'bg-orange-primary/10 text-orange-primary border-l-2 border-orange-primary pl-[10px]'
                   : 'text-slate-500 dark:text-slate-400 hover:bg-light-surface dark:hover:bg-dark-card hover:text-dark-base dark:hover:text-white border-l-2 border-transparent'
               )}
             >
               <item.icon size={17} strokeWidth={active ? 2.5 : 2} />
               <span className="flex-1">{item.label}</span>
               {isMessages && unreadMsgs > 0 && (
-                <span className="min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full bg-red-primary text-white text-[10px] font-bold">
+                <span className="min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full bg-orange-primary text-white text-[10px] font-bold">
                   {unreadMsgs}
                 </span>
               )}
@@ -124,7 +124,7 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
       {/* User section */}
       <div className="border-t border-light-border dark:border-dark-border p-4">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 bg-red-primary flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 bg-orange-primary flex items-center justify-center flex-shrink-0">
             <span className="text-white text-xs font-bold">
               {userName ? userName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : '…'}
             </span>
@@ -151,11 +151,11 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
       <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 flex-col bg-light-base dark:bg-dark-base border-r border-light-border dark:border-dark-border z-40">
         {/* Logo */}
         <div className="flex items-center gap-3 px-6 py-5 border-b border-light-border dark:border-dark-border">
-          <div className="w-8 h-8 bg-red-primary flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 bg-orange-primary flex items-center justify-center flex-shrink-0">
             <span className="text-white font-bold text-sm">Q</span>
           </div>
           <span className="font-bold text-dark-base dark:text-white text-base tracking-tight">
-            Quantum<span className="text-red-primary">Vest</span>
+            Quantum<span className="text-orange-primary">Vest</span>
           </span>
         </div>
         <NavContent />
@@ -181,11 +181,11 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
         {/* Logo + close */}
         <div className="flex items-center justify-between px-5 py-5 border-b border-light-border dark:border-dark-border">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-red-primary flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 bg-orange-primary flex items-center justify-center flex-shrink-0">
               <span className="text-white font-bold text-sm">Q</span>
             </div>
             <span className="font-bold text-dark-base dark:text-white text-base tracking-tight">
-              Quantum<span className="text-red-primary">Vest</span>
+              Quantum<span className="text-orange-primary">Vest</span>
             </span>
           </div>
           <button

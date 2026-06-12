@@ -45,7 +45,7 @@ interface Tx {
 function statusPill(s: string) {
   if (s === 'Completed') return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
   if (s === 'Pending')   return 'bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400'
-  if (s === 'Rejected')  return 'bg-red-primary/10 text-red-primary'
+  if (s === 'Rejected')  return 'bg-orange-primary/10 text-orange-primary'
   return ''
 }
 
@@ -319,7 +319,7 @@ export default function AdminUserDetailPage() {
   if (loading) {
     return (
       <div className="p-6 flex items-center justify-center h-64">
-        <Loader2 size={24} className="animate-spin text-red-primary" />
+        <Loader2 size={24} className="animate-spin text-orange-primary" />
       </div>
     )
   }
@@ -328,7 +328,7 @@ export default function AdminUserDetailPage() {
     return (
       <div className="p-6">
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">{error || 'User not found.'}</p>
-        <Link href="/admin" className="flex items-center gap-1.5 text-sm text-red-primary hover:underline w-fit">
+        <Link href="/admin" className="flex items-center gap-1.5 text-sm text-orange-primary hover:underline w-fit">
           <ArrowLeft size={14} /> Back to users
         </Link>
       </div>
@@ -403,7 +403,7 @@ export default function AdminUserDetailPage() {
             {!kycDocs && !kycDocsLoading && (
               <button
                 onClick={loadKycDocs}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border border-light-border dark:border-dark-border text-slate-600 dark:text-slate-300 hover:border-red-primary hover:text-red-primary transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border border-light-border dark:border-dark-border text-slate-600 dark:text-slate-300 hover:border-orange-primary hover:text-orange-primary transition-colors"
               >
                 <FileText size={13} /> View Documents
               </button>
@@ -467,7 +467,7 @@ export default function AdminUserDetailPage() {
 
       {/* ── User header ────────────────────────────────────────────────── */}
       <div className="flex items-start gap-4 flex-wrap">
-        <div className="w-14 h-14 bg-red-primary/10 flex items-center justify-center flex-shrink-0 text-red-primary font-bold text-lg">
+        <div className="w-14 h-14 bg-orange-primary/10 flex items-center justify-center flex-shrink-0 text-orange-primary font-bold text-lg">
           {initials}
         </div>
         <div className="flex-1 min-w-0">
@@ -475,7 +475,7 @@ export default function AdminUserDetailPage() {
             <h1 className="text-xl font-bold text-dark-base dark:text-white">{profile.full_name || profile.email}</h1>
             <span className={`text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider ${
               profile.is_suspended
-                ? 'bg-red-primary/10 text-red-primary'
+                ? 'bg-orange-primary/10 text-orange-primary'
                 : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
             }`}>
               {profile.is_suspended ? 'Suspended' : 'Active'}
@@ -514,7 +514,7 @@ export default function AdminUserDetailPage() {
 
       {/* Action error */}
       {actionError && (
-        <div className="flex items-center justify-between gap-3 px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-sm text-red-primary">
+        <div className="flex items-center justify-between gap-3 px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-sm text-orange-primary">
           <span>{actionError}</span>
           <button onClick={() => setActionError('')} className="flex-shrink-0"><X size={14} /></button>
         </div>
@@ -533,7 +533,7 @@ export default function AdminUserDetailPage() {
               <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Balance (Profit)</p>
               {!editingBal && (
                 <button onClick={() => { setEditingBal(true); setBalInput(String(profile.balance)) }}
-                  className="text-slate-400 hover:text-red-primary transition-colors" title="Edit balance">
+                  className="text-slate-400 hover:text-orange-primary transition-colors" title="Edit balance">
                   <Edit2 size={13} />
                 </button>
               )}
@@ -543,11 +543,11 @@ export default function AdminUserDetailPage() {
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">$</span>
                   <input type="number" value={balInput} onChange={e => setBalInput(e.target.value)} min="0" autoFocus
-                    className="w-full pl-7 pr-3 py-2.5 border border-red-primary bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-lg font-bold focus:outline-none" />
+                    className="w-full pl-7 pr-3 py-2.5 border border-orange-primary bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-lg font-bold focus:outline-none" />
                 </div>
                 <div className="flex gap-2">
                   <button onClick={saveBalance} disabled={savingBal}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 bg-red-primary hover:bg-red-dim disabled:opacity-60 text-white text-xs font-bold transition-colors">
+                    className="flex-1 flex items-center justify-center gap-1 py-2 bg-orange-primary hover:bg-orange-dim disabled:opacity-60 text-white text-xs font-bold transition-colors">
                     {savingBal ? <Loader2 size={12} className="animate-spin" /> : <><Check size={12} /> Save</>}
                   </button>
                   <button onClick={() => setEditingBal(false)}
@@ -569,7 +569,7 @@ export default function AdminUserDetailPage() {
               <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Profit</p>
               {!editingProfit && (
                 <button onClick={() => { setEditingProfit(true); setProfitInput(String(profile.profit)) }}
-                  className="text-slate-400 hover:text-red-primary transition-colors" title="Edit profit">
+                  className="text-slate-400 hover:text-orange-primary transition-colors" title="Edit profit">
                   <Edit2 size={13} />
                 </button>
               )}
@@ -579,11 +579,11 @@ export default function AdminUserDetailPage() {
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">$</span>
                   <input type="number" value={profitInput} onChange={e => setProfitInput(e.target.value)} min="0" autoFocus
-                    className="w-full pl-7 pr-3 py-2.5 border border-red-primary bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-lg font-bold focus:outline-none" />
+                    className="w-full pl-7 pr-3 py-2.5 border border-orange-primary bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-lg font-bold focus:outline-none" />
                 </div>
                 <div className="flex gap-2">
                   <button onClick={saveProfit} disabled={savingProfit}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 bg-red-primary hover:bg-red-dim disabled:opacity-60 text-white text-xs font-bold transition-colors">
+                    className="flex-1 flex items-center justify-center gap-1 py-2 bg-orange-primary hover:bg-orange-dim disabled:opacity-60 text-white text-xs font-bold transition-colors">
                     {savingProfit ? <Loader2 size={12} className="animate-spin" /> : <><Check size={12} /> Save</>}
                   </button>
                   <button onClick={() => setEditingProfit(false)}
@@ -633,7 +633,7 @@ export default function AdminUserDetailPage() {
           <div className="ml-auto">
             <button
               onClick={() => { setShowAddForm(v => !v); setTxFilter('All') }}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold bg-red-primary hover:bg-red-dim text-white transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold bg-orange-primary hover:bg-orange-dim text-white transition-colors"
             >
               <Plus size={13} /> Add Deposit
             </button>
@@ -650,25 +650,25 @@ export default function AdminUserDetailPage() {
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">$</span>
                   <input type="number" value={addAmount} onChange={e => setAddAmount(e.target.value)} placeholder="0.00" min="1" step="0.01" required
-                    className="w-full pl-7 pr-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm font-semibold focus:outline-none focus:border-red-primary transition-colors" />
+                    className="w-full pl-7 pr-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm font-semibold focus:outline-none focus:border-orange-primary transition-colors" />
                 </div>
               </div>
               <div>
                 <label className="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">Method</label>
                 <select value={addMethod} onChange={e => setAddMethod(e.target.value)}
-                  className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-red-primary transition-colors">
+                  className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-orange-primary transition-colors">
                   {DEPOSIT_METHODS.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
               </div>
               <div>
                 <label className="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">Note <span className="normal-case font-normal">(optional)</span></label>
                 <input type="text" value={addNote} onChange={e => setAddNote(e.target.value)} placeholder="e.g. Manual credit"
-                  className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-red-primary transition-colors placeholder:text-slate-400" />
+                  className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-orange-primary transition-colors placeholder:text-slate-400" />
               </div>
             </div>
             <div className="flex gap-2 pt-1">
               <button type="submit" disabled={addLoading || !addAmount}
-                className="flex items-center gap-1.5 px-4 py-2.5 bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white text-xs font-bold transition-colors">
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white text-xs font-bold transition-colors">
                 {addLoading
                   ? <Loader2 size={13} className="animate-spin" />
                   : <><Check size={13} /> Credit Balance</>
@@ -688,8 +688,8 @@ export default function AdminUserDetailPage() {
             <button key={f} onClick={() => setTxFilter(f)}
               className={`px-3 py-1.5 text-xs font-semibold transition-colors ${
                 txFilter === f
-                  ? 'bg-red-primary text-white'
-                  : 'border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-red-primary hover:text-red-primary'
+                  ? 'bg-orange-primary text-white'
+                  : 'border border-light-border dark:border-dark-border text-slate-500 dark:text-slate-400 hover:border-orange-primary hover:text-orange-primary'
               }`}
             >
               {f}
@@ -724,7 +724,7 @@ export default function AdminUserDetailPage() {
                     <tr key={tx.id} className="hover:bg-light-surface dark:hover:bg-dark-surface transition-colors">
                       <td className="px-5 py-3.5 text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap">{formatDate(tx.created_at)}</td>
                       <td className="px-5 py-3.5">
-                        <span className={`text-sm font-semibold ${tx.type === 'Deposit' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-primary'}`}>
+                        <span className={`text-sm font-semibold ${tx.type === 'Deposit' ? 'text-emerald-600 dark:text-emerald-400' : 'text-orange-primary'}`}>
                           {tx.type}
                         </span>
                       </td>
@@ -752,7 +752,7 @@ export default function AdminUserDetailPage() {
                               <button
                                 onClick={() => handleTxAction(tx.id, 'Rejected')}
                                 disabled={txLoading === tx.id}
-                                className="flex items-center gap-1 px-2.5 py-1.5 bg-red-primary/10 text-red-primary text-xs font-semibold hover:bg-red-primary/20 transition-colors whitespace-nowrap disabled:opacity-50"
+                                className="flex items-center gap-1 px-2.5 py-1.5 bg-orange-primary/10 text-orange-primary text-xs font-semibold hover:bg-orange-primary/20 transition-colors whitespace-nowrap disabled:opacity-50"
                               >
                                 <XCircle size={12} /> Reject
                               </button>
@@ -772,7 +772,7 @@ export default function AdminUserDetailPage() {
                               <button
                                 onClick={() => handleTxDelete(tx.id)}
                                 disabled={txLoading === tx.id}
-                                className="flex items-center gap-1 px-2.5 py-1.5 bg-red-primary text-white text-xs font-semibold hover:bg-red-dim transition-colors whitespace-nowrap disabled:opacity-50"
+                                className="flex items-center gap-1 px-2.5 py-1.5 bg-orange-primary text-white text-xs font-semibold hover:bg-orange-dim transition-colors whitespace-nowrap disabled:opacity-50"
                               >
                                 {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : 'Confirm'}
                               </button>
@@ -802,7 +802,7 @@ export default function AdminUserDetailPage() {
                 <div key={tx.id} className="px-5 py-4 space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className={`text-sm font-semibold ${tx.type === 'Deposit' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-primary'}`}>
+                      <span className={`text-sm font-semibold ${tx.type === 'Deposit' ? 'text-emerald-600 dark:text-emerald-400' : 'text-orange-primary'}`}>
                         {tx.type}
                       </span>
                       <span className="text-slate-400 dark:text-slate-500 mx-2">·</span>
@@ -826,7 +826,7 @@ export default function AdminUserDetailPage() {
                           {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : <><CheckCircle size={12} /> Approve</>}
                         </button>
                         <button onClick={() => handleTxAction(tx.id, 'Rejected')} disabled={txLoading === tx.id}
-                          className="flex-1 flex items-center justify-center gap-1 py-2 bg-red-primary/10 text-red-primary text-xs font-semibold hover:bg-red-primary/20 transition-colors disabled:opacity-50">
+                          className="flex-1 flex items-center justify-center gap-1 py-2 bg-orange-primary/10 text-orange-primary text-xs font-semibold hover:bg-orange-primary/20 transition-colors disabled:opacity-50">
                           <XCircle size={12} /> Reject
                         </button>
                       </>
@@ -840,7 +840,7 @@ export default function AdminUserDetailPage() {
                     {confirmTxDel === tx.id ? (
                       <div className="flex gap-1">
                         <button onClick={() => handleTxDelete(tx.id)} disabled={txLoading === tx.id}
-                          className="flex items-center gap-1 px-3 py-2 bg-red-primary text-white text-xs font-semibold hover:bg-red-dim transition-colors disabled:opacity-50">
+                          className="flex items-center gap-1 px-3 py-2 bg-orange-primary text-white text-xs font-semibold hover:bg-orange-dim transition-colors disabled:opacity-50">
                           {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : 'Confirm Delete'}
                         </button>
                         <button onClick={() => setConfirmTxDel(null)} className="px-2 py-2 border border-light-border dark:border-dark-border text-xs text-slate-500">
@@ -867,7 +867,7 @@ export default function AdminUserDetailPage() {
           onClick={() => setMsgOpen(v => !v)}
           className="w-full px-5 py-4 flex items-center gap-2 border-b border-light-border dark:border-dark-border"
         >
-          <MessageCircle size={15} className="text-red-primary" />
+          <MessageCircle size={15} className="text-orange-primary" />
           <h2 className="text-sm font-bold text-dark-base dark:text-white">Messages</h2>
           <span className="ml-auto text-xs text-slate-500">{msgOpen ? '▲ Hide' : '▼ Open chat'}</span>
         </button>
@@ -877,7 +877,7 @@ export default function AdminUserDetailPage() {
             {/* Message thread */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
               {msgLoading ? (
-                <div className="flex justify-center py-8"><Loader2 size={20} className="animate-spin text-red-primary" /></div>
+                <div className="flex justify-center py-8"><Loader2 size={20} className="animate-spin text-orange-primary" /></div>
               ) : messages.length === 0 ? (
                 <p className="text-center text-sm text-slate-400 py-8">No messages yet. Start the conversation below.</p>
               ) : (
@@ -885,11 +885,11 @@ export default function AdminUserDetailPage() {
                   <div key={msg.id} className={`flex ${msg.sender === 'admin' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm ${
                       msg.sender === 'admin'
-                        ? 'bg-red-primary text-white rounded-br-sm'
+                        ? 'bg-orange-primary text-white rounded-br-sm'
                         : 'bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border text-dark-base dark:text-white rounded-bl-sm'
                     }`}>
                       {msg.sender === 'user' && (
-                        <p className="text-[10px] font-bold text-red-primary mb-1 uppercase tracking-wider">{profile.full_name || 'User'}</p>
+                        <p className="text-[10px] font-bold text-orange-primary mb-1 uppercase tracking-wider">{profile.full_name || 'User'}</p>
                       )}
                       <p className="leading-relaxed">{msg.content}</p>
                       <p className={`text-[10px] mt-1 ${msg.sender === 'admin' ? 'text-white/60' : 'text-slate-400'}`}>
@@ -909,12 +909,12 @@ export default function AdminUserDetailPage() {
                 value={msgInput}
                 onChange={e => setMsgInput(e.target.value)}
                 placeholder="Type a message…"
-                className="flex-1 px-3 py-2 border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-sm text-dark-base dark:text-white focus:outline-none focus:border-red-primary transition-colors rounded-lg placeholder:text-slate-400"
+                className="flex-1 px-3 py-2 border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-sm text-dark-base dark:text-white focus:outline-none focus:border-orange-primary transition-colors rounded-lg placeholder:text-slate-400"
               />
               <button
                 type="submit"
                 disabled={!msgInput.trim() || msgSending}
-                className="w-9 h-9 flex items-center justify-center bg-red-primary hover:bg-red-dim disabled:opacity-50 text-white rounded-lg transition-colors flex-shrink-0"
+                className="w-9 h-9 flex items-center justify-center bg-orange-primary hover:bg-orange-dim disabled:opacity-50 text-white rounded-lg transition-colors flex-shrink-0"
               >
                 {msgSending ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
               </button>
@@ -926,7 +926,7 @@ export default function AdminUserDetailPage() {
       {/* ── Section 6: Send Notification ───────────────────────────────── */}
       <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
         <div className="px-5 py-4 border-b border-light-border dark:border-dark-border flex items-center gap-2">
-          <Bell size={15} className="text-red-primary" />
+          <Bell size={15} className="text-orange-primary" />
           <h2 className="text-sm font-bold text-dark-base dark:text-white">Send Notification</h2>
         </div>
         <form onSubmit={handleSendNotification} className="p-5 space-y-4">
@@ -939,7 +939,7 @@ export default function AdminUserDetailPage() {
                 { value: 'info',    label: 'Info',    color: 'text-blue-600 dark:text-blue-400 border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20'    },
                 { value: 'success', label: 'Success', color: 'text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/20' },
                 { value: 'warning', label: 'Warning', color: 'text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20'    },
-                { value: 'error',   label: 'Alert',   color: 'text-red-primary border-red-200 dark:border-red-800 bg-red-primary/10' },
+                { value: 'error',   label: 'Alert',   color: 'text-orange-primary border-red-200 dark:border-red-800 bg-orange-primary/10' },
               ] as const).map(opt => (
                 <button
                   key={opt.value}
@@ -966,7 +966,7 @@ export default function AdminUserDetailPage() {
               onChange={e => setNotifTitle(e.target.value)}
               placeholder="e.g. Your deposit has been approved"
               required
-              className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-red-primary transition-colors placeholder:text-slate-400"
+              className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-orange-primary transition-colors placeholder:text-slate-400"
             />
           </div>
 
@@ -979,7 +979,7 @@ export default function AdminUserDetailPage() {
               placeholder="Write the notification message here…"
               required
               rows={3}
-              className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-red-primary transition-colors placeholder:text-slate-400 resize-none"
+              className="w-full px-3 py-2.5 border border-light-border dark:border-dark-border bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm focus:outline-none focus:border-orange-primary transition-colors placeholder:text-slate-400 resize-none"
             />
           </div>
 
@@ -987,7 +987,7 @@ export default function AdminUserDetailPage() {
             <button
               type="submit"
               disabled={notifLoading || !notifTitle.trim() || !notifMessage.trim()}
-              className="flex items-center gap-1.5 px-4 py-2.5 bg-red-primary hover:bg-red-dim disabled:opacity-60 disabled:cursor-not-allowed text-white text-xs font-bold transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2.5 bg-orange-primary hover:bg-orange-dim disabled:opacity-60 disabled:cursor-not-allowed text-white text-xs font-bold transition-colors"
             >
               {notifLoading
                 ? <><Loader2 size={13} className="animate-spin" /> Sending…</>
@@ -1042,7 +1042,7 @@ export default function AdminUserDetailPage() {
               <button
                 onClick={handleDelete}
                 disabled={deleting}
-                className="flex-1 px-4 py-2.5 bg-red-primary hover:bg-red-dim disabled:opacity-60 text-white text-sm font-bold transition-colors flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2.5 bg-orange-primary hover:bg-orange-dim disabled:opacity-60 text-white text-sm font-bold transition-colors flex items-center justify-center gap-2"
               >
                 {deleting ? <><Loader2 size={14} className="animate-spin" /> Deleting…</> : 'Delete'}
               </button>

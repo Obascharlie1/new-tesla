@@ -45,7 +45,7 @@ function FileUploadArea({ label, file, onFile }: { label: string; file: Uploaded
         type="button"
         onClick={() => inputRef.current?.click()}
         className={`w-full border-2 border-dashed transition-colors p-6 text-center ${
-          file ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/10' : 'border-light-border dark:border-dark-border hover:border-red-primary hover:bg-red-primary/5'
+          file ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/10' : 'border-light-border dark:border-dark-border hover:border-orange-primary hover:bg-orange-primary/5'
         }`}
       >
         {file ? (
@@ -160,7 +160,7 @@ export default function KYCPage() {
       <div>
         <TopBar title="KYC Verification" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-red-primary" />
+          <Loader2 size={24} className="animate-spin text-orange-primary" />
         </div>
       </div>
     )
@@ -179,7 +179,7 @@ export default function KYCPage() {
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
             Your identity has been successfully verified. You have full access to all platform features.
           </p>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 bg-red-primary text-white font-bold text-sm hover:bg-red-dim transition-colors">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 bg-orange-primary text-white font-bold text-sm hover:bg-orange-dim transition-colors">
             Back to Dashboard
           </Link>
         </div>
@@ -200,7 +200,7 @@ export default function KYCPage() {
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
             Your documents are under review. We&apos;ll notify you within <strong className="text-dark-base dark:text-white">24–48 hours</strong> once verification is complete.
           </p>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 bg-red-primary text-white font-bold text-sm hover:bg-red-dim transition-colors">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 bg-orange-primary text-white font-bold text-sm hover:bg-orange-dim transition-colors">
             Back to Dashboard
           </Link>
         </div>
@@ -235,7 +235,7 @@ export default function KYCPage() {
               </div>
             )}
           </div>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 bg-red-primary text-white font-bold text-sm hover:bg-red-dim transition-colors">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 bg-orange-primary text-white font-bold text-sm hover:bg-orange-dim transition-colors">
             Back to Dashboard
           </Link>
         </div>
@@ -252,7 +252,7 @@ export default function KYCPage() {
         </Link>
 
         <div className="flex gap-3 p-4 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border">
-          <Shield size={18} className="text-red-primary flex-shrink-0 mt-0.5" />
+          <Shield size={18} className="text-orange-primary flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-semibold text-dark-base dark:text-white">Why we need this</p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -262,7 +262,7 @@ export default function KYCPage() {
         </div>
 
         {error && (
-          <div className="px-4 py-3 bg-red-primary/10 border border-red-primary/30 text-red-primary text-sm">
+          <div className="px-4 py-3 bg-orange-primary/10 border border-orange-primary/30 text-orange-primary text-sm">
             {error}
           </div>
         )}
@@ -275,7 +275,7 @@ export default function KYCPage() {
                 <label
                   key={dt.value}
                   className={`flex items-start gap-3 p-4 border cursor-pointer transition-colors ${
-                    docType === dt.value ? 'border-red-primary bg-red-primary/5' : 'border-light-border dark:border-dark-border hover:border-red-primary/50'
+                    docType === dt.value ? 'border-orange-primary bg-orange-primary/5' : 'border-light-border dark:border-dark-border hover:border-orange-primary/50'
                   }`}
                 >
                   <input
@@ -284,7 +284,7 @@ export default function KYCPage() {
                     value={dt.value}
                     checked={docType === dt.value}
                     onChange={() => { setDocType(dt.value); setFrontFile(null); setBackFile(null) }}
-                    className="mt-0.5 accent-red-primary flex-shrink-0"
+                    className="mt-0.5 accent-orange-primary flex-shrink-0"
                   />
                   <div>
                     <p className="text-sm font-semibold text-dark-base dark:text-white">{dt.label}</p>
@@ -316,7 +316,7 @@ export default function KYCPage() {
                 'Accepted: JPG, PNG, PDF (max 10 MB)',
               ].map(req => (
                 <li key={req} className="flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
-                  <span className="w-1 h-1 bg-red-primary flex-shrink-0 mt-1.5" />
+                  <span className="w-1 h-1 bg-orange-primary flex-shrink-0 mt-1.5" />
                   {req}
                 </li>
               ))}
@@ -326,7 +326,7 @@ export default function KYCPage() {
           <button
             type="submit"
             disabled={!canSubmit || loading}
-            className="w-full bg-red-primary hover:bg-red-dim disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm flex items-center justify-center gap-2 transition-colors"
+            className="w-full bg-orange-primary hover:bg-orange-dim disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold py-3.5 text-sm flex items-center justify-center gap-2 transition-colors"
           >
             {loading
               ? <><Loader2 size={16} className="animate-spin" /> Submitting…</>

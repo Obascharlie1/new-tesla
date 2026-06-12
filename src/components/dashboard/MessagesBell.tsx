@@ -35,7 +35,7 @@ export function MessagesBell() {
     >
       <MessageCircle size={20} />
       {unread > 0 && (
-        <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-0.5 flex items-center justify-center rounded-full bg-red-primary text-white text-[9px] font-bold">
+        <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-0.5 flex items-center justify-center rounded-full bg-orange-primary text-white text-[9px] font-bold">
           {unread > 9 ? '9+' : unread}
         </span>
       )}
