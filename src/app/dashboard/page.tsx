@@ -125,15 +125,18 @@ export default function DashboardPage() {
 
         {/* Metrics grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          <div className="col-span-2 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Total Balance</p>
-            <p className="text-3xl sm:text-4xl font-bold text-dark-base dark:text-white tracking-tight">
+          <div className="col-span-2 relative overflow-hidden rounded-2xl p-5 sm:p-6 border border-white/10 shadow-lg shadow-black/25 bg-[linear-gradient(135deg,#0b0b0b_0%,#2a0a08_42%,#6e1f12_78%,#a85a12_122%)]">
+            {/* soft ambient glows */}
+            <div className="pointer-events-none absolute -top-16 -right-10 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-8 w-48 h-48 rounded-full bg-brand-primary/15 blur-3xl" />
+            <p className="relative text-xs font-semibold text-white/55 uppercase tracking-wider mb-2">Total Balance</p>
+            <p className="relative text-3xl sm:text-4xl font-bold text-white tracking-tight">
               ${(profile?.profit ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
             {(profile?.profit ?? 0) > 0 && (
-              <div className="flex items-center gap-1.5 mt-2">
-                <ArrowUpRight size={13} className="text-emerald-500" />
-                <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Portfolio growing</span>
+              <div className="relative flex items-center gap-1.5 mt-2">
+                <ArrowUpRight size={13} className="text-amber-300" />
+                <span className="text-xs font-medium text-amber-200/80">Portfolio growing</span>
               </div>
             )}
           </div>
