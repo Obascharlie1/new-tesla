@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { type, amount, method, note } = await request.json()
+  const { type, amount, method, note, receipt_url } = await request.json()
 
   if (!type || !amount || !method) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 
   const { data, error } = await supabase
     .from('transactions')
-    .insert({ user_id: user.id, type, amount, method, note: note || null, status: 'Pending' })
+    .insert({ user_id: user.id, type, amount, method, note: note || null, receipt_url: receipt_url || null, status: 'Pending' })
     .select()
     .single()
 

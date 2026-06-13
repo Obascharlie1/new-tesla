@@ -30,14 +30,15 @@ interface Profile {
 }
 
 interface Tx {
-  id:         string
-  user_id:    string
-  type:       string
-  amount:     number
-  method:     string
-  status:     string
-  note:       string | null
-  created_at: string
+  id:          string
+  user_id:     string
+  type:        string
+  amount:      number
+  method:      string
+  status:      string
+  note:        string | null
+  receipt_url: string | null
+  created_at:  string
 }
 
 /* ─── helpers ────────────────────────────────────────────────────────────── */
@@ -753,6 +754,17 @@ export default function AdminUserDetailPage() {
                               className="flex items-center gap-1 px-2.5 py-1.5 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs font-semibold hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors whitespace-nowrap disabled:opacity-50"
                             >
                               {txLoading === tx.id ? <Loader2 size={12} className="animate-spin" /> : <><RotateCcw size={12} /> Pending</>}
+                            </button>
+                          )}
+                          {tx.receipt_url && (
+                            <button
+                              onClick={async () => {
+                                const r = await fetch(`/api/admin/receipts?path=${encodeURIComponent(tx.receipt_url!)}`)
+                                if (r.ok) { const { url } = await r.json(); window.open(url, '_blank') }
+                              }}
+                              className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors whitespace-nowrap"
+                            >
+                              <FileText size={12} /> Receipt
                             </button>
                           )}
                           {confirmTxDel === tx.id ? (

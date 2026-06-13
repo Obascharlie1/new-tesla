@@ -28,16 +28,8 @@ export default function BitcoinDepositPage() {
   const [loading,   setLoading]   = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error,     setError]     = useState('')
-  const [receipt,   setReceipt]   = useState<{ name: string; size: string } | null>(null)
+  const [receiptFile, setReceiptFile] = useState<File | null>(null)
   const receiptRef = useRef<HTMLInputElement>(null)
-
-  function handleReceiptChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const f = e.target.files?.[0]
-    if (!f) return
-    const kb = f.size / 1024
-    const size = kb < 1024 ? `${kb.toFixed(1)} KB` : `${(kb / 1024).toFixed(1)} MB`
-    setReceipt({ name: f.name, size })
-  }
 
   const btcAmount = amountUsd ? (parseFloat(amountUsd) / BTC_RATE).toFixed(8) : null
 
@@ -54,10 +46,18 @@ export default function BitcoinDepositPage() {
     setError('')
     setLoading(true)
 
+    let receipt_url: string | null = null
+    if (receiptFile) {
+      const form = new FormData()
+      form.append('file', receiptFile)
+      const up = await fetch('/api/receipts/upload', { method: 'POST', body: form })
+      if (up.ok) receipt_url = (await up.json()).path
+    }
+
     const res = await fetch('/api/transactions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'Deposit', amount: amt, method: 'Bitcoin' }),
+      body: JSON.stringify({ type: 'Deposit', amount: amt, method: 'Bitcoin', receipt_url }),
     })
 
     if (!res.ok) {
@@ -177,26 +177,26 @@ export default function BitcoinDepositPage() {
                 )}
               </div>
 
-              {/* Receipt upload (cosmetic) */}
+              {/* Receipt upload */}
               <div>
                 <label className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider mb-2">
-                  Upload Payment Receipt <span className="text-slate-400 normal-case font-normal">(optional)</span>
+                  Payment Receipt <span className="text-slate-400 normal-case font-normal">(optional)</span>
                 </label>
                 <button
                   type="button"
                   onClick={() => receiptRef.current?.click()}
                   className={`w-full border-2 border-dashed p-5 text-center transition-colors ${
-                    receipt
+                    receiptFile
                       ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/10'
                       : 'border-light-border dark:border-dark-border hover:border-brand-primary hover:bg-brand-primary/5'
                   }`}
                 >
-                  {receipt ? (
+                  {receiptFile ? (
                     <div className="flex items-center justify-center gap-3">
                       <FileText size={18} className="text-emerald-500" />
                       <div className="text-left">
-                        <p className="text-sm font-semibold text-dark-base dark:text-white">{receipt.name}</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400">{receipt.size}</p>
+                        <p className="text-sm font-semibold text-dark-base dark:text-white">{receiptFile.name}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{(receiptFile.size / 1024).toFixed(1)} KB</p>
                       </div>
                     </div>
                   ) : (
@@ -206,7 +206,7 @@ export default function BitcoinDepositPage() {
                     </div>
                   )}
                 </button>
-                <input ref={receiptRef} type="file" accept="image/*,.pdf" className="hidden" onChange={handleReceiptChange} />
+                <input ref={receiptRef} type="file" accept="image/*,.pdf" className="hidden" onChange={e => setReceiptFile(e.target.files?.[0] ?? null)} />
               </div>
 
               <button

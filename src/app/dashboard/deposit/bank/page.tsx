@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Copy, Check, CheckCircle, Loader2 } from 'lucide-react'
+import { ArrowLeft, Copy, Check, CheckCircle, Loader2, Upload, FileText } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/TopBar'
 
 const bankDetails = [
@@ -16,11 +16,13 @@ const bankDetails = [
 const REFERENCE = 'QV-2025-847392'
 
 export default function BankDepositPage() {
-  const [copied,    setCopied]    = useState(false)
-  const [amount,    setAmount]    = useState('')
-  const [loading,   setLoading]   = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error,     setError]     = useState('')
+  const [copied,      setCopied]      = useState(false)
+  const [amount,      setAmount]      = useState('')
+  const [loading,     setLoading]     = useState(false)
+  const [submitted,   setSubmitted]   = useState(false)
+  const [error,       setError]       = useState('')
+  const [receiptFile, setReceiptFile] = useState<File | null>(null)
+  const receiptRef = useRef<HTMLInputElement>(null)
 
   function copyReference() {
     navigator.clipboard.writeText(REFERENCE).catch(() => {})
@@ -35,10 +37,18 @@ export default function BankDepositPage() {
     setError('')
     setLoading(true)
 
+    let receipt_url: string | null = null
+    if (receiptFile) {
+      const form = new FormData()
+      form.append('file', receiptFile)
+      const up = await fetch('/api/receipts/upload', { method: 'POST', body: form })
+      if (up.ok) receipt_url = (await up.json()).path
+    }
+
     const res = await fetch('/api/transactions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'Deposit', amount: amt, method: 'Bank Transfer', note: `Ref: ${REFERENCE}` }),
+      body: JSON.stringify({ type: 'Deposit', amount: amt, method: 'Bank Transfer', note: `Ref: ${REFERENCE}`, receipt_url }),
     })
 
     if (!res.ok) {
@@ -144,6 +154,38 @@ export default function BankDepositPage() {
                   />
                 </div>
                 <p className="text-xs text-slate-400 mt-1.5">Minimum: $100.00 · No platform fee</p>
+              </div>
+
+              {/* Receipt upload */}
+              <div>
+                <label className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider mb-2">
+                  Payment Receipt <span className="text-slate-400 normal-case font-normal">(optional)</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => receiptRef.current?.click()}
+                  className={`w-full border-2 border-dashed p-5 text-center transition-colors ${
+                    receiptFile
+                      ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/10'
+                      : 'border-light-border dark:border-dark-border hover:border-brand-primary hover:bg-brand-primary/5'
+                  }`}
+                >
+                  {receiptFile ? (
+                    <div className="flex items-center justify-center gap-3">
+                      <FileText size={18} className="text-emerald-500" />
+                      <div className="text-left">
+                        <p className="text-sm font-semibold text-dark-base dark:text-white">{receiptFile.name}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{(receiptFile.size / 1024).toFixed(1)} KB</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center gap-2 text-slate-400">
+                      <Upload size={16} />
+                      <span className="text-sm">Screenshot or PDF of your transfer</span>
+                    </div>
+                  )}
+                </button>
+                <input ref={receiptRef} type="file" accept="image/*,.pdf" className="hidden" onChange={e => setReceiptFile(e.target.files?.[0] ?? null)} />
               </div>
 
               <button
