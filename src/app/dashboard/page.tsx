@@ -2,10 +2,14 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ArrowDownToLine, ArrowUpFromLine, TrendingUp, ArrowUpRight, ShieldAlert, X, History, Loader2 } from 'lucide-react'
+import {
+  ArrowDownToLine, ArrowUpFromLine, TrendingUp, ArrowUpRight,
+  History, Loader2, Wallet, Zap, ShieldCheck,
+} from 'lucide-react'
 import { TopBar } from '@/components/dashboard/TopBar'
 import { LandingBTCChart } from '@/components/sections/LandingBTCChart'
 import { createClient } from '@/lib/supabase/client'
+import { useDashTheme } from '@/components/dashboard/DashboardThemeContext'
 
 interface Profile {
   full_name: string
@@ -37,12 +41,41 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
+function tierLabel(balance: number) {
+  if (balance >= 50000) return 'Platinum'
+  if (balance >= 10000) return 'Gold'
+  if (balance >= 1000)  return 'Silver'
+  return 'Bronze'
+}
+
+// Theme token sets
+const THEMES = {
+  red: {
+    card:        'bg-[linear-gradient(135deg,#0b0b0b_0%,#2a0a08_42%,#6e1f12_78%,#a85a12_100%)]',
+    deposit:     'bg-brand-primary hover:bg-brand-dim border-brand-primary text-white',
+    plans:       'bg-gradient-to-r from-brand-primary to-brand-dim hover:opacity-90',
+    stocks:      'text-brand-primary',
+    kyc:         'bg-brand-primary/10 border-brand-primary/40 text-brand-primary',
+    withdraw:    'bg-[#1a0505] border-brand-primary/20 text-white hover:border-brand-primary/50',
+  },
+  classic: {
+    card:        'bg-[linear-gradient(135deg,#0a0e1a_0%,#0f1829_42%,#162340_78%,#1a2e52_100%)]',
+    deposit:     'bg-emerald-500 hover:bg-emerald-600 border-emerald-500 text-white',
+    plans:       'bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90',
+    stocks:      'text-blue-400',
+    kyc:         'bg-amber-500/10 border-amber-500/40 text-amber-400',
+    withdraw:    'bg-[#0d1424] border-white/10 text-white hover:border-white/20',
+  },
+} as const
+
 export default function DashboardPage() {
   const [profile,      setProfile]      = useState<Profile | null>(null)
   const [transactions, setTransactions] = useState<Tx[]>([])
   const [loading,      setLoading]      = useState(true)
   const [activeRange,  setActiveRange]  = useState('1M')
-  const [kycDismissed, setKycDismissed] = useState(false)
+
+  const { theme } = useDashTheme()
+  const T = THEMES[theme]
 
   useEffect(() => {
     async function load() {
@@ -62,8 +95,12 @@ export default function DashboardPage() {
     load()
   }, [])
 
-  // Simple illustrative chart based on current balance
-  const balance = profile?.balance ?? 0
+  const balance        = profile?.balance ?? 0
+  const profit         = profile?.profit  ?? 0
+  const totalDeposited = transactions
+    .filter(t => t.type === 'Deposit' && t.status === 'Completed')
+    .reduce((s, t) => s + t.amount, 0)
+
   const chartData = Array.from({ length: 40 }, (_, i) =>
     Math.round(balance * (0.2 + (0.8 * i) / 39) + Math.sin(i * 0.5) * balance * 0.02)
   )
@@ -82,7 +119,6 @@ export default function DashboardPage() {
   }
 
   const { line, area } = buildPaths(chartData)
-  const totalDeposited = transactions.filter(t => t.type === 'Deposit' && t.status === 'Completed').reduce((s, t) => s + t.amount, 0)
 
   if (loading) {
     return (
@@ -96,103 +132,111 @@ export default function DashboardPage() {
   }
 
   const firstName = profile?.full_name?.split(' ')[0] ?? 'there'
+  const tier      = tierLabel(balance)
 
   return (
     <div>
       <TopBar title="Dashboard" subtitle={`Hi, ${firstName}`} verified={profile?.kyc_status === 'Verified'} />
 
-      <div className="p-4 sm:p-6 max-w-6xl mx-auto space-y-4 sm:space-y-6">
-
-        {/* KYC banner */}
-        {!kycDismissed && profile?.kyc_status === 'None' && (
-          <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-900/15 border border-amber-200 dark:border-amber-700/40">
-            <ShieldAlert size={18} className="text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">Identity verification required</p>
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">Complete KYC to unlock full withdrawal access and higher deposit limits.</p>
-              <Link href="/dashboard/kyc" className="inline-flex items-center gap-1.5 mt-2 text-xs font-bold text-amber-800 dark:text-amber-300 underline underline-offset-2">
-                Verify now <ArrowUpRight size={12} />
-              </Link>
-            </div>
-            <button onClick={() => setKycDismissed(true)} className="text-amber-500 hover:text-amber-700 flex-shrink-0"><X size={16} /></button>
-          </div>
-        )}
+      <div className="p-4 sm:p-6 max-w-lg mx-auto sm:max-w-6xl space-y-4">
 
         {/* Greeting */}
-        <p className="text-2xl sm:text-3xl font-black text-dark-base dark:text-white">
-          Hi, {profile?.full_name?.split(' ')[0] ?? 'there'} 👋
-        </p>
+        <div>
+          <p className="text-2xl sm:text-3xl font-black text-dark-base dark:text-white">
+            Welcome back, {firstName}
+          </p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Here's your portfolio performance today.
+          </p>
+        </div>
 
-        {/* Metrics grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          <div className="col-span-2 relative overflow-hidden rounded-2xl p-5 sm:p-6 border border-white/10 shadow-lg shadow-black/25 bg-[linear-gradient(135deg,#0b0b0b_0%,#2a0a08_42%,#6e1f12_78%,#a85a12_122%)]">
-            {/* soft ambient glows */}
-            <div className="pointer-events-none absolute -top-16 -right-10 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-8 w-48 h-48 rounded-full bg-brand-primary/15 blur-3xl" />
-            <p className="relative text-xs font-semibold text-white/55 uppercase tracking-wider mb-2">Total Balance</p>
-            <p className="relative text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              ${(profile?.profit ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </p>
-            {(profile?.profit ?? 0) > 0 && (
-              <div className="relative flex items-center gap-1.5 mt-2">
-                <ArrowUpRight size={13} className="text-amber-300" />
-                <span className="text-xs font-medium text-amber-200/80">Portfolio growing</span>
-              </div>
-            )}
-          </div>
+        {/* KYC pill */}
+        {profile?.kyc_status === 'None' && (
+          <Link
+            href="/dashboard/kyc"
+            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold border transition-colors ${T.kyc}`}
+          >
+            <ShieldCheck size={15} />
+            Complete KYC Verification
+          </Link>
+        )}
 
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Deposited</p>
-            <p className="text-xl sm:text-2xl font-bold text-dark-base dark:text-white">${totalDeposited.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Principal</p>
-          </div>
-
-          <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Total Profit</p>
-            <p className="text-xl sm:text-2xl font-bold text-brand-primary">+${(profile?.profit ?? 0).toLocaleString()}</p>
-          </div>
-
-          <div className="col-span-2 lg:col-span-4 bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6 flex items-center gap-4">
-            <div>
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Active Plan</p>
-              <div className="flex items-center gap-3 flex-wrap">
-                <span className="text-xl font-bold text-dark-base dark:text-white">{profile?.plan ?? 'None'}</span>
-                {profile?.plan && profile.plan !== 'None' && (
-                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-400/15 text-amber-600 dark:text-amber-400 border border-amber-400/30">Current Plan</span>
-                )}
-              </div>
+        {/* Total Equity card */}
+        <div className={`rounded-2xl p-5 sm:p-6 shadow-xl ${T.card}`}>
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Wallet size={15} className="text-white/50" />
+              <span className="text-sm font-semibold text-white/60">Total Equity</span>
             </div>
-            <Link href="/dashboard/plans" className="ml-auto flex items-center gap-1.5 text-xs font-semibold text-brand-primary hover:text-brand-dim transition-colors whitespace-nowrap">
-              {profile?.plan === 'None' ? 'Choose a plan' : 'Manage plan'} <ArrowUpRight size={12} />
-            </Link>
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/20 text-amber-300 text-xs font-bold">
+              <Zap size={11} />
+              {tier} Tier
+            </span>
+          </div>
+
+          {/* Balance */}
+          <p className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-5">
+            ${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </p>
+
+          {/* Stats row */}
+          <div className="border-t border-white/10 pt-4 grid grid-cols-3 gap-2">
+            <div>
+              <p className="text-[10px] font-semibold text-white/40 uppercase tracking-wider mb-1">PROFIT</p>
+              <p className="text-sm font-bold text-emerald-400">+${profit.toLocaleString()}</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold text-white/40 uppercase tracking-wider mb-1">DEPOSITS</p>
+              <p className="text-sm font-bold text-white">${totalDeposited.toLocaleString()}</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold text-white/40 uppercase tracking-wider mb-1">STOCKS</p>
+              <p className={`text-sm font-bold ${T.stocks}`}>$0</p>
+            </div>
           </div>
         </div>
 
-        {/* Quick actions */}
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
+        {/* Deposit / Withdraw */}
+        <div className="grid grid-cols-2 gap-3">
           <Link
             href="/dashboard/deposit"
-            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-full px-4 py-3 sm:py-2.5 text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-white border border-emerald-500 hover:border-emerald-600 transition-colors"
+            className={`flex flex-col items-center justify-center gap-2.5 rounded-2xl py-9 text-sm font-bold border transition-colors ${T.deposit}`}
           >
-            <ArrowDownToLine size={15} /><span>Deposit</span>
+            <ArrowDownToLine size={26} />
+            <span>Deposit</span>
           </Link>
           <Link
             href="/dashboard/withdraw"
-            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-full px-4 py-3 sm:py-2.5 text-xs sm:text-sm font-semibold bg-brand-primary hover:bg-brand-dim text-white border border-brand-primary hover:border-brand-dim transition-colors"
+            className={`flex flex-col items-center justify-center gap-2.5 rounded-2xl py-9 text-sm font-bold border transition-colors ${T.withdraw}`}
           >
-            <ArrowUpFromLine size={15} /><span>Withdraw</span>
+            <ArrowUpFromLine size={26} />
+            <span>Withdraw</span>
           </Link>
-          <Link
-            href="/dashboard/plans"
-            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 border border-light-border dark:border-dark-border text-xs sm:text-sm font-semibold text-dark-base dark:text-white hover:border-brand-primary hover:text-brand-primary transition-colors"
-          >
-            <TrendingUp size={15} /><span>Plans</span>
-          </Link>
+        </div>
+
+        {/* Plans full-width button */}
+        <Link
+          href="/dashboard/plans"
+          className={`flex items-center justify-center gap-2.5 w-full rounded-2xl py-5 text-sm font-bold text-white transition-opacity ${T.plans}`}
+        >
+          <TrendingUp size={22} />
+          <span>View Investment Plans</span>
+        </Link>
+
+        {/* Quick links row */}
+        <div className="flex gap-3">
           <Link
             href="/dashboard/transactions"
-            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-lg px-4 py-3 sm:py-2.5 border border-light-border dark:border-dark-border text-xs sm:text-sm font-semibold text-dark-base dark:text-white hover:border-brand-primary hover:text-brand-primary transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 border border-light-border dark:border-dark-border text-xs font-semibold text-dark-base dark:text-white hover:border-brand-primary hover:text-brand-primary transition-colors"
           >
-            <History size={15} /><span>History</span>
+            <History size={14} /><span>History</span>
+          </Link>
+          <Link
+            href="/dashboard/profile"
+            className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 border border-light-border dark:border-dark-border text-xs font-semibold text-dark-base dark:text-white hover:border-brand-primary hover:text-brand-primary transition-colors"
+          >
+            <ArrowUpRight size={14} /><span>Profile</span>
           </Link>
         </div>
 
@@ -201,7 +245,7 @@ export default function DashboardPage() {
           <LandingBTCChart />
         </div>
 
-        {/* Chart */}
+        {/* Portfolio chart */}
         {balance > 0 && (
           <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-5 sm:p-6">
             <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
@@ -211,7 +255,13 @@ export default function DashboardPage() {
               </div>
               <div className="flex gap-1">
                 {timeRanges.map(r => (
-                  <button key={r} onClick={() => setActiveRange(r)} className={`px-2 py-1 text-[11px] font-semibold transition-colors ${activeRange === r ? 'bg-brand-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-white'}`}>{r}</button>
+                  <button
+                    key={r}
+                    onClick={() => setActiveRange(r)}
+                    className={`px-2 py-1 text-[11px] font-semibold transition-colors ${activeRange === r ? 'bg-brand-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-white'}`}
+                  >
+                    {r}
+                  </button>
                 ))}
               </div>
             </div>
@@ -244,7 +294,7 @@ export default function DashboardPage() {
             </div>
           ) : (
             <>
-              {/* Desktop */}
+              {/* Desktop table */}
               <div className="hidden sm:block overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -271,7 +321,8 @@ export default function DashboardPage() {
                   </tbody>
                 </table>
               </div>
-              {/* Mobile */}
+
+              {/* Mobile list */}
               <div className="sm:hidden divide-y divide-light-border dark:divide-dark-border">
                 {transactions.map(tx => (
                   <div key={tx.id} className="px-5 py-4 flex items-center justify-between gap-4">

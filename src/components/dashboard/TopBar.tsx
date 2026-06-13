@@ -1,10 +1,11 @@
 'use client'
 
-import { Menu, BadgeCheck } from 'lucide-react'
+import { Menu, BadgeCheck, Palette } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { useTopBarContext } from './TopBarContext'
 import { NotificationBell } from './NotificationBell'
 import { MessagesBell } from './MessagesBell'
+import { useDashTheme } from './DashboardThemeContext'
 
 interface TopBarProps {
   title: string
@@ -14,6 +15,7 @@ interface TopBarProps {
 
 export function TopBar({ title, subtitle, verified }: TopBarProps) {
   const { onMenuOpen } = useTopBarContext()
+  const { theme, toggle } = useDashTheme()
 
   return (
     <header className="h-16 sticky top-0 z-30 bg-light-base dark:bg-dark-base border-b border-light-border dark:border-dark-border px-4 sm:px-6 flex items-center justify-between">
@@ -45,6 +47,13 @@ export function TopBar({ title, subtitle, verified }: TopBarProps) {
       <div className="flex items-center gap-2 sm:gap-3">
         <MessagesBell />
         <NotificationBell />
+        <button
+          onClick={toggle}
+          title={`Switch to ${theme === 'classic' ? 'red' : 'classic'} theme`}
+          className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:text-dark-base dark:hover:text-white hover:bg-light-surface dark:hover:bg-dark-surface transition-colors"
+        >
+          <Palette size={17} />
+        </button>
         <ThemeToggle />
       </div>
     </header>
