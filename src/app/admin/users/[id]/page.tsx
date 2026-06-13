@@ -160,19 +160,7 @@ export default function AdminUserDetailPage() {
     const v = parseFloat(profitInput)
     if (isNaN(v) || v < 0) { setEditingProfit(false); return }
     setSavingProfit(true)
-
-    // Use sum of completed deposits as the true base (most accurate)
-    const trackedDeposits = transactions
-      .filter(t => t.type === 'Deposit' && t.status === 'Completed')
-      .reduce((sum, t) => sum + Number(t.amount), 0)
-
-    // Fall back to (balance − old profit) only when there are no tracked deposits
-    const depositBase = trackedDeposits > 0
-      ? trackedDeposits
-      : Math.max(0, Number(profile?.balance ?? 0) - Number(profile?.profit ?? 0))
-
-    const newBalance = depositBase + v
-    const ok = await patchProfile({ profit: v, balance: newBalance })
+    const ok = await patchProfile({ profit: v })
     if (ok) await load()
     setSavingProfit(false)
     setEditingProfit(false)
@@ -914,9 +902,10 @@ export default function AdminUserDetailPage() {
               <button
                 type="submit"
                 disabled={!msgInput.trim() || msgSending}
-                className="w-9 h-9 flex items-center justify-center bg-brand-primary hover:bg-brand-dim disabled:opacity-50 text-white rounded-lg transition-colors flex-shrink-0"
+                className="h-9 px-4 flex items-center gap-1.5 bg-brand-primary hover:bg-brand-dim disabled:opacity-50 text-white text-sm font-semibold rounded-lg transition-colors flex-shrink-0"
               >
-                {msgSending ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+                {msgSending ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
+                <span>{msgSending ? 'Sending…' : 'Send'}</span>
               </button>
             </form>
           </div>
