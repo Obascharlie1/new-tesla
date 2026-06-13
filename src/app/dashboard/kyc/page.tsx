@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { TopBar } from '@/components/dashboard/TopBar'
 import { Upload, CheckCircle, FileText, ArrowLeft, Shield, Loader2 } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
 type DocType = 'passport' | 'drivers_license' | 'national_id'
 
