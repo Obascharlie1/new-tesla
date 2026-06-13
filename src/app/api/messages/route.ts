@@ -8,6 +8,17 @@ export async function GET() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  const admin = createAdminClient()
+
+  // Mark admin messages as read first (admin client bypasses RLS)
+  await admin
+    .from('messages')
+    .update({ read: true })
+    .eq('user_id', user.id)
+    .eq('sender', 'admin')
+    .eq('read', false)
+
+  // Fetch after update so returned data reflects read status
   const { data, error } = await supabase
     .from('messages')
     .select('*')
@@ -15,15 +26,6 @@ export async function GET() {
     .order('created_at', { ascending: true })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 })
-
-  // Mark all admin messages as read when user opens inbox
-  await supabase
-    .from('messages')
-    .update({ read: true })
-    .eq('user_id', user.id)
-    .eq('sender', 'admin')
-    .eq('read', false)
-
   return NextResponse.json({ data: data ?? [] })
 }
 
