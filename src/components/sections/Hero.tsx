@@ -58,7 +58,7 @@ function arrangeLetters(text: string, extra = '') {
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-28 sm:pt-24 lg:pt-20 pb-16 overflow-hidden">
+    <section className="relative min-h-[60vh] sm:min-h-screen flex items-center pt-28 sm:pt-24 lg:pt-20 pb-16 overflow-hidden">
       {/* Video background */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
