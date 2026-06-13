@@ -48,22 +48,25 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  // Check suspension — suspended users can only access messages and the suspended notice page
-  if (user && pathname.startsWith('/dashboard')) {
-    const isAllowed =
-      pathname === '/dashboard/suspended' ||
-      pathname.startsWith('/dashboard/messages')
+  // Check suspension — only skip the profile fetch for the messages route (always accessible)
+  if (user && pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/messages')) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_suspended')
+      .eq('id', user.id)
+      .single()
 
-    if (!isAllowed) {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('is_suspended')
-        .eq('id', user.id)
-        .single()
+    const suspended = profile?.is_suspended ?? false
+    const onSuspendedPage = pathname === '/dashboard/suspended'
 
-      if (profile?.is_suspended) {
-        return NextResponse.redirect(new URL('/dashboard/suspended', request.url))
-      }
+    if (suspended && !onSuspendedPage) {
+      // Blocked user hitting any normal page → suspension screen
+      return NextResponse.redirect(new URL('/dashboard/suspended', request.url))
+    }
+
+    if (!suspended && onSuspendedPage) {
+      // User was unsuspended — bounce them back to the dashboard
+      return NextResponse.redirect(new URL('/dashboard', request.url))
     }
   }
 
