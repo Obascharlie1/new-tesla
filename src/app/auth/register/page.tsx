@@ -148,7 +148,7 @@ export default function RegisterPage() {
       <div className="lg:hidden flex items-center mb-8">
         <Image
           src="/images/logo.png"
-          alt="Tesla Bridges Capital"
+          alt="Tesla Capital"
           width={324}
           height={20}
           className="h-6 w-auto dark:brightness-0 dark:invert"

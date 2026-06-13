@@ -64,13 +64,13 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* LEFT — copy */}
-          <div>
+          <div className="text-center lg:text-left">
             {/* Label */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
-              className="flex items-center gap-3 mb-8"
+              className="flex items-center justify-center lg:justify-start gap-3 mb-8"
             >
               <div className="w-6 h-px bg-brand-primary" />
               <span className="text-xs font-bold tracking-widest text-brand-primary uppercase">
@@ -83,11 +83,32 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-semibold text-white leading-[1.04] tracking-tight mb-6"
+              className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white leading-[1.02] tracking-tight mb-6"
             >
               Trade with
               <br />
-              <span className="gradient-text">machine</span>
+              <span className="relative inline-block gradient-text">
+                machine
+                {/* hand-drawn scribble underline */}
+                <svg
+                  className="absolute left-0 -bottom-3 sm:-bottom-4 w-full h-[0.42em] overflow-visible pointer-events-none"
+                  viewBox="0 0 300 30"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <motion.path
+                    d="M6,17 C58,6 104,26 152,15 C200,5 248,25 294,15 C242,23 132,22 12,20"
+                    stroke="#E0241C"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.8, ease: 'easeInOut' }}
+                  />
+                </svg>
+              </span>
               <br />
               precision.
             </motion.h1>
@@ -96,7 +117,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base text-slate-400 leading-relaxed mb-8 max-w-md border-l-2 border-dark-border pl-4"
+              className="text-base sm:text-lg text-slate-400 leading-relaxed mb-8 max-w-md mx-auto lg:mx-0 lg:border-l-2 lg:border-dark-border lg:pl-4"
             >
               Institutional-grade AI signals, sub-50ms execution, and automated risk management. The same tools hedge funds use — built for individual traders.
             </motion.p>
@@ -105,7 +126,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
-              className="flex flex-col xs:flex-row sm:flex-row gap-3 mb-10 items-start"
+              className="flex flex-col xs:flex-row sm:flex-row gap-3 mb-10 items-center justify-center lg:items-start lg:justify-start"
             >
               <Link
                 href="/auth/register"

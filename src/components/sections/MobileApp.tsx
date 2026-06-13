@@ -50,7 +50,7 @@ export function MobileApp() {
               transition={{ delay: 0.1 }}
               className="text-slate-400 leading-relaxed mb-8"
             >
-              The Tesla Bridges Capital mobile app gives you full platform power on iOS and Android. Trade, monitor, and manage from anywhere in the world.
+              The Tesla Capital mobile app gives you full platform power on iOS and Android. Trade, monitor, and manage from anywhere in the world.
             </motion.p>
 
             {/* Feature list */}

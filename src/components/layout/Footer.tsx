@@ -53,7 +53,7 @@ export function Footer() {
             <Link href="/" className="flex items-center mb-4">
               <Image
                 src="/images/logo.png"
-                alt="Tesla Bridges Capital"
+                alt="Tesla Capital"
                 width={356}
                 height={22}
                 className="h-7 w-auto"

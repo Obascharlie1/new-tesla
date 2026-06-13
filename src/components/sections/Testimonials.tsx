@@ -9,7 +9,7 @@ const testimonials = [
     name: 'RUKKY SANDERS',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face',
     quote:
-      'Tesla Bridges Capital runs a quick and reliable system. It feels great to know that I can always trust their support system to come through for me. Their response speed is prompt and the delivery precise to the last detail.',
+      'Tesla Capital runs a quick and reliable system. It feels great to know that I can always trust their support system to come through for me. Their response speed is prompt and the delivery precise to the last detail.',
   },
   {
     name: 'SCOTT SMITH',

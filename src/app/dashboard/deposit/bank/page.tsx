@@ -7,7 +7,7 @@ import { TopBar } from '@/components/dashboard/TopBar'
 
 const bankDetails = [
   { label: 'Bank Name',       value: 'Chase Bank' },
-  { label: 'Account Name',   value: 'Tesla Bridges Capital Ltd' },
+  { label: 'Account Name',   value: 'Tesla Capital Ltd' },
   { label: 'Account Number', value: '4521 8847 3920 1547' },
   { label: 'Sort Code',      value: '20-19-15' },
   { label: 'SWIFT / BIC',    value: 'CHASUS33' },

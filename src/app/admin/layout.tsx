@@ -20,7 +20,7 @@ function TopBar() {
           <Shield size={14} className="text-white" />
         </div>
         <Link href="/admin" className="text-sm font-bold text-dark-base dark:text-white hover:text-brand-primary transition-colors">
-          Tesla Bridges Capital
+          Tesla Capital
         </Link>
         <span className="text-[10px] font-bold text-brand-primary uppercase tracking-widest px-1.5 py-0.5 border border-brand-primary/30">
           Admin

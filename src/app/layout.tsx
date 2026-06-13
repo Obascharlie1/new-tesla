@@ -17,32 +17,32 @@ const OG_IMAGE = `${SITE_URL}/images/og-cover.jpg`
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Tesla Bridges Capital — Quantum Market | Trade Forex, Stocks & Crypto",
+  title: "Tesla Capital — Invest in Forex, Stocks & Crypto",
   description:
-    "Putting Our Clients First For Over A Decade. Tesla Bridges Capital is a trusted trading platform for Forex, Stock Market & Crypto — generate returns on rising and falling markets worldwide.",
+    "Putting Our Clients First For Over A Decade. Tesla Capital is a trusted trading platform for Forex, Stock Market & Crypto — generate returns on rising and falling markets worldwide.",
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "Tesla Bridges Capital — Quantum Market | Trade Forex, Stocks & Crypto",
+    title: "Tesla Capital — Invest in Forex, Stocks & Crypto",
     description:
-      "Putting Our Clients First For Over A Decade. Tesla Bridges Capital is a trusted trading platform for Forex, Stock Market & Crypto — generate returns on rising and falling markets worldwide.",
-    siteName: "Tesla Bridges Capital",
+      "Putting Our Clients First For Over A Decade. Tesla Capital is a trusted trading platform for Forex, Stock Market & Crypto — generate returns on rising and falling markets worldwide.",
+    siteName: "Tesla Capital",
     images: [
       {
         url: OG_IMAGE,
         secureUrl: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Tesla Bridges Capital - Quantum Market",
+        alt: "Tesla Capital — Invest, Trade & Grow",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tesla Bridges Capital — Quantum Market | Trade Forex, Stocks & Crypto",
+    title: "Tesla Capital — Invest in Forex, Stocks & Crypto",
     description:
-      "Putting Our Clients First For Over A Decade. Tesla Bridges Capital is a trusted trading platform for Forex, Stock Market & Crypto — generate returns on rising and falling markets worldwide.",
+      "Putting Our Clients First For Over A Decade. Tesla Capital is a trusted trading platform for Forex, Stock Market & Crypto — generate returns on rising and falling markets worldwide.",
     images: [OG_IMAGE],
   },
 };

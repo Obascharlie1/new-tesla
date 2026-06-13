@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
         <div className="w-8 h-8 bg-brand-primary flex items-center justify-center">
           <span className="text-white font-bold text-sm">Q</span>
         </div>
-        <span className="font-bold text-dark-base dark:text-white text-base tracking-tight">Tesla Bridges Capital</span>
+        <span className="font-bold text-dark-base dark:text-white text-base tracking-tight">Tesla Capital</span>
       </div>
 
       {submitted ? (

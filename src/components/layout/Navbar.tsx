@@ -40,7 +40,7 @@ export function Navbar() {
             <Link href="/" className="flex items-center">
               <Image
                 src="/images/logo.png"
-                alt="Tesla Bridges Capital"
+                alt="Tesla Capital"
                 width={356}
                 height={22}
                 className="h-5 w-auto sm:h-7"
