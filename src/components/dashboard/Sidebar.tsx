@@ -176,7 +176,7 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
       >
         {/* Logo + close */}
         <div className="flex items-center justify-between px-5 py-5 border-b border-light-border dark:border-dark-border">
-          <Image src="/images/logo.png" alt="Tesla Capital" width={96} height={16} className="h-4 w-auto" />
+          <Image src="/images/logo.png" alt="Tesla Capital" width={60} height={10} className="h-2.5 w-auto" />
           <button
             onClick={onClose}
             className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-dark-base dark:hover:text-white transition-colors"

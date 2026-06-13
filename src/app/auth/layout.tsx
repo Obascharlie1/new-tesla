@@ -28,7 +28,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
               alt="Tesla Capital"
               width={356}
               height={22}
-              className="h-7 w-auto brightness-0 invert"
+              className="h-4 w-auto brightness-0 invert"
             />
           </Link>
 
