@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Copy, Check, CheckCircle, Loader2, Upload, FileText } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/TopBar'
 
-const BTC_ADDRESS = 'bc1qazx4cmj3m8n2952p28aqk6ntw6hr7d3sfm6jps'
 const BTC_RATE = 67420
 
 // 10×10 QR pattern (finder patterns + data)
@@ -23,6 +22,7 @@ const QR_GRID: boolean[][] = [
 ]
 
 export default function BitcoinDepositPage() {
+  const [btcAddress, setBtcAddress] = useState('bc1qazx4cmj3m8n2952p28aqk6ntw6hr7d3sfm6jps')
   const [copied,    setCopied]    = useState(false)
   const [amountUsd, setAmountUsd] = useState('')
   const [loading,   setLoading]   = useState(false)
@@ -31,10 +31,17 @@ export default function BitcoinDepositPage() {
   const [receiptFile, setReceiptFile] = useState<File | null>(null)
   const receiptRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    fetch('/api/payment-config')
+      .then(r => r.json())
+      .then(d => { if (d.btc_address) setBtcAddress(d.btc_address) })
+      .catch(() => {})
+  }, [])
+
   const btcAmount = amountUsd ? (parseFloat(amountUsd) / BTC_RATE).toFixed(8) : null
 
   function copyAddress() {
-    navigator.clipboard.writeText(BTC_ADDRESS).catch(() => {})
+    navigator.clipboard.writeText(btcAddress).catch(() => {})
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -127,7 +134,7 @@ export default function BitcoinDepositPage() {
                   </p>
                   <div className="flex items-center gap-3 p-3 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border">
                     <code className="flex-1 font-mono text-xs text-dark-base dark:text-white break-all leading-relaxed">
-                      {BTC_ADDRESS}
+                      {btcAddress}
                     </code>
                     <button
                       onClick={copyAddress}

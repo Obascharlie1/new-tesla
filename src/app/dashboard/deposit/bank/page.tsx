@@ -1,11 +1,15 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Copy, Check, CheckCircle, Loader2, Upload, FileText } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/TopBar'
 
-const bankDetails = [
+const REFERENCE = 'QV-2025-847392'
+
+interface BankDetails { label: string; value: string }
+
+const DEFAULT_BANK: BankDetails[] = [
   { label: 'Bank Name',       value: 'Chase Bank' },
   { label: 'Account Name',   value: 'Tesla Capital Ltd' },
   { label: 'Account Number', value: '4521 8847 3920 1547' },
@@ -13,9 +17,8 @@ const bankDetails = [
   { label: 'SWIFT / BIC',    value: 'CHASUS33' },
 ]
 
-const REFERENCE = 'QV-2025-847392'
-
 export default function BankDepositPage() {
+  const [bankDetails, setBankDetails] = useState<BankDetails[]>(DEFAULT_BANK)
   const [copied,      setCopied]      = useState(false)
   const [amount,      setAmount]      = useState('')
   const [loading,     setLoading]     = useState(false)
@@ -23,6 +26,21 @@ export default function BankDepositPage() {
   const [error,       setError]       = useState('')
   const [receiptFile, setReceiptFile] = useState<File | null>(null)
   const receiptRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    fetch('/api/payment-config')
+      .then(r => r.json())
+      .then(d => {
+        setBankDetails([
+          { label: 'Bank Name',       value: d.bank_name           || DEFAULT_BANK[0].value },
+          { label: 'Account Name',   value: d.bank_account_name   || DEFAULT_BANK[1].value },
+          { label: 'Account Number', value: d.bank_account_number || DEFAULT_BANK[2].value },
+          { label: 'Sort Code',      value: d.bank_sort_code      || DEFAULT_BANK[3].value },
+          { label: 'SWIFT / BIC',    value: d.bank_swift          || DEFAULT_BANK[4].value },
+        ])
+      })
+      .catch(() => {})
+  }, [])
 
   function copyReference() {
     navigator.clipboard.writeText(REFERENCE).catch(() => {})

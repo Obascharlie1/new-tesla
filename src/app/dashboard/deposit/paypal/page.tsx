@@ -1,20 +1,14 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Copy, Check, CheckCircle, Loader2, Upload, FileText } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/TopBar'
 
-const PAYPAL_EMAIL = 'payments@quantumvest.io'
-const REFERENCE    = 'QV847392'
-
-const steps = [
-  'Log in to your PayPal account and go to Send & Request.',
-  `Enter the PayPal email: ${PAYPAL_EMAIL} and the exact amount you wish to deposit.`,
-  `In the note/memo field, include your reference: ${REFERENCE} — this is required to match your payment.`,
-]
+const REFERENCE = 'QV847392'
 
 export default function PaypalDepositPage() {
+  const [paypalEmail, setPaypalEmail] = useState('payments@teslaCapital.io')
   const [emailCopied, setEmailCopied] = useState(false)
   const [refCopied,   setRefCopied]   = useState(false)
   const [amount,      setAmount]      = useState('')
@@ -24,8 +18,15 @@ export default function PaypalDepositPage() {
   const [receiptFile, setReceiptFile] = useState<File | null>(null)
   const receiptRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    fetch('/api/payment-config')
+      .then(r => r.json())
+      .then(d => { if (d.paypal_email) setPaypalEmail(d.paypal_email) })
+      .catch(() => {})
+  }, [])
+
   function copyEmail() {
-    navigator.clipboard.writeText(PAYPAL_EMAIL).catch(() => {})
+    navigator.clipboard.writeText(paypalEmail).catch(() => {})
     setEmailCopied(true)
     setTimeout(() => setEmailCopied(false), 2000)
   }
@@ -108,7 +109,7 @@ export default function PaypalDepositPage() {
                 PayPal Email
               </p>
               <div className="flex items-center gap-3 p-3 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border">
-                <code className="flex-1 font-mono text-sm text-dark-base dark:text-white">{PAYPAL_EMAIL}</code>
+                <code className="flex-1 font-mono text-sm text-dark-base dark:text-white">{paypalEmail}</code>
                 <button
                   onClick={copyEmail}
                   className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 border border-light-border dark:border-dark-border text-xs font-semibold text-slate-500 dark:text-slate-400 hover:border-brand-primary hover:text-brand-primary transition-colors"
@@ -122,7 +123,11 @@ export default function PaypalDepositPage() {
             <div className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-6">
               <p className="block text-xs font-semibold text-dark-base dark:text-white uppercase tracking-wider mb-4">How to Deposit</p>
               <ol className="space-y-3">
-                {steps.map((step, i) => (
+                {[
+                  'Log in to your PayPal account and go to Send & Request.',
+                  `Enter the PayPal email: ${paypalEmail} and the exact amount you wish to deposit.`,
+                  `In the note/memo field, include your reference: ${REFERENCE} — this is required to match your payment.`,
+                ].map((step, i) => (
                   <li key={i} className="flex gap-3">
                     <span className="flex-shrink-0 w-6 h-6 bg-brand-primary text-white text-xs font-bold flex items-center justify-center">
                       {i + 1}
