@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
+const geist = Geist({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins",
+  variable: "--font-geist",
   display: "swap",
 });
 import { ThemeProvider } from "@/providers/ThemeProvider";
@@ -53,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={poppins.variable}>
+    <html lang="en" suppressHydrationWarning className={geist.variable}>
       <body className="antialiased">
         <ThemeProvider>{children}</ThemeProvider>
         <SessionGuard />
