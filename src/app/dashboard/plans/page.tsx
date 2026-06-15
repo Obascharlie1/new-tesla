@@ -77,7 +77,7 @@ export default function PlansPage() {
       <div>
         <TopBar title="Investment Plans" subtitle="Manage your investment tier" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-brand-primary" />
+          <Loader2 size={24} className="animate-spin text-white" />
         </div>
       </div>
     )
@@ -101,10 +101,10 @@ export default function PlansPage() {
               <div
                 key={plan.name}
                 className={cn(
-                  'relative bg-light-base dark:bg-dark-card border rounded-xl p-6 transition-all duration-300',
+                  'relative bg-white/5 border rounded-xl p-6 transition-all duration-300',
                   isCurrent
-                    ? 'border-brand-primary shadow-lg shadow-brand-primary/10'
-                    : 'border-light-border dark:border-dark-border'
+                    ? 'border-white shadow-lg shadow-white/5'
+                    : 'border-white/[0.08]'
                 )}
               >
                 {isCurrent && (
@@ -117,7 +117,7 @@ export default function PlansPage() {
 
                 {plan.highlighted && !isCurrent && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-brand-primary text-white text-[10px] font-bold uppercase tracking-wider">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-wider">
                       <Sparkles size={10} /> Most Popular
                     </span>
                   </div>
@@ -126,7 +126,7 @@ export default function PlansPage() {
                 <div className="mb-5">
                   <h3 className={cn(
                     'text-sm font-bold uppercase tracking-widest mb-1',
-                    isCurrent ? 'text-brand-primary' : 'text-slate-500 dark:text-slate-400'
+                    isCurrent ? 'text-white' : 'text-slate-400'
                   )}>
                     {plan.name}
                   </h3>
@@ -144,18 +144,18 @@ export default function PlansPage() {
                   <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{plan.description}</p>
                 </div>
 
-                <div className="mb-4 px-3 py-2 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border">
-                  <p className="text-[11px] font-semibold text-brand-primary">{extras.roi}</p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                    Min. investment: <span className="font-semibold text-dark-base dark:text-white">{extras.minInvestment}</span>
+                <div className="mb-4 px-3 py-2 bg-white/[0.04] border border-white/[0.08] rounded-lg">
+                  <p className="text-[11px] font-semibold text-emerald-400">{extras.roi}</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Min. investment: <span className="font-semibold text-white">{extras.minInvestment}</span>
                   </p>
                 </div>
 
                 <div className={cn(
                   'h-px mb-4',
                   isCurrent
-                    ? 'bg-gradient-to-r from-brand-primary/0 via-brand-primary/40 to-brand-primary/0'
-                    : 'bg-light-border dark:bg-dark-border'
+                    ? 'bg-gradient-to-r from-white/0 via-white/30 to-white/0'
+                    : 'bg-white/[0.08]'
                 )} />
 
                 <ul className="space-y-2 mb-5">
@@ -163,11 +163,11 @@ export default function PlansPage() {
                     <li key={feature} className="flex items-start gap-2 text-sm">
                       <span className={cn(
                         'mt-0.5 w-4 h-4 flex items-center justify-center flex-shrink-0',
-                        isCurrent ? 'bg-brand-primary text-white' : 'bg-brand-primary/15 text-brand-primary'
+                        isCurrent ? 'bg-white text-black' : 'bg-white/10 text-white'
                       )}>
                         <Check size={10} strokeWidth={3} />
                       </span>
-                      <span className="text-dark-base dark:text-white leading-snug text-xs">{feature}</span>
+                      <span className="text-white leading-snug text-xs">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -179,7 +179,7 @@ export default function PlansPage() {
                 ) : (
                   <button
                     onClick={() => openModal(plan.name)}
-                    className="w-full border border-light-border dark:border-dark-border text-dark-base dark:text-white hover:border-brand-primary hover:text-brand-primary font-bold py-2.5 text-sm transition-colors flex items-center justify-center gap-2"
+                    className="w-full border border-white/10 text-white hover:border-white/30 hover:bg-white/5 font-bold py-2.5 text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
                   >
                     {isUpgrade ? 'Upgrade' : isDowngrade ? 'Downgrade' : 'Switch'}
                     <ArrowRight size={14} />
@@ -199,31 +199,31 @@ export default function PlansPage() {
       {showModal && selectedPlanData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-dark-base/60 backdrop-blur-sm" onClick={closeModal} />
-          <div className="relative bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl w-full max-w-sm p-6 shadow-2xl">
-            <button onClick={closeModal} className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center text-slate-400 hover:text-dark-base dark:hover:text-white transition-colors">
+          <div className="relative bg-[#111] border border-white/[0.08] rounded-xl w-full max-w-sm p-6 shadow-2xl">
+            <button onClick={closeModal} className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
               <X size={16} />
             </button>
 
-            <h3 className="text-base font-bold text-dark-base dark:text-white mb-1">Switch to {selectedPlanData.name}?</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-              Moving from <span className="font-semibold text-dark-base dark:text-white">{currentPlan}</span> to{' '}
-              <span className="font-semibold text-dark-base dark:text-white">{selectedPlanData.name}</span>.
+            <h3 className="text-base font-bold text-white mb-1">Switch to {selectedPlanData.name}?</h3>
+            <p className="text-xs text-slate-400 mb-4">
+              Moving from <span className="font-semibold text-white">{currentPlan}</span> to{' '}
+              <span className="font-semibold text-white">{selectedPlanData.name}</span>.
             </p>
 
-            <div className="p-4 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border mb-5">
+            <div className="p-4 bg-white/[0.04] border border-white/[0.08] rounded-lg mb-5">
               <div className="flex items-baseline gap-1 mb-1">
                 {selectedPlanData.price === 0 ? (
-                  <span className="text-xl font-bold text-dark-base dark:text-white">Free</span>
+                  <span className="text-xl font-bold text-white">Free</span>
                 ) : (
                   <>
-                    <span className="text-lg font-bold text-dark-base dark:text-white">${selectedPlanData.price}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400">/month</span>
+                    <span className="text-lg font-bold text-white">${selectedPlanData.price}</span>
+                    <span className="text-xs text-slate-400">/month</span>
                   </>
                 )}
               </div>
-              <p className="text-xs text-brand-primary font-semibold">{planExtras[selectedPlanData.name].roi}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Min. investment: <span className="font-semibold text-dark-base dark:text-white">{planExtras[selectedPlanData.name].minInvestment}</span>
+              <p className="text-xs text-emerald-400 font-semibold">{planExtras[selectedPlanData.name].roi}</p>
+              <p className="text-xs text-slate-400 mt-1">
+                Min. investment: <span className="font-semibold text-white">{planExtras[selectedPlanData.name].minInvestment}</span>
               </p>
             </div>
 
@@ -235,14 +235,14 @@ export default function PlansPage() {
               <button
                 onClick={closeModal}
                 disabled={saving}
-                className="flex-1 border border-light-border dark:border-dark-border text-dark-base dark:text-white font-semibold py-2.5 text-sm hover:border-slate-400 dark:hover:border-slate-500 transition-colors disabled:opacity-50"
+                className="flex-1 border border-white/10 text-white font-semibold py-2.5 text-sm rounded-lg hover:border-white/30 transition-colors disabled:opacity-50"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmSwitch}
                 disabled={saving}
-                className="flex-1 bg-brand-primary hover:bg-brand-dim disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-2.5 text-sm transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-white hover:bg-slate-100 disabled:opacity-60 disabled:cursor-not-allowed text-black font-bold py-2.5 text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
               >
                 {saving ? <><Loader2 size={14} className="animate-spin" /> Saving…</> : 'Confirm Switch'}
               </button>

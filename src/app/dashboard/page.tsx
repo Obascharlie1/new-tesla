@@ -168,21 +168,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Quick action circles */}
-        <div className="grid grid-cols-6 gap-2">
-          {quickActions.map(a => (
-            <Link key={a.href} href={a.href} className="flex flex-col items-center gap-2 group">
-              <div className="w-12 h-12 rounded-full bg-white/8 border border-white/8 flex items-center justify-center text-slate-300 group-hover:bg-white/15 group-hover:text-white transition-all">
-                {a.icon}
-              </div>
-              <span className="text-[10px] text-slate-400 group-hover:text-white transition-colors font-medium tracking-wide">
-                {a.label}
-              </span>
-            </Link>
-          ))}
-        </div>
-
-        {/* Stats row */}
+{/* Stats row */}
         <div className="grid grid-cols-3 gap-3">
           {[
             { label: 'Deposited',   value: `$${totalDeposited.toLocaleString()}` },

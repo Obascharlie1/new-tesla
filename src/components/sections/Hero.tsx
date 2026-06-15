@@ -84,8 +84,8 @@ export function Hero() {
         }}
       />
 
-      {/* Red vertical accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-primary hidden lg:block" />
+      {/* Vertical accent bar */}
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/20 hidden lg:block" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -99,7 +99,7 @@ export function Hero() {
               transition={{ duration: 0.4 }}
               className="flex items-center justify-center lg:justify-start gap-3 mb-8"
             >
-              <div className="w-6 h-px bg-brand-primary" />
+              <div className="w-6 h-px bg-white/40" />
               <span className="text-xs font-bold tracking-widest text-slate-400 uppercase">
                 Engineered for Speed
               </span>
@@ -114,7 +114,7 @@ export function Hero() {
             >
               {arrangeLetters('Trade')}
               <br />
-              {arrangeLetters('faster.', 'gradient-text')}
+              {arrangeLetters('faster.', 'text-white')}
               <br />
               {arrangeLetters('Win more.')}
             </motion.h1>
@@ -136,7 +136,7 @@ export function Hero() {
             >
               <Link
                 href="/auth/register"
-                className="inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-full px-7 py-3.5 text-base bg-brand-primary text-white hover:bg-brand-dim border border-brand-primary transition-all duration-150"
+                className="inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-full px-7 py-3.5 text-base bg-white text-black hover:bg-slate-100 border border-white transition-all duration-150"
               >
                 Start Trading
                 <ArrowRight size={16} />
@@ -181,7 +181,7 @@ export function Hero() {
               {/* Top bar */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-dark-border">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-brand-primary" />
+                  <div className="w-2 h-2 bg-white/60" />
                   <span className="text-xs font-bold text-white uppercase tracking-widest">Portfolio</span>
                 </div>
                 <span className="text-xs text-slate-400 font-mono">LIVE</span>
@@ -191,7 +191,7 @@ export function Hero() {
               <div className="px-4 py-4 border-b border-dark-border">
                 <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Value</p>
                 <p className="text-3xl font-black text-white font-mono tracking-tight">$847,392.00</p>
-                <span className="text-sm font-bold text-brand-primary flex items-center gap-1 mt-1">
+                <span className="text-sm font-bold text-emerald-400 flex items-center gap-1 mt-1">
                   <TrendingUp size={14} />
                   +$47,218 · +24.7% MTD
                 </span>

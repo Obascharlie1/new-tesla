@@ -61,12 +61,12 @@ export function Features() {
                 className="p-6 group cursor-default"
               >
                 {/* Icon */}
-                <div className="w-11 h-11 bg-brand-primary/10 dark:bg-brand-primary/15 flex items-center justify-center mb-4 group-hover:bg-brand-primary/20 transition-colors duration-300">
+                <div className="w-11 h-11 bg-white/[0.06] flex items-center justify-center mb-4 group-hover:bg-white/10 transition-colors duration-300">
                   <Icon size={20} className="text-slate-500 dark:text-slate-400" />
                 </div>
 
                 {/* Tag */}
-                <span className="inline-block text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-3 bg-brand-primary/10 px-2 py-0.5">
+                <span className="inline-block text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-3 bg-white/[0.06] px-2 py-0.5">
                   {feature.tag}
                 </span>
 
@@ -78,7 +78,7 @@ export function Features() {
                 </p>
 
                 {/* Bottom accent line */}
-                <div className="mt-5 h-px bg-gradient-to-r from-brand-primary/0 via-brand-primary/40 to-brand-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="mt-5 h-px bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </GlassCard>
             )
           })}
