@@ -63,8 +63,8 @@ export function Security() {
             const Icon = iconMap[feature.icon]
             return (
               <GlassCard key={feature.title} delay={i * 0.07} className="p-5 flex items-start gap-4">
-                <div className="w-10 h-10 rounded bg-white/[0.06] flex items-center justify-center flex-shrink-0">
-                  <Icon size={18} className="text-slate-500 dark:text-slate-400" />
+                <div className="w-10 h-10 rounded bg-brand-primary/[0.08] flex items-center justify-center flex-shrink-0">
+                  <Icon size={18} className="text-brand-primary/70" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-dark-base dark:text-light-base mb-1">{feature.title}</h3>

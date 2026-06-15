@@ -57,7 +57,7 @@ export function HowItWorks() {
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.3 }}
               style={{ transformOrigin: 'left' }}
-              className="h-full bg-gradient-to-r from-white/20 via-white/60 to-white/20"
+              className="h-full bg-gradient-to-r from-brand-primary/30 via-brand-primary to-brand-primary/30"
             />
           </div>
 
@@ -74,12 +74,12 @@ export function HowItWorks() {
               >
                 {/* Step number + icon */}
                 <div className="relative inline-flex flex-col items-center mb-6">
-                  <div className="w-18 h-18 border border-white/15 flex items-center justify-center relative">
-                    <div className="w-14 h-14 bg-white/[0.06] flex items-center justify-center">
-                      <Icon size={24} className="text-slate-500 dark:text-slate-400" />
+                  <div className="w-18 h-18 border border-brand-primary/25 flex items-center justify-center relative">
+                    <div className="w-14 h-14 bg-brand-primary/[0.08] flex items-center justify-center">
+                      <Icon size={24} className="text-brand-primary/70" />
                     </div>
-                    <div className="absolute -top-2.5 -right-2.5 w-5 h-5 bg-white flex items-center justify-center">
-                      <span className="text-[10px] font-bold text-black">{i + 1}</span>
+                    <div className="absolute -top-2.5 -right-2.5 w-5 h-5 bg-brand-primary flex items-center justify-center">
+                      <span className="text-[10px] font-bold text-white">{i + 1}</span>
                     </div>
                   </div>
                 </div>

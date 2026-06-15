@@ -61,8 +61,8 @@ export function Features() {
                 className="p-6 group cursor-default"
               >
                 {/* Icon */}
-                <div className="w-11 h-11 bg-white/[0.06] flex items-center justify-center mb-4 group-hover:bg-white/10 transition-colors duration-300">
-                  <Icon size={20} className="text-slate-500 dark:text-slate-400" />
+                <div className="w-11 h-11 bg-brand-primary/[0.08] flex items-center justify-center mb-4 group-hover:bg-brand-primary/15 transition-colors duration-300">
+                  <Icon size={20} className="text-brand-primary/70" />
                 </div>
 
                 {/* Tag */}

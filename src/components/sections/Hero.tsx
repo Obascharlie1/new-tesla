@@ -85,7 +85,7 @@ export function Hero() {
       />
 
       {/* Vertical accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/20 hidden lg:block" />
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-primary/50 hidden lg:block" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -99,7 +99,7 @@ export function Hero() {
               transition={{ duration: 0.4 }}
               className="flex items-center justify-center lg:justify-start gap-3 mb-8"
             >
-              <div className="w-6 h-px bg-white/40" />
+              <div className="w-6 h-px bg-brand-primary/60" />
               <span className="text-xs font-bold tracking-widest text-slate-400 uppercase">
                 Engineered for Speed
               </span>

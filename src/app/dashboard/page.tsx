@@ -150,7 +150,20 @@ export default function DashboardPage() {
   ]
 
   return (
-    <div>
+    <div className="relative min-h-screen">
+      {/* Page-level background: red radial glow at top + faint grid */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-[#070707]" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-brand-primary/[0.07] blur-[120px]" />
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+      </div>
+
       <TopBar title="Dashboard" subtitle={`Hi, ${firstName}`} verified={profile?.kyc_status === 'Verified'} />
 
       <div className="p-4 sm:p-6 max-w-2xl mx-auto space-y-6">
@@ -173,51 +186,68 @@ export default function DashboardPage() {
         )}
 
         {/* Hero balance */}
-        <div className="text-center py-6">
-          <p className="text-sm text-slate-400 mb-2 tracking-wide">Your balance</p>
-          <p className="text-5xl sm:text-6xl font-bold text-white tracking-tight mb-1">
-            ${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </p>
-          {profit > 0 && (
-            <p className="text-sm text-emerald-400 mt-2 font-medium">+${profit.toLocaleString()} profit</p>
-          )}
+        <div className="relative text-center py-8 overflow-hidden">
+          {/* Radial red glow behind the balance number */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-80 h-44 bg-brand-primary/10 blur-[70px] rounded-full" />
+          </div>
+          <div className="relative">
+            <p className="text-xs text-slate-500 mb-3 tracking-widest uppercase">Your balance</p>
+            <p className="text-5xl sm:text-6xl font-bold text-white tracking-tight mb-1">
+              ${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+            {profit > 0 && (
+              <p className="text-sm text-emerald-400 mt-2 font-medium">+${profit.toLocaleString()} profit</p>
+            )}
 
-          {/* Primary action buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-            <Link
-              href="/dashboard/deposit"
-              className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-slate-100 transition-colors"
-            >
-              <ArrowDownToLine size={15} /> Deposit
-            </Link>
-            <Link
-              href="/dashboard/withdraw"
-              className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold hover:bg-white/15 border border-white/10 transition-colors"
-            >
-              <ArrowUpFromLine size={15} /> Withdraw
-            </Link>
-            <Link
-              href="/dashboard/shares"
-              className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold hover:bg-white/15 border border-white/10 transition-colors"
-            >
-              <BarChart2 size={15} /> Buy Shares
-            </Link>
+            {/* Deposit + Withdraw only */}
+            <div className="flex items-center justify-center gap-3 mt-6">
+              <Link
+                href="/dashboard/deposit"
+                className="flex items-center gap-2 px-6 py-3 rounded-full bg-brand-primary text-white text-sm font-bold hover:bg-brand-dim transition-colors"
+              >
+                <ArrowDownToLine size={15} /> Deposit
+              </Link>
+              <Link
+                href="/dashboard/withdraw"
+                className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold hover:bg-white/15 border border-white/10 transition-colors"
+              >
+                <ArrowUpFromLine size={15} /> Withdraw
+              </Link>
+            </div>
           </div>
         </div>
 
-{/* Stats row */}
+        {/* Stats row */}
         <div className="grid grid-cols-3 gap-3">
           {[
             { label: 'Deposited',   value: `$${totalDeposited.toLocaleString()}` },
             { label: 'Profit',      value: `+$${profit.toLocaleString()}` },
             { label: 'Active Plan', value: profile?.plan ?? 'None' },
           ].map(s => (
-            <div key={s.label} className="bg-white/5 border border-white/8 rounded-2xl p-4 text-center">
+            <div key={s.label} className="bg-white/5 border border-white/[0.08] rounded-2xl p-4 text-center hover:border-brand-primary/25 transition-colors">
               <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1.5">{s.label}</p>
               <p className="text-sm font-bold text-white truncate">{s.value}</p>
             </div>
           ))}
         </div>
+
+        {/* Buy Shares banner */}
+        <Link
+          href="/dashboard/shares"
+          className="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-brand-primary/15 to-brand-primary/5 border border-brand-primary/20 hover:border-brand-primary/40 transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-brand-primary/20 flex items-center justify-center flex-shrink-0">
+              <BarChart2 size={16} className="text-brand-primary" />
+            </div>
+            <div className="text-left">
+              <p className="text-sm font-bold text-white">Buy Shares</p>
+              <p className="text-xs text-slate-400">Tesla, NVIDIA, Apple &amp; more</p>
+            </div>
+          </div>
+          <ArrowUpRight size={15} className="text-slate-500 group-hover:text-brand-primary transition-colors flex-shrink-0" />
+        </Link>
 
         {/* My Shares */}
         {holdings.length > 0 && (
@@ -293,12 +323,12 @@ export default function DashboardPage() {
             <svg viewBox="0 0 600 160" className="w-full" style={{ height: 140 }} preserveAspectRatio="none">
               <defs>
                 <linearGradient id="dashGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.10" />
-                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#E0241C" stopOpacity="0.18" />
+                  <stop offset="100%" stopColor="#E0241C" stopOpacity="0" />
                 </linearGradient>
               </defs>
               <path d={area} fill="url(#dashGrad)" />
-              <path d={line} fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" strokeOpacity="0.7" />
+              <path d={line} fill="none" stroke="#E0241C" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
             </svg>
           </div>
         )}

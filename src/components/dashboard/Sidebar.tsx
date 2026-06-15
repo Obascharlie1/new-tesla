@@ -108,7 +108,7 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors duration-150',
                 active
-                  ? 'bg-white/10 text-white border-l-2 border-white pl-[10px]'
+                  ? 'bg-brand-primary/10 text-brand-primary border-l-2 border-brand-primary pl-[10px]'
                   : 'text-[#666] hover:text-white hover:bg-white/5 border-l-2 border-transparent'
               )}
             >
