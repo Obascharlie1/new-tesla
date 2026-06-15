@@ -131,3 +131,9 @@ button {
 
 .animate-ticker { animation: ticker 30s linear infinite; }
 .animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes confetti-fall {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+.confetti-piece { animation: confetti-fall ease-in forwards; }

@@ -13,6 +13,7 @@ import {
   LogOut,
   X,
   MessageCircle,
+  BarChart2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState, useCallback } from 'react'
@@ -23,6 +24,7 @@ const navItems = [
   { href: '/dashboard/deposit',      label: 'Deposit',      icon: ArrowDownToLine },
   { href: '/dashboard/withdraw',     label: 'Withdraw',     icon: ArrowUpFromLine },
   { href: '/dashboard/plans',        label: 'My Plans',     icon: TrendingUp },
+  { href: '/dashboard/shares',       label: 'Buy Shares',   icon: BarChart2 },
   { href: '/dashboard/transactions', label: 'Transactions', icon: History },
   { href: '/dashboard/messages',     label: 'Messages',     icon: MessageCircle },
   { href: '/dashboard/profile',      label: 'Profile',      icon: User },

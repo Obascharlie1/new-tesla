@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import {
   ArrowDownToLine, ArrowUpFromLine, TrendingUp, ArrowUpRight,
-  History, Loader2, MessageSquare, User, MoreHorizontal, ShieldAlert, X,
+  History, Loader2, MessageSquare, User, MoreHorizontal, ShieldAlert, X, BarChart2,
 } from 'lucide-react'
 import { TopBar } from '@/components/dashboard/TopBar'
 import { LandingBTCChart } from '@/components/sections/LandingBTCChart'
@@ -46,12 +46,42 @@ interface QuickAction {
   label: string
 }
 
+interface Holding {
+  symbol: string
+  name: string
+  total_quantity: number
+  total_invested: number
+}
+
+const CATALOG_MAP: Record<string, { price: number }> = {
+  TSLA: { price: 248.50 }, SPCX: { price: 412.00 }, META: { price: 578.30 },
+  AAPL: { price: 189.40 }, NVDA: { price: 895.60 }, AMZN: { price: 195.80 },
+  MSFT: { price: 420.50 }, GOOGL: { price: 175.20 },
+}
+
+const COLORS: Record<string, string> = {
+  TSLA: '#CC0000', SPCX: '#1A1A2E', META: '#1877F2',
+  AAPL: '#555555', NVDA: '#76B900', AMZN: '#FF9900',
+  MSFT: '#00A4EF', GOOGL: '#4285F4',
+}
+
+function groupHoldings(rows: Array<{ symbol: string; name: string; quantity: number; purchase_amount: number }>): Holding[] {
+  const map: Record<string, Holding> = {}
+  for (const r of rows) {
+    if (!map[r.symbol]) map[r.symbol] = { symbol: r.symbol, name: r.name, total_quantity: 0, total_invested: 0 }
+    map[r.symbol].total_quantity += Number(r.quantity)
+    map[r.symbol].total_invested += Number(r.purchase_amount)
+  }
+  return Object.values(map)
+}
+
 export default function DashboardPage() {
   const [profile,      setProfile]      = useState<Profile | null>(null)
   const [transactions, setTransactions] = useState<Tx[]>([])
   const [loading,      setLoading]      = useState(true)
   const [activeRange,  setActiveRange]  = useState('1M')
   const [kycDismissed, setKycDismissed] = useState(false)
+  const [holdings,     setHoldings]     = useState<Holding[]>([])
 
   useEffect(() => {
     async function load() {
@@ -67,6 +97,11 @@ export default function DashboardPage() {
       setProfile(prof)
       setTransactions(txs ?? [])
       setLoading(false)
+
+      // Fetch shares holdings separately (non-blocking)
+      fetch('/api/shares').then(r => r.json()).then(({ data }) => {
+        if (data) setHoldings(groupHoldings(data))
+      })
     }
     load()
   }, [])
@@ -152,7 +187,7 @@ export default function DashboardPage() {
           )}
 
           {/* Primary action buttons */}
-          <div className="flex items-center justify-center gap-3 mt-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <Link
               href="/dashboard/deposit"
               className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-slate-100 transition-colors"
@@ -164,6 +199,12 @@ export default function DashboardPage() {
               className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold hover:bg-white/15 border border-white/10 transition-colors"
             >
               <ArrowUpFromLine size={15} /> Withdraw
+            </Link>
+            <Link
+              href="/dashboard/shares"
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold hover:bg-white/15 border border-white/10 transition-colors"
+            >
+              <BarChart2 size={15} /> Buy Shares
             </Link>
           </div>
         </div>
@@ -181,6 +222,49 @@ export default function DashboardPage() {
             </div>
           ))}
         </div>
+
+        {/* My Shares */}
+        {holdings.length > 0 && (
+          <div className="bg-white/5 border border-white/[0.08] rounded-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.08]">
+              <h2 className="text-sm font-bold text-white">My Shares</h2>
+              <Link href="/dashboard/shares" className="text-xs font-semibold text-slate-400 hover:text-white transition-colors">
+                Trade
+              </Link>
+            </div>
+            <div className="divide-y divide-white/[0.05]">
+              {holdings.map(h => {
+                const catalog = CATALOG_MAP[h.symbol]
+                const currentValue = catalog ? h.total_quantity * catalog.price : h.total_invested
+                const gainPct = h.total_invested > 0
+                  ? ((currentValue - h.total_invested) / h.total_invested) * 100
+                  : 0
+                return (
+                  <div key={h.symbol} className="flex items-center gap-3 px-5 py-3.5">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
+                      style={{ backgroundColor: COLORS[h.symbol] ?? '#333' }}
+                    >
+                      {h.symbol.slice(0, 2)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-white">{h.symbol}</p>
+                      <p className="text-xs text-slate-500">{h.total_quantity.toFixed(4)} shares</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-semibold text-white">
+                        ${currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </p>
+                      <p className={`text-xs font-bold ${gainPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                        {gainPct >= 0 ? '+' : ''}{gainPct.toFixed(2)}%
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
 
         {/* BTC live chart */}
         <div className="rounded-2xl overflow-hidden">
