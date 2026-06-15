@@ -6,9 +6,12 @@ export async function GET() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  // Select all columns so the page still loads even if optional profile
+  // columns (gender, date_of_birth, phone, state, address) haven't been
+  // added to this Supabase project yet.
   const { data, error } = await supabase
     .from('profiles')
-    .select('full_name, email, gender, date_of_birth, phone, country, state, address, plan, kyc_status, balance, profit, created_at')
+    .select('*')
     .eq('id', user.id)
     .single()
 

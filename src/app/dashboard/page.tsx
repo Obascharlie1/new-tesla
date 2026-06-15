@@ -87,7 +87,7 @@ export default function DashboardPage() {
 
       const [{ data: prof }, { data: txs }] = await Promise.all([
         supabase.from('profiles').select('full_name, balance, profit, plan, kyc_status').eq('id', user.id).single(),
-        supabase.from('transactions').select('*').eq('user_id', user.id).order('created_at', { ascending: false }).limit(6),
+        supabase.from('transactions').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
       ])
 
       setProfile(prof)
@@ -102,11 +102,18 @@ export default function DashboardPage() {
     load()
   }, [])
 
-  const balance        = profile?.balance ?? 0
   const profit         = profile?.profit  ?? 0
   const totalDeposited = transactions
     .filter(t => t.type === 'Deposit' && t.status === 'Completed')
     .reduce((s, t) => s + t.amount, 0)
+  const totalWithdrawn = transactions
+    .filter(t => t.type === 'Withdrawal' && t.status === 'Completed')
+    .reduce((s, t) => s + t.amount, 0)
+  // Total balance reflects money in (deposits) minus money out (withdrawals) plus profit.
+  // Share purchases already reduce profit, so they're captured there — don't double-count.
+  const balance        = totalDeposited - totalWithdrawn + profit
+
+  const recentTransactions = transactions.slice(0, 6)
 
   const chartData = Array.from({ length: 40 }, (_, i) =>
     Math.round(balance * (0.2 + (0.8 * i) / 39) + Math.sin(i * 0.5) * balance * 0.02)
@@ -151,10 +158,13 @@ export default function DashboardPage() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Page-level background: red radial glow at top + faint grid */}
+      {/* Page-level background: red gradient from top fading to mid + faint grid */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-[#070707]" />
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-brand-primary/[0.07] blur-[120px]" />
+        {/* Top-down red gradient wash — strong at the very top, gone by mid-screen */}
+        <div className="absolute inset-x-0 top-0 h-[60vh] bg-gradient-to-b from-brand-primary/25 via-brand-primary/[0.06] to-transparent" />
+        {/* Soft red glow bloom near the top */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-brand-primary/[0.10] blur-[130px]" />
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
@@ -362,7 +372,7 @@ export default function DashboardPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {transactions.map(tx => (
+                    {recentTransactions.map(tx => (
                       <tr key={tx.id} className="hover:bg-white/3 transition-colors">
                         <td className="px-5 py-4 text-sm font-medium text-white">{tx.type}</td>
                         <td className="px-5 py-4 text-sm font-semibold text-white">

@@ -257,9 +257,9 @@ export default function AdminUserDetailPage() {
     setMsgLoading(false)
   }
 
-  async function handleSendMessage(e: React.FormEvent) {
+  async function handleSendMessage(e: React.FormEvent | React.KeyboardEvent) {
     e.preventDefault()
-    if (!msgInput.trim()) return
+    if (!msgInput.trim() || msgSending) return
     setMsgSending(true)
     const res = await fetch(`/api/admin/users/${userId}/messages`, {
       method: 'POST',
@@ -1036,7 +1036,7 @@ export default function AdminUserDetailPage() {
                       {msg.sender === 'user' && (
                         <p className="text-[10px] font-bold text-brand-primary mb-1 uppercase tracking-wider">{profile.full_name || 'User'}</p>
                       )}
-                      <p className="leading-relaxed">{msg.content}</p>
+                      <p className="leading-relaxed whitespace-pre-wrap break-words">{msg.content}</p>
                       <p className={`text-[10px] mt-1 ${msg.sender === 'admin' ? 'text-white/60' : 'text-slate-400'}`}>
                         {new Date(msg.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
                       </p>
@@ -1048,22 +1048,33 @@ export default function AdminUserDetailPage() {
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSendMessage} className="border-t border-light-border dark:border-dark-border p-3 flex gap-2">
-              <input
-                type="text"
-                value={msgInput}
-                onChange={e => setMsgInput(e.target.value)}
-                placeholder="Type a message…"
-                className="flex-1 px-3 py-2 border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-sm text-dark-base dark:text-white focus:outline-none focus:border-brand-primary transition-colors rounded-lg placeholder:text-slate-400"
-              />
-              <button
-                type="submit"
-                disabled={!msgInput.trim() || msgSending}
-                className="h-9 px-4 flex items-center gap-1.5 bg-brand-primary hover:bg-brand-dim disabled:opacity-50 text-white text-sm font-semibold rounded-lg transition-colors flex-shrink-0"
-              >
-                {msgSending ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
-                <span>{msgSending ? 'Sending…' : 'Send'}</span>
-              </button>
+            <form onSubmit={handleSendMessage} className="border-t border-light-border dark:border-dark-border p-3">
+              <div className="flex gap-2 items-end">
+                <textarea
+                  value={msgInput}
+                  onChange={e => setMsgInput(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault()
+                      handleSendMessage(e)
+                    }
+                  }}
+                  placeholder="Type a message…"
+                  rows={2}
+                  className="flex-1 px-3 py-2 border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-sm text-dark-base dark:text-white focus:outline-none focus:border-brand-primary transition-colors rounded-lg placeholder:text-slate-400 resize-none leading-relaxed"
+                />
+                <button
+                  type="submit"
+                  disabled={!msgInput.trim() || msgSending}
+                  className="h-9 px-4 flex items-center gap-1.5 bg-brand-primary hover:bg-brand-dim disabled:opacity-50 text-white text-sm font-semibold rounded-lg transition-colors flex-shrink-0"
+                >
+                  {msgSending ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
+                  <span>{msgSending ? 'Sending…' : 'Send'}</span>
+                </button>
+              </div>
+              <p className="text-[10px] text-slate-400 mt-1.5 ml-1">
+                Press <kbd className="px-1 py-0.5 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded text-[9px] font-mono">Enter</kbd> to send · <kbd className="px-1 py-0.5 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded text-[9px] font-mono">Shift+Enter</kbd> for a new line
+              </p>
             </form>
           </div>
         )}
