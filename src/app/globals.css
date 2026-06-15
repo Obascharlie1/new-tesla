@@ -137,3 +137,41 @@ button {
   100% { transform: translateY(105vh) rotate(720deg) scale(0.5); opacity: 0; }
 }
 .confetti-piece { animation: confetti-fall ease-in forwards; }
+
+/* ── Dashboard animated spectrum aurora ─────────────────────── */
+/* A slow hue-rotate on the wrapper cycles the colored blobs through
+   the full light spectrum, while each blob drifts independently. */
+@keyframes aurora-hue {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}
+@keyframes aurora-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(8vw, 6vh) scale(1.15); }
+  66%      { transform: translate(-6vw, 10vh) scale(0.9); }
+}
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.1); }
+  50%      { transform: translate(-10vw, -8vh) scale(0.85); }
+}
+@keyframes aurora-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(0.95); }
+  40%      { transform: translate(7vw, -6vh) scale(1.2); }
+  75%      { transform: translate(10vw, 8vh) scale(1); }
+}
+@keyframes aurora-drift-d {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-8vw, 9vh) scale(1.15); }
+}
+
+.aurora-wrap { animation: aurora-hue 24s linear infinite; }
+.aurora-blob-a { animation: aurora-drift-a 22s ease-in-out infinite; }
+.aurora-blob-b { animation: aurora-drift-b 26s ease-in-out infinite; }
+.aurora-blob-c { animation: aurora-drift-c 30s ease-in-out infinite; }
+.aurora-blob-d { animation: aurora-drift-d 28s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-wrap, .aurora-blob-a, .aurora-blob-b, .aurora-blob-c, .aurora-blob-d {
+    animation: none;
+  }
+}
