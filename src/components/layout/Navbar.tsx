@@ -43,7 +43,7 @@ export function Navbar() {
                 alt="Tesla Capital"
                 width={356}
                 height={22}
-                className="h-1 w-auto sm:h-2"
+                className="h-1.5 w-auto sm:h-2.5 brightness-0 dark:invert"
                 priority
               />
             </Link>
