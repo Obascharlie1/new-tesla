@@ -68,9 +68,18 @@ export async function POST(request: NextRequest) {
     .eq('id', user.id)
 
   if (updateError) {
-    // Log but don't fail — insert already succeeded
     console.error('Failed to update profit after share purchase:', updateError.message)
   }
+
+  // Record in transactions history so it shows on the transactions page
+  await supabase.from('transactions').insert({
+    user_id: user.id,
+    type: 'Share Purchase',
+    amount: purchaseAmount,
+    method: 'Shares',
+    note: `${quantity.toFixed(4)} shares of ${symbol} @ $${purchasePrice.toFixed(2)}`,
+    status: 'Completed',
+  })
 
   return NextResponse.json({ success: true, data })
 }

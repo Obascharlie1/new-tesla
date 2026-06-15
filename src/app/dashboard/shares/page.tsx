@@ -41,6 +41,7 @@ interface Holding {
   name: string
   total_quantity: number
   total_invested: number
+  total_profit: number
 }
 
 interface CatalogShare {
@@ -61,10 +62,11 @@ function groupHoldings(rows: ShareRow[]): Holding[] {
   const map: Record<string, Holding> = {}
   for (const r of rows) {
     if (!map[r.symbol]) {
-      map[r.symbol] = { symbol: r.symbol, name: r.name, total_quantity: 0, total_invested: 0 }
+      map[r.symbol] = { symbol: r.symbol, name: r.name, total_quantity: 0, total_invested: 0, total_profit: 0 }
     }
     map[r.symbol].total_quantity += Number(r.quantity)
     map[r.symbol].total_invested += Number(r.purchase_amount)
+    map[r.symbol].total_profit   += Number((r as any).profit ?? 0)
   }
   return Object.values(map)
 }
@@ -220,11 +222,10 @@ export default function SharesPage() {
             </div>
             <div className="divide-y divide-white/[0.05]">
               {groupedHoldings.map(h => {
-                const catalog = CATALOG_MAP[h.symbol]
-                const currentValue = catalog ? h.total_quantity * catalog.price : h.total_invested
                 const gainPct = h.total_invested > 0
-                  ? ((currentValue - h.total_invested) / h.total_invested) * 100
+                  ? (h.total_profit / h.total_invested) * 100
                   : 0
+                const currentValue = h.total_invested + h.total_profit
                 return (
                   <div key={h.symbol} className="flex items-center gap-3 px-5 py-3.5">
                     <div

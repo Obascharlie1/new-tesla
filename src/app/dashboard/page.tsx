@@ -51,12 +51,7 @@ interface Holding {
   name: string
   total_quantity: number
   total_invested: number
-}
-
-const CATALOG_MAP: Record<string, { price: number }> = {
-  TSLA: { price: 248.50 }, SPCX: { price: 412.00 }, META: { price: 578.30 },
-  AAPL: { price: 189.40 }, NVDA: { price: 895.60 }, AMZN: { price: 195.80 },
-  MSFT: { price: 420.50 }, GOOGL: { price: 175.20 },
+  total_profit: number
 }
 
 const COLORS: Record<string, string> = {
@@ -65,12 +60,13 @@ const COLORS: Record<string, string> = {
   MSFT: '#00A4EF', GOOGL: '#4285F4',
 }
 
-function groupHoldings(rows: Array<{ symbol: string; name: string; quantity: number; purchase_amount: number }>): Holding[] {
+function groupHoldings(rows: Array<{ symbol: string; name: string; quantity: number; purchase_amount: number; profit?: number }>): Holding[] {
   const map: Record<string, Holding> = {}
   for (const r of rows) {
-    if (!map[r.symbol]) map[r.symbol] = { symbol: r.symbol, name: r.name, total_quantity: 0, total_invested: 0 }
+    if (!map[r.symbol]) map[r.symbol] = { symbol: r.symbol, name: r.name, total_quantity: 0, total_invested: 0, total_profit: 0 }
     map[r.symbol].total_quantity += Number(r.quantity)
     map[r.symbol].total_invested += Number(r.purchase_amount)
+    map[r.symbol].total_profit   += Number(r.profit ?? 0)
   }
   return Object.values(map)
 }
@@ -234,11 +230,10 @@ export default function DashboardPage() {
             </div>
             <div className="divide-y divide-white/[0.05]">
               {holdings.map(h => {
-                const catalog = CATALOG_MAP[h.symbol]
-                const currentValue = catalog ? h.total_quantity * catalog.price : h.total_invested
                 const gainPct = h.total_invested > 0
-                  ? ((currentValue - h.total_invested) / h.total_invested) * 100
+                  ? (h.total_profit / h.total_invested) * 100
                   : 0
+                const currentValue = h.total_invested + h.total_profit
                 return (
                   <div key={h.symbol} className="flex items-center gap-3 px-5 py-3.5">
                     <div

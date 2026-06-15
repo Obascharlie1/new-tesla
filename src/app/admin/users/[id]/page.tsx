@@ -9,7 +9,7 @@ import {
   CheckCircle, XCircle, Plus,
   ShieldCheck, ShieldAlert, ShieldOff,
   FileText, Loader2, Bell, Send, ZoomIn,
-  RotateCcw, MessageCircle,
+  RotateCcw, MessageCircle, BarChart2,
 } from 'lucide-react'
 
 /* ─── types ─────────────────────────────────────────────────────────────── */
@@ -104,6 +104,15 @@ export default function AdminUserDetailPage() {
   const [msgSending,  setMsgSending]  = useState(false)
   const [msgOpen,     setMsgOpen]     = useState(false)
   const msgBottomRef = useRef<HTMLDivElement>(null)
+
+  /* shares state */
+  const [shares,          setShares]          = useState<Array<{ symbol: string; name: string; total_quantity: number; total_invested: number; total_profit: number }>>([])
+  const [sharesLoading,   setSharesLoading]   = useState(false)
+  const [sharesOpen,      setSharesOpen]      = useState(false)
+  const [editingShare,    setEditingShare]    = useState<string | null>(null) // symbol
+  const [shareProfitInput, setShareProfitInput] = useState('')
+  const [savingShareProfit, setSavingShareProfit] = useState(false)
+  const [shareError,      setShareError]      = useState('')
 
   /* notification state */
   const [notifTitle,   setNotifTitle]   = useState('')
@@ -301,6 +310,41 @@ export default function AdminUserDetailPage() {
       setNotifSent(true)
       setTimeout(() => setNotifSent(false), 3000)
     }
+  }
+
+  async function loadShares() {
+    setSharesLoading(true)
+    const res = await fetch(`/api/admin/shares?userId=${userId}`)
+    if (res.ok) {
+      const { data } = await res.json()
+      setShares(data ?? [])
+    }
+    setSharesLoading(false)
+  }
+
+  useEffect(() => {
+    if (sharesOpen) loadShares()
+  }, [sharesOpen])
+
+  async function saveShareProfit(symbol: string) {
+    const v = parseFloat(shareProfitInput)
+    if (isNaN(v) || v < 0) { setEditingShare(null); return }
+    setSavingShareProfit(true)
+    setShareError('')
+    const res = await fetch('/api/admin/shares', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, symbol, profit: v }),
+    })
+    const json = await res.json()
+    if (!res.ok) {
+      setShareError(json.error ?? 'Failed to update profit')
+    } else {
+      await loadShares()
+      await load()
+    }
+    setSavingShareProfit(false)
+    setEditingShare(null)
   }
 
   /* ── render ────────────────────────────────────────────────────────────── */
@@ -861,7 +905,108 @@ export default function AdminUserDetailPage() {
         )}
       </section>
 
-      {/* ── Section 4: Messages ────────────────────────────────────────── */}
+      {/* ── Section 4: Shares ──────────────────────────────────────────── */}
+      <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
+        <button
+          onClick={() => setSharesOpen(v => !v)}
+          className="w-full px-5 py-4 flex items-center gap-2 border-b border-light-border dark:border-dark-border"
+        >
+          <BarChart2 size={15} className="text-brand-primary" />
+          <h2 className="text-sm font-bold text-dark-base dark:text-white">Share Holdings</h2>
+          <span className="ml-auto text-xs text-slate-500">{sharesOpen ? '▲ Hide' : '▼ View shares'}</span>
+        </button>
+
+        {sharesOpen && (
+          <div className="p-5">
+            {sharesLoading ? (
+              <div className="flex justify-center py-6">
+                <Loader2 size={20} className="animate-spin text-brand-primary" />
+              </div>
+            ) : shares.length === 0 ? (
+              <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-4">No share holdings.</p>
+            ) : (
+              <div className="space-y-3">
+                {shareError && (
+                  <p className="text-xs text-brand-primary">{shareError}</p>
+                )}
+                {shares.map(h => {
+                  const gainPct = h.total_invested > 0 ? (h.total_profit / h.total_invested) * 100 : 0
+                  const isEditing = editingShare === h.symbol
+                  return (
+                    <div key={h.symbol} className="flex items-center gap-4 p-4 border border-light-border dark:border-dark-border rounded-xl">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <p className="text-sm font-bold text-dark-base dark:text-white">{h.symbol}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">{h.name}</p>
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                          {h.total_quantity.toFixed(4)} shares · invested ${h.total_invested.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </p>
+                      </div>
+
+                      {/* Profit display / edit */}
+                      <div className="flex items-center gap-3 flex-shrink-0">
+                        {isEditing ? (
+                          <div className="flex items-center gap-2">
+                            <div className="relative">
+                              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold">$</span>
+                              <input
+                                type="number"
+                                value={shareProfitInput}
+                                onChange={e => setShareProfitInput(e.target.value)}
+                                min="0"
+                                step="0.01"
+                                autoFocus
+                                className="w-28 pl-5 pr-2 py-1.5 border border-brand-primary bg-light-base dark:bg-dark-card text-dark-base dark:text-white text-sm font-bold focus:outline-none rounded"
+                              />
+                            </div>
+                            <button
+                              onClick={() => saveShareProfit(h.symbol)}
+                              disabled={savingShareProfit}
+                              className="flex items-center gap-1 px-2.5 py-1.5 bg-brand-primary hover:bg-brand-dim disabled:opacity-60 text-white text-xs font-bold transition-colors rounded"
+                            >
+                              {savingShareProfit ? <Loader2 size={11} className="animate-spin" /> : <Check size={11} />}
+                            </button>
+                            <button
+                              onClick={() => setEditingShare(null)}
+                              className="flex items-center gap-1 px-2 py-1.5 border border-light-border dark:border-dark-border text-xs text-slate-500 hover:bg-light-surface dark:hover:bg-dark-surface rounded"
+                            >
+                              <X size={11} />
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-3">
+                            <div className="text-right">
+                              <p className={`text-sm font-bold ${h.total_profit >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}`}>
+                                {h.total_profit >= 0 ? '+' : ''}${h.total_profit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} profit
+                              </p>
+                              <p className={`text-xs ${gainPct >= 0 ? 'text-emerald-500' : 'text-red-400'}`}>
+                                {gainPct >= 0 ? '+' : ''}{gainPct.toFixed(2)}%
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => { setEditingShare(h.symbol); setShareProfitInput(String(h.total_profit)); setShareError('') }}
+                              className="text-slate-400 hover:text-brand-primary transition-colors"
+                              title="Edit profit"
+                            >
+                              <Edit2 size={13} />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 pt-1">
+                  Setting a profit updates the user&apos;s share position and adjusts their total profit balance.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </section>
+
+      {/* ── Section 5: Messages ────────────────────────────────────────── */}
       <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
         <button
           onClick={() => setMsgOpen(v => !v)}
@@ -924,7 +1069,7 @@ export default function AdminUserDetailPage() {
         )}
       </section>
 
-      {/* ── Section 6: Send Notification ───────────────────────────────── */}
+      {/* ── Section 6: Send Notification ──────────────────────────────── */}
       <section className="bg-light-base dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl">
         <div className="px-5 py-4 border-b border-light-border dark:border-dark-border flex items-center gap-2">
           <Bell size={15} className="text-brand-primary" />
