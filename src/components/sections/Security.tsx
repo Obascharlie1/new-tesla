@@ -44,7 +44,7 @@ export function Security() {
             transition={{ delay: 0.05 }}
             className="text-4xl lg:text-5xl font-bold text-dark-base dark:text-light-base tracking-tight mb-4"
           >
-            Your capital, locked down
+            Built like a vault. Trades like a rocket.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}

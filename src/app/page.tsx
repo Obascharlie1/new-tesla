@@ -13,6 +13,7 @@ import { FeatureImages } from "@/components/sections/FeatureImages";
 import { MarketAnalysis } from "@/components/sections/MarketAnalysis";
 import { UpToTheMinute } from "@/components/sections/UpToTheMinute";
 import { PeopleSlideshow } from "@/components/sections/PeopleSlideshow";
+import { VideoBand } from "@/components/sections/VideoBand";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { LiveTradeFeed } from "@/components/ui/LiveTradeFeed";
 
@@ -21,19 +22,34 @@ export default function Home() {
     <>
       <Navbar />
       <main>
+        {/* 1 — Cinematic video hero + live ticker */}
         <Hero />
+        {/* 2 — Hard numbers */}
         <TrustBar />
-        <BTCSection />
+        {/* 3 — The product edge */}
         <Features />
-        <FeatureImages />
-        <MarketAnalysis />
+        {/* 4 — Live BTC market proof */}
+        <BTCSection />
+        {/* 5 — Cinematic execution statement (2nd trading video) */}
+        <VideoBand />
+        {/* 6 — Product / dashboard look */}
         <DashboardPreview />
+        {/* 7 — Onboarding flow */}
         <HowItWorks />
+        {/* 8 — Market analysis depth */}
+        <MarketAnalysis />
+        {/* 9 — Editorial imagery */}
+        <FeatureImages />
+        {/* 10 — Pricing */}
         <InvestmentPlans />
+        {/* 11 — Social proof: people + quotes */}
         <PeopleSlideshow />
         <Testimonials />
+        {/* 12 — Trust & security */}
         <Security />
+        {/* 13 — Live updates band */}
         <UpToTheMinute />
+        {/* 14 — Final conversion */}
         <FinalCTA />
       </main>
       <Footer />

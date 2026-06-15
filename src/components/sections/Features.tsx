@@ -27,7 +27,7 @@ export function Features() {
             transition={{ duration: 0.4 }}
             className="inline-block text-xs font-semibold tracking-widest text-slate-400 uppercase mb-4"
           >
-            The Arsenal
+            The Edge
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -36,8 +36,8 @@ export function Features() {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="text-4xl lg:text-5xl font-bold text-dark-base dark:text-light-base tracking-tight mb-4"
           >
-            Built to{' '}
-            win the trade
+            Everything the pros have.{' '}
+            None of the gatekeeping.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -46,7 +46,7 @@ export function Features() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-slate-500 dark:text-slate-400 leading-relaxed"
           >
-            Six weapons that used to live on hedge-fund desks — now in your hands, firing at retail-friendly fees.
+            Six capabilities that used to live behind a hedge-fund paywall — now in your hands, at fees built for real people.
           </motion.p>
         </div>
 

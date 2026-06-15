@@ -26,38 +26,38 @@ export const partners = [
 export const features = [
   {
     icon: 'brain',
-    title: 'AI Signal Engine',
-    description: 'Our models scan millions of data points every second and flag high-conviction setups before price moves — so you enter early, not late.',
-    tag: 'AI-Powered',
-  },
-  {
-    icon: 'pieChart',
-    title: 'Portfolio Autopilot',
-    description: 'Rebalancing, hedging, and allocation run around the clock, keeping your book optimized and working while you sleep.',
-    tag: 'Automated',
-  },
-  {
-    icon: 'activity',
-    title: 'Real-Time Edge',
-    description: 'Sub-millisecond data feeds and pro-grade charts in one cockpit. See the tape move and act on the very same tick.',
-    tag: 'Live Data',
+    title: 'Signals That See First',
+    description: 'A live AI engine reads millions of data points a second and surfaces high-conviction setups before the move — you act on the signal, not the news.',
+    tag: 'AI Engine',
   },
   {
     icon: 'zap',
-    title: 'Lightning Execution',
-    description: 'Orders route and fill in under 50ms across every venue. Speed is alpha — we give you the fastest path to the trade.',
+    title: 'Execution at the Speed of Light',
+    description: 'Smart order routing fills in under 50 milliseconds across every venue. In markets, speed is alpha — and we hand you the fastest path to the trade.',
     tag: 'Sub-50ms',
   },
   {
+    icon: 'pieChart',
+    title: 'Your Book on Autopilot',
+    description: 'Allocation, hedging, and rebalancing run 24/7. Set the rules once and the desk keeps your portfolio optimized while you live your life.',
+    tag: 'Automated',
+  },
+  {
     icon: 'shield',
-    title: 'Risk on Lockdown',
-    description: 'Automated stop-losses, live VaR, and one-click hedging defend your capital the moment volatility spikes.',
-    tag: 'Protected',
+    title: 'Capital Defended by Default',
+    description: 'Automated stops, live VaR, and one-tap hedging stand guard the instant volatility spikes — your downside is covered before you even notice.',
+    tag: 'Risk Control',
+  },
+  {
+    icon: 'activity',
+    title: 'The Whole Tape, One Screen',
+    description: 'Pro-grade charts and sub-millisecond feeds in a single cockpit. Watch the order flow move and respond on the very same tick.',
+    tag: 'Live Data',
   },
   {
     icon: 'globe',
     title: 'Every Market, One Account',
-    description: 'Trade equities, options, crypto, forex, and commodities from a single account with razor-thin fees and deep liquidity.',
+    description: 'Equities, options, crypto, forex, and commodities — traded from one account, with razor-thin fees and institutional-depth liquidity.',
     tag: 'All Assets',
   },
 ]
@@ -65,20 +65,20 @@ export const features = [
 export const howItWorksSteps = [
   {
     step: '01',
-    title: 'Open Your Account',
-    description: 'Sign up in under 2 minutes, verify, and you\'re trade-ready before the next candle closes — no paperwork, no waiting.',
+    title: 'Create Your Account',
+    description: 'Sign up and verify in under two minutes. No paperwork, no waiting — you\'re trade-ready before the next candle closes.',
     icon: 'userPlus',
   },
   {
     step: '02',
-    title: 'Fund Instantly',
-    description: 'Deposit by bank, wire, or crypto. Balances clear fast and turn into buying power the moment they land.',
+    title: 'Fund in Seconds',
+    description: 'Top up by bank, wire, or crypto. Balances clear fast and become live buying power the moment they land.',
     icon: 'creditCard',
   },
   {
     step: '03',
-    title: 'Trade & Outperform',
-    description: 'Deploy AI setups or your own strategies, automate the execution, and track every basis point of P&L in real time.',
+    title: 'Let the Edge Compound',
+    description: 'Deploy AI setups or your own rules, automate the execution, and watch every basis point of P&L update in real time.',
     icon: 'trendingUp',
   },
 ]

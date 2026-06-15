@@ -14,7 +14,7 @@ const iconMap: Record<string, React.FC<{ size?: number; className?: string }>> =
 
 export function HowItWorks() {
   return (
-    <section className="bg-light-base/70 dark:bg-dark-base/40 py-24 lg:py-32">
+    <section id="how" className="bg-light-base/70 dark:bg-dark-base/40 py-24 lg:py-32 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
@@ -33,8 +33,8 @@ export function HowItWorks() {
             transition={{ delay: 0.05 }}
             className="text-4xl lg:text-5xl font-bold text-dark-base dark:text-light-base tracking-tight mb-4"
           >
-            From zero to first trade in{' '}
-            minutes
+            Funded and trading in{' '}
+            under five minutes
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}

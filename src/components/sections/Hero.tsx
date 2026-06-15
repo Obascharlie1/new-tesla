@@ -1,26 +1,8 @@
 'use client'
 
 import { motion, type Variants } from 'framer-motion'
-import { ArrowRight, TrendingUp, TrendingDown } from 'lucide-react'
+import { ArrowRight, TrendingUp, TrendingDown, ShieldCheck, Zap } from 'lucide-react'
 import Link from 'next/link'
-import { chartData, portfolioAssets } from '@/data'
-
-const chartPath = (() => {
-  const w = 500
-  const h = 140
-  const min = Math.min(...chartData)
-  const max = Math.max(...chartData)
-  const range = max - min
-  const points = chartData.map((v, i) => {
-    const x = (i / (chartData.length - 1)) * w
-    const y = h - ((v - min) / range) * (h * 0.8) - h * 0.1
-    return `${x},${y}`
-  })
-  return {
-    line: `M ${points.join(' L ')}`,
-    area: `M 0,${h} L ${points.join(' L ')} L ${w},${h} Z`,
-  }
-})()
 
 const liveMetrics = [
   { label: 'S&P 500', value: '5,842.31', change: '+0.84%', up: true },
@@ -29,37 +11,37 @@ const liveMetrics = [
   { label: 'VIX', value: '14.32', change: '-3.21%', up: false },
   { label: 'GOLD', value: '$2,341', change: '+0.43%', up: true },
   { label: 'EUR/USD', value: '1.0842', change: '-0.12%', up: false },
+  { label: 'ETH/USD', value: '$3,847', change: '+2.38%', up: true },
+  { label: 'TSLA', value: '$248.91', change: '-2.15%', up: false },
 ]
 
 // ── Headline "arrange" animation ─────────────────────────────
-// Letters fly in from a scattered/blurred offset and settle into place.
 const headlineContainer: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.035, delayChildren: 0.15 } },
+  visible: { transition: { staggerChildren: 0.03, delayChildren: 0.1 } },
 }
-const headlineLetter: Variants = {
-  hidden: { opacity: 0, y: 28, rotate: -8, filter: 'blur(8px)' },
+const headlineWord: Variants = {
+  hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
   visible: {
     opacity: 1,
     y: 0,
-    rotate: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
   },
 }
 
-function arrangeLetters(text: string, extra = '') {
-  return text.split('').map((ch, i) => (
-    <motion.span key={extra + i} variants={headlineLetter} className={`inline-block ${extra}`}>
-      {ch === ' ' ? ' ' : ch}
+function arrangeWords(text: string, className = '') {
+  return text.split(' ').map((word, i) => (
+    <motion.span key={i} variants={headlineWord} className={`inline-block ${className}`}>
+      {word}&nbsp;
     </motion.span>
   ))
 }
 
 export function Hero() {
   return (
-    <section className="relative min-h-[60vh] sm:min-h-screen flex items-center pt-28 sm:pt-24 lg:pt-20 pb-16 overflow-hidden">
-      {/* Video background */}
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      {/* ── Full-bleed trading video background ── */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
@@ -67,190 +49,126 @@ export function Hero() {
         loop
         playsInline
         preload="auto"
+        poster="/images/skyscraper.jpg"
       >
-        <source src="/hero.webm" type="video/webm" />
-        <source src="/hero.mp4" type="video/mp4" />
+        <source src="/trading-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark overlay — same in both light and dark mode */}
-      <div className="absolute inset-0 bg-dark-base/80" />
+      {/* Cinematic overlays — dark vignette + brand wash */}
+      <div className="absolute inset-0 bg-gradient-to-b from-dark-base/85 via-dark-base/75 to-dark-base" />
+      <div className="absolute inset-0 bg-gradient-to-r from-dark-base/90 via-transparent to-dark-base/40" />
+      <div className="absolute -top-1/3 left-1/2 -translate-x-1/2 w-[1100px] h-[700px] rounded-full bg-brand-primary/[0.10] blur-[160px] pointer-events-none" />
 
-      {/* Subtle grid on top of overlay */}
+      {/* Subtle grid */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.05]"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
-          backgroundImage: `linear-gradient(#E0241C 1px, transparent 1px), linear-gradient(90deg, #E0241C 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
+          backgroundImage: 'linear-gradient(#E0241C 1px, transparent 1px), linear-gradient(90deg, #E0241C 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
         }}
       />
 
-      {/* Vertical accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-primary/50 hidden lg:block" />
+      {/* Left accent rail */}
+      <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-brand-primary/60 to-transparent hidden lg:block" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      {/* ── Content ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-32 pb-10 text-center">
 
-          {/* LEFT — copy */}
-          <div className="text-center lg:text-left">
-            {/* Label */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
-              className="flex items-center justify-center lg:justify-start gap-3 mb-8"
-            >
-              <div className="w-6 h-px bg-brand-primary/60" />
-              <span className="text-xs font-bold tracking-widest text-slate-400 uppercase">
-                Engineered for Speed
-              </span>
-            </motion.div>
+        {/* Eyebrow pill */}
+        <motion.div
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-md px-4 py-1.5 mb-8"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-primary opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-primary" />
+          </span>
+          <span className="text-xs font-semibold tracking-wide text-slate-200">
+            AI-native trading · markets are live now
+          </span>
+        </motion.div>
 
-            {/* Headline — letters arrange into place */}
-            <motion.h1
-              variants={headlineContainer}
-              initial="hidden"
-              animate="visible"
-              className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white leading-[1.02] tracking-tight mb-6"
-            >
-              {arrangeLetters('Trade')}
-              <br />
-              {arrangeLetters('faster.', 'text-white')}
-              <br />
-              {arrangeLetters('Win more.')}
-            </motion.h1>
+        {/* Headline */}
+        <motion.h1
+          variants={headlineContainer}
+          initial="hidden"
+          animate="visible"
+          className="text-5xl sm:text-7xl lg:text-[5.5rem] font-bold text-white leading-[0.98] tracking-tight mb-6"
+        >
+          {arrangeWords('Trade with an')}
+          <br className="hidden sm:block" />
+          {arrangeWords('unfair', 'text-brand-primary')}
+          {arrangeWords('advantage.')}
+        </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-lg text-slate-400 leading-relaxed mb-8 max-w-md mx-auto lg:mx-0 lg:border-l-2 lg:border-dark-border lg:pl-4"
-            >
-              AI signals, sub-50ms fills, and automated risk control — the firepower hedge funds guard, handed to traders who move first.
-            </motion.p>
+        {/* Sub */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-base sm:text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl mx-auto"
+        >
+          Real-time AI signals, sub-50ms execution, and automated risk control —
+          the firepower of an institutional desk, in one terminal you actually own.
+        </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="flex flex-col xs:flex-row sm:flex-row gap-3 mb-10 items-center justify-center lg:items-start lg:justify-start"
-            >
-              <Link
-                href="/auth/register"
-                className="inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-full px-7 py-3.5 text-base bg-white text-black hover:bg-slate-100 border border-white transition-all duration-150"
-              >
-                Start Trading
-                <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/auth/login"
-                className="inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-full px-7 py-3.5 text-base border border-white/30 text-white hover:bg-white/10 transition-all duration-150"
-              >
-                Sign In
-              </Link>
-            </motion.div>
-
-            {/* Hard stats row */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              className="grid grid-cols-3 border-t border-dark-border pt-8"
-            >
-              {[
-                { num: '10.4M', label: 'Traders' },
-                { num: '$48B+', label: 'Volume' },
-                { num: '98.3%', label: 'AI Accuracy' },
-              ].map((s, i) => (
-                <div key={s.label} className={`${i !== 0 ? 'border-l border-dark-border pl-6' : ''}`}>
-                  <p className="text-2xl font-black text-white tracking-tight">{s.num}</p>
-                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mt-0.5">{s.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* RIGHT — dashboard */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.4 }}
+          className="flex flex-col xs:flex-row sm:flex-row gap-3 items-center justify-center mb-10"
+        >
+          <Link
+            href="/auth/register"
+            className="group inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-full px-8 py-4 text-base bg-brand-primary text-white hover:bg-brand-dim transition-all duration-150 shadow-lg shadow-brand-primary/25"
           >
-            {/* Main dashboard panel */}
-            <div className="border border-dark-border bg-dark-card">
-              {/* Top bar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-dark-border">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-white/60" />
-                  <span className="text-xs font-bold text-white uppercase tracking-widest">Portfolio</span>
-                </div>
-                <span className="text-xs text-slate-400 font-mono">LIVE</span>
-              </div>
+            Start Trading Free
+            <ArrowRight size={17} className="group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+          <Link
+            href="#how"
+            className="inline-flex items-center justify-center gap-2 font-bold tracking-tight rounded-full px-8 py-4 text-base border border-white/20 text-white hover:bg-white/10 backdrop-blur-md transition-all duration-150"
+          >
+            See How It Works
+          </Link>
+        </motion.div>
 
-              {/* Portfolio value */}
-              <div className="px-4 py-4 border-b border-dark-border">
-                <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Value</p>
-                <p className="text-3xl font-black text-white font-mono tracking-tight">$847,392.00</p>
-                <span className="text-sm font-bold text-emerald-400 flex items-center gap-1 mt-1">
-                  <TrendingUp size={14} />
-                  +$47,218 · +24.7% MTD
-                </span>
-              </div>
-
-              {/* Chart */}
-              <div className="h-[90px] sm:h-[130px] bg-dark-surface relative">
-                <svg viewBox="0 0 500 140" preserveAspectRatio="none" className="w-full h-full">
-                  <defs>
-                    <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#E0241C" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="#E0241C" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                  {[0.25, 0.5, 0.75].map((y) => (
-                    <line key={y} x1="0" y1={y * 140} x2="500" y2={y * 140} stroke="currentColor" strokeOpacity="0.06" strokeWidth="1" />
-                  ))}
-                  <path d={chartPath.area} fill="url(#chartFill)" />
-                  <path d={chartPath.line} fill="none" stroke="#E0241C" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
-                  <circle cx="500" cy="19" r="3" fill="#E0241C" />
-                </svg>
-              </div>
-
-              {/* Assets grid — hidden on mobile to keep hero compact */}
-              <div className="hidden sm:grid grid-cols-2">
-                {portfolioAssets.slice(0, 4).map((asset, i) => (
-                  <div
-                    key={asset.symbol}
-                    className={`flex items-center gap-2 px-3 py-2.5 ${i < 2 ? 'border-b' : ''} ${i % 2 === 0 ? 'border-r' : ''} border-dark-border`}
-                  >
-                    <img src={asset.logo} alt={asset.symbol} className="w-6 h-6 object-contain flex-shrink-0 invert" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-bold text-white">{asset.symbol}</p>
-                      <p className="text-[10px] text-slate-400 font-mono">{asset.allocation}%</p>
-                    </div>
-                    <span className={`text-xs font-bold flex items-center gap-0.5 ${asset.changePercent >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                      {asset.changePercent >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
-                      {asset.changePercent >= 0 ? '+' : ''}{asset.changePercent}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Live market ticker below card — hidden on mobile */}
-            <div className="hidden sm:block mt-3 border border-dark-border overflow-hidden">
-              <div className="flex">
-                {liveMetrics.map((m) => (
-                  <div key={m.label} className="flex items-center gap-2 px-4 py-2 border-r border-dark-border whitespace-nowrap flex-shrink-0">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase">{m.label}</span>
-                    <span className="text-[10px] font-mono font-bold text-white">{m.value}</span>
-                    <span className={`text-[10px] font-bold ${m.up ? 'text-emerald-400' : 'text-red-400'}`}>{m.change}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        {/* Trust line */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.55 }}
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-400"
+        >
+          <span className="flex items-center gap-1.5"><Zap size={13} className="text-brand-primary" /> Sub-50ms fills</span>
+          <span className="flex items-center gap-1.5"><ShieldCheck size={13} className="text-brand-primary" /> SEC &amp; FINRA regulated</span>
+          <span className="flex items-center gap-1.5"><TrendingUp size={13} className="text-brand-primary" /> 10.4M traders onboard</span>
+        </motion.div>
       </div>
+
+      {/* ── Live market ticker strip ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="relative z-10 border-y border-white/10 bg-white/[0.03] backdrop-blur-md overflow-hidden"
+      >
+        <div className="flex animate-ticker whitespace-nowrap py-3">
+          {[...liveMetrics, ...liveMetrics].map((m, i) => (
+            <div key={i} className="flex items-center gap-2 px-6 flex-shrink-0">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{m.label}</span>
+              <span className="text-[11px] font-mono font-bold text-white">{m.value}</span>
+              <span className={`text-[11px] font-bold flex items-center gap-0.5 ${m.up ? 'text-emerald-400' : 'text-brand-secondary'}`}>
+                {m.up ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
+                {m.change}
+              </span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   )
 }
