@@ -81,19 +81,19 @@ export default function MessagesPage() {
   const groups = groupByDate(messages)
 
   return (
-    <div className="flex flex-col h-screen bg-[#0A0A0A]">
+    <div className="flex flex-col h-screen bg-white dark:bg-[#0A0A0A]">
       <TopBar title="Messages" subtitle="Support &amp; Admin Chat" />
 
       {/* Chat area */}
       <div className="flex-1 overflow-y-auto px-4 py-6 max-w-2xl w-full mx-auto">
         {loading ? (
           <div className="flex items-center justify-center h-40">
-            <Loader2 size={24} className="animate-spin text-white" />
+            <Loader2 size={24} className="animate-spin text-slate-400 dark:text-white" />
           </div>
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-center">
-            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
-              <MessageCircle size={28} className="text-white" />
+            <div className="w-16 h-16 rounded-full bg-white dark:bg-white/5 flex items-center justify-center mb-4">
+              <MessageCircle size={28} className="text-slate-700 dark:text-white" />
             </div>
             <p className="text-sm font-bold text-dark-base dark:text-white mb-1">No messages yet</p>
             <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs leading-relaxed">
@@ -106,11 +106,11 @@ export default function MessagesPage() {
               <div key={group.date}>
                 {/* Date divider */}
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="flex-1 h-px bg-white/[0.06]" />
-                  <span className="text-[10px] font-semibold text-[#444] uppercase tracking-widest px-2">
+                  <div className="flex-1 h-px bg-slate-100 dark:bg-white/[0.06]" />
+                  <span className="text-[10px] font-semibold text-slate-400 dark:text-[#444] uppercase tracking-widest px-2">
                     {group.date}
                   </span>
-                  <div className="flex-1 h-px bg-white/[0.06]" />
+                  <div className="flex-1 h-px bg-slate-100 dark:bg-white/[0.06]" />
                 </div>
 
                 <div className="space-y-2">
@@ -126,8 +126,8 @@ export default function MessagesPage() {
                         {/* Admin avatar */}
                         {isAdmin && (
                           <div className={`flex-shrink-0 mb-0.5 ${showAvatar ? 'visible' : 'invisible'}`}>
-                            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shadow-sm">
-                              <ShieldCheck size={14} className="text-white" />
+                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center shadow-sm">
+                              <ShieldCheck size={14} className="text-slate-700 dark:text-white" />
                             </div>
                           </div>
                         )}
@@ -143,8 +143,8 @@ export default function MessagesPage() {
                           {/* Bubble */}
                           <div className={`relative px-4 py-3 shadow-sm ${
                             isUser
-                              ? 'bg-white text-black rounded-2xl rounded-tr-sm'
-                              : 'bg-white/[0.08] text-white rounded-2xl rounded-tl-sm'
+                              ? 'bg-slate-900 text-white dark:bg-white dark:text-black rounded-2xl rounded-tr-sm'
+                              : 'bg-slate-100 dark:bg-white/[0.08] text-slate-900 dark:text-white rounded-2xl rounded-tl-sm'
                           }`}>
                             <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                           </div>
@@ -169,19 +169,19 @@ export default function MessagesPage() {
       </div>
 
       {/* Input bar */}
-      <div className="bg-[#0A0A0A] border-t border-white/[0.08] px-4 py-3">
+      <div className="bg-white dark:bg-[#0A0A0A] border-t border-slate-200 dark:border-white/[0.08] px-4 py-3">
         <form onSubmit={handleSend} className="max-w-2xl mx-auto flex items-center gap-2">
           <input
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Type a message…"
-            className="flex-1 px-4 py-3 rounded-full border border-white/10 bg-white/5 text-white text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-slate-500"
+            className="flex-1 px-4 py-3 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-slate-400 dark:focus:border-white/30 transition-colors placeholder:text-slate-500"
           />
           <button
             type="submit"
             disabled={!input.trim() || sending}
-            className="h-11 px-5 flex items-center gap-2 bg-white hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed text-black text-sm font-semibold rounded-full transition-colors flex-shrink-0 shadow-sm"
+            className="h-11 px-5 flex items-center gap-2 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed text-white dark:text-black text-sm font-semibold rounded-full transition-colors flex-shrink-0 shadow-sm"
           >
             {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
             <span>{sending ? 'Sending…' : 'Send'}</span>

@@ -199,10 +199,10 @@ export default function SharesPage() {
       <div className="p-4 sm:p-6 max-w-2xl mx-auto space-y-6">
 
         {/* Available profit balance */}
-        <div className="bg-white/5 border border-white/[0.08] rounded-2xl p-4 flex items-center justify-between">
+        <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/[0.08] rounded-2xl p-4 flex items-center justify-between">
           <div>
             <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Available profit</p>
-            <p className="text-2xl font-bold text-white">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white">
               ${userProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
@@ -216,11 +216,11 @@ export default function SharesPage() {
 
         {/* My Holdings */}
         {groupedHoldings.length > 0 && (
-          <div className="bg-white/5 border border-white/[0.08] rounded-2xl overflow-hidden">
-            <div className="px-5 py-4 border-b border-white/[0.08]">
-              <h2 className="text-sm font-bold text-white">My Holdings</h2>
+          <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/[0.08] rounded-2xl overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-200 dark:border-white/[0.08]">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">My Holdings</h2>
             </div>
-            <div className="divide-y divide-white/[0.05]">
+            <div className="divide-y divide-slate-200 dark:divide-white/[0.05]">
               {groupedHoldings.map(h => {
                 const gainPct = h.total_invested > 0
                   ? (h.total_profit / h.total_invested) * 100
@@ -235,11 +235,11 @@ export default function SharesPage() {
                       {h.symbol.slice(0, 2)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-white">{h.symbol}</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">{h.symbol}</p>
                       <p className="text-xs text-slate-500">{h.total_quantity.toFixed(4)} shares</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-semibold text-white">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         ${currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </p>
                       <p className={`text-xs font-bold ${gainPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
@@ -255,13 +255,13 @@ export default function SharesPage() {
 
         {/* Available Shares */}
         <div>
-          <h2 className="text-sm font-bold text-white mb-3">Available Shares</h2>
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-3">Available Shares</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {CATALOG.map(share => (
               <button
                 key={share.symbol}
                 onClick={() => { setSelectedShare(share); setInputValue(''); setMode('quantity'); setError('') }}
-                className="bg-white/5 border border-white/[0.08] rounded-2xl p-4 cursor-pointer hover:bg-white/[0.08] hover:border-white/20 transition-all text-left"
+                className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/[0.08] rounded-2xl p-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 transition-all text-left"
               >
                 <div className="flex items-center gap-2">
                   <div
@@ -270,10 +270,10 @@ export default function SharesPage() {
                   >
                     {share.symbol.slice(0, 2)}
                   </div>
-                  <span className="text-xs font-bold text-white">{share.symbol}</span>
+                  <span className="text-xs font-bold text-slate-900 dark:text-white">{share.symbol}</span>
                 </div>
                 <p className="text-xs text-slate-400 mt-1">{share.name}</p>
-                <p className="text-xl font-bold text-white mt-3">
+                <p className="text-xl font-bold text-slate-900 dark:text-white mt-3">
                   ${share.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
                 <p className={`text-xs font-semibold mt-1 ${share.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
@@ -288,7 +288,7 @@ export default function SharesPage() {
       {/* Buy Modal */}
       {selectedShare && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-end sm:items-center justify-center p-4">
-          <div className="bg-[#111] border border-white/10 rounded-2xl w-full max-w-md p-6">
+          <div className="bg-white dark:bg-[#111] border border-slate-200 dark:border-white/10 rounded-2xl w-full max-w-md p-6">
             {/* Header */}
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
@@ -299,13 +299,13 @@ export default function SharesPage() {
                   {selectedShare.symbol.slice(0, 2)}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white">{selectedShare.name}</p>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">{selectedShare.name}</p>
                   <p className="text-xs text-slate-400">{selectedShare.symbol}</p>
                 </div>
               </div>
               <button
                 onClick={() => { setSelectedShare(null); setInputValue(''); setError('') }}
-                className="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-white transition-colors"
+                className="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
               >
                 <X size={18} />
               </button>
@@ -313,16 +313,16 @@ export default function SharesPage() {
 
             {/* Current price */}
             <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Current price</p>
-            <p className="text-2xl font-bold text-white mb-5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mb-5">
               ${selectedShare.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
 
             {/* Mode toggle */}
-            <div className="flex gap-2 mb-5 p-1 bg-white/5 rounded-full">
+            <div className="flex gap-2 mb-5 p-1 bg-white dark:bg-white/5 rounded-full">
               <button
                 onClick={() => { setMode('quantity'); setInputValue('') }}
                 className={`flex-1 py-1.5 text-xs font-semibold rounded-full transition-all ${
-                  mode === 'quantity' ? 'bg-white text-black' : 'text-slate-400 hover:text-white'
+                  mode === 'quantity' ? 'bg-slate-900 text-white dark:bg-white dark:text-black' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 By Quantity
@@ -330,7 +330,7 @@ export default function SharesPage() {
               <button
                 onClick={() => { setMode('amount'); setInputValue('') }}
                 className={`flex-1 py-1.5 text-xs font-semibold rounded-full transition-all ${
-                  mode === 'amount' ? 'bg-white text-black' : 'text-slate-400 hover:text-white'
+                  mode === 'amount' ? 'bg-slate-900 text-white dark:bg-white dark:text-black' : 'text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 By Amount ($)
@@ -345,7 +345,7 @@ export default function SharesPage() {
               value={inputValue}
               onChange={e => { setInputValue(e.target.value); setError('') }}
               placeholder="0"
-              className="text-center text-3xl font-bold bg-transparent text-white border-b border-white/20 focus:outline-none focus:border-white/50 py-3 w-full mb-3"
+              className="text-center text-3xl font-bold bg-transparent text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/20 focus:outline-none focus:border-slate-400 dark:focus:border-white/50 py-3 w-full mb-3"
             />
 
             {/* Summary */}
@@ -376,7 +376,7 @@ export default function SharesPage() {
             <button
               onClick={handleBuy}
               disabled={!inputValue || parsedInput <= 0 || buying}
-              className="w-full bg-white text-black font-bold rounded-full py-4 text-base transition-opacity disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100"
+              className="w-full bg-slate-900 text-white dark:bg-white dark:text-black font-bold rounded-full py-4 text-base transition-opacity disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100"
             >
               {buying ? 'Processing…' : `Buy ${selectedShare.symbol}`}
             </button>
@@ -386,12 +386,12 @@ export default function SharesPage() {
 
       {/* Success overlay */}
       {success && (
-        <div className="fixed inset-0 bg-[#0A0A0A] z-50 flex flex-col items-center justify-center p-6">
+        <div className="fixed inset-0 bg-white dark:bg-[#0A0A0A] z-50 flex flex-col items-center justify-center p-6">
           <Confetti />
           <div className="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center">
             <CheckCircle size={40} className="text-emerald-400" />
           </div>
-          <h2 className="text-2xl font-bold text-white mt-6">Purchase Complete!</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-6">Purchase Complete!</h2>
           <p className="text-slate-400 mt-2 text-center">
             You bought {success.quantity.toFixed(6)} shares of {success.name} for $
             {success.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -399,13 +399,13 @@ export default function SharesPage() {
           <div className="flex flex-col gap-3 mt-8 w-full max-w-xs">
             <button
               onClick={() => { setSuccess(null); setSelectedShare(null) }}
-              className="w-full bg-white/10 text-white border border-white/10 font-bold rounded-full py-3 text-sm hover:bg-white/15 transition-colors"
+              className="w-full bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 font-bold rounded-full py-3 text-sm hover:bg-slate-200 dark:hover:bg-white/15 transition-colors"
             >
               Buy More Shares
             </button>
             <Link
               href="/dashboard"
-              className="w-full bg-white text-black font-bold rounded-full py-3 text-sm text-center hover:bg-slate-100 transition-colors"
+              className="w-full bg-slate-900 text-white dark:bg-white dark:text-black font-bold rounded-full py-3 text-sm text-center hover:bg-slate-100 transition-colors"
             >
               Back to Dashboard
             </Link>

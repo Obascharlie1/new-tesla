@@ -44,15 +44,15 @@ interface Profile {
   created_at:    string
 }
 
-const inputCls = 'w-full px-4 py-2.5 border border-white/10 bg-white/5 text-white text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-slate-500 rounded-lg'
+const inputCls = 'w-full px-4 py-2.5 border border-slate-300 bg-white text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-white text-sm focus:outline-none focus:border-slate-400 dark:focus:border-white/30 transition-colors placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-lg'
 const selectCls = inputCls
-const labelCls = 'block text-[10px] font-semibold text-[#555] uppercase tracking-wider mb-1.5'
+const labelCls = 'block text-[10px] font-semibold text-slate-500 dark:text-[#555] uppercase tracking-wider mb-1.5'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white/5 border border-white/[0.08] rounded-xl">
-      <div className="px-5 py-4 border-b border-white/[0.08]">
-        <h2 className="text-sm font-bold text-white">{title}</h2>
+    <div className="bg-white border border-slate-200 dark:bg-white/5 dark:border-white/[0.08] rounded-xl">
+      <div className="px-5 py-4 border-b border-slate-200 dark:border-white/[0.08]">
+        <h2 className="text-sm font-bold text-slate-900 dark:text-white">{title}</h2>
       </div>
       <div className="p-5">{children}</div>
     </div>
@@ -123,7 +123,7 @@ export default function ProfilePage() {
       <div>
         <TopBar title="Profile" subtitle="Your account details" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-white" />
+          <Loader2 size={24} className="animate-spin text-slate-400 dark:text-white" />
         </div>
       </div>
     )
@@ -155,13 +155,13 @@ export default function ProfilePage() {
       <div className="p-4 sm:p-6 max-w-2xl mx-auto space-y-5 pb-16">
 
         {/* Avatar + name block */}
-        <div className="bg-white/5 border border-white/[0.08] rounded-xl p-5 flex items-center gap-4">
-          <div className="w-16 h-16 bg-[#1A1A1A] border border-white/10 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold text-xl">
+        <div className="bg-white border border-slate-200 dark:bg-white/5 dark:border-white/[0.08] rounded-xl p-5 flex items-center gap-4">
+          <div className="w-16 h-16 bg-slate-100 border border-slate-200 dark:bg-[#1A1A1A] dark:border-white/10 rounded-full flex items-center justify-center flex-shrink-0 text-slate-900 dark:text-white font-bold text-xl">
             {initials}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-lg font-bold text-white truncate">{profile.full_name || '—'}</p>
-            <p className="text-sm text-[#555] truncate">{profile.email}</p>
+            <p className="text-lg font-bold text-slate-900 dark:text-white truncate">{profile.full_name || '—'}</p>
+            <p className="text-sm text-slate-500 dark:text-[#555] truncate">{profile.email}</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
               <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${kycColor}`}>
                 {profile.kyc_status === 'Verified' ? <ShieldCheck size={11} /> : profile.kyc_status === 'Pending' ? <ShieldAlert size={11} /> : <ShieldOff size={11} />}
@@ -176,7 +176,7 @@ export default function ProfilePage() {
           </div>
           <button
             onClick={() => editing ? handleCancel() : setEditing(true)}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border border-white/10 text-slate-400 hover:border-white/30 hover:text-white rounded-lg transition-colors flex-shrink-0"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border border-slate-300 text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-white/10 dark:text-slate-400 dark:hover:border-white/30 dark:hover:text-white rounded-lg transition-colors flex-shrink-0"
           >
             {editing ? <><X size={13} /> Cancel</> : <><Edit2 size={13} /> Edit</>}
           </button>
@@ -200,7 +200,7 @@ export default function ProfilePage() {
               {editing ? (
                 <input type="text" value={form.full_name ?? ''} onChange={e => update('full_name', e.target.value)} className={inputCls} placeholder="Full name" />
               ) : (
-                <p className="text-sm text-white">{profile.full_name || '—'}</p>
+                <p className="text-sm text-slate-900 dark:text-white">{profile.full_name || '—'}</p>
               )}
             </div>
 
@@ -212,7 +212,7 @@ export default function ProfilePage() {
                   {GENDERS.map(g => <option key={g} value={g}>{g}</option>)}
                 </select>
               ) : (
-                <p className="text-sm text-white">{profile.gender || '—'}</p>
+                <p className="text-sm text-slate-900 dark:text-white">{profile.gender || '—'}</p>
               )}
             </div>
 
@@ -222,7 +222,7 @@ export default function ProfilePage() {
                 <input type="date" value={form.date_of_birth ?? ''} onChange={e => update('date_of_birth', e.target.value)}
                   max={new Date().toISOString().split('T')[0]} className={inputCls} />
               ) : (
-                <p className="text-sm text-white">
+                <p className="text-sm text-slate-900 dark:text-white">
                   {profile.date_of_birth ? new Date(profile.date_of_birth).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '—'}
                 </p>
               )}
@@ -233,7 +233,7 @@ export default function ProfilePage() {
               {editing ? (
                 <input type="tel" value={form.phone ?? ''} onChange={e => update('phone', e.target.value)} className={inputCls} placeholder="+1 (555) 000-0000" />
               ) : (
-                <p className="text-sm text-white">{profile.phone || '—'}</p>
+                <p className="text-sm text-slate-900 dark:text-white">{profile.phone || '—'}</p>
               )}
             </div>
           </div>
@@ -250,7 +250,7 @@ export default function ProfilePage() {
                   {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
               ) : (
-                <p className="text-sm text-white">{profile.country || '—'}</p>
+                <p className="text-sm text-slate-900 dark:text-white">{profile.country || '—'}</p>
               )}
             </div>
 
@@ -259,7 +259,7 @@ export default function ProfilePage() {
               {editing ? (
                 <input type="text" value={form.state ?? ''} onChange={e => update('state', e.target.value)} className={inputCls} placeholder="e.g. California" />
               ) : (
-                <p className="text-sm text-white">{profile.state || '—'}</p>
+                <p className="text-sm text-slate-900 dark:text-white">{profile.state || '—'}</p>
               )}
             </div>
 
@@ -268,7 +268,7 @@ export default function ProfilePage() {
               {editing ? (
                 <input type="text" value={form.address ?? ''} onChange={e => update('address', e.target.value)} className={inputCls} placeholder="Street address" />
               ) : (
-                <p className="text-sm text-white">{profile.address || '—'}</p>
+                <p className="text-sm text-slate-900 dark:text-white">{profile.address || '—'}</p>
               )}
             </div>
           </div>
@@ -279,18 +279,18 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className={labelCls}>Email Address</label>
-              <p className="text-sm text-white">{profile.email}</p>
+              <p className="text-sm text-slate-900 dark:text-white">{profile.email}</p>
               <p className="text-[11px] text-slate-400 mt-0.5">Contact support to change email</p>
             </div>
             <div>
               <label className={labelCls}>Member Since</label>
-              <p className="text-sm text-white">
+              <p className="text-sm text-slate-900 dark:text-white">
                 {new Date(profile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
             </div>
             <div>
               <label className={labelCls}>Active Plan</label>
-              <p className="text-sm font-semibold text-white">{profile.plan || 'None'}</p>
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">{profile.plan || 'None'}</p>
             </div>
             <div>
               <label className={labelCls}>KYC Status</label>
@@ -308,7 +308,7 @@ export default function ProfilePage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="w-full bg-white hover:bg-slate-100 disabled:opacity-60 disabled:cursor-not-allowed text-black font-bold py-3.5 text-sm rounded-full transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 disabled:opacity-60 disabled:cursor-not-allowed dark:text-black font-bold py-3.5 text-sm rounded-full transition-colors flex items-center justify-center gap-2"
           >
             {saving ? <><Loader2 size={16} className="animate-spin" /> Saving…</> : <><Check size={16} /> Save Changes</>}
           </button>

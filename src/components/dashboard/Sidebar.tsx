@@ -109,13 +109,13 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
                 'flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors duration-150',
                 active
                   ? 'bg-brand-primary/10 text-brand-primary border-l-2 border-brand-primary pl-[10px]'
-                  : 'text-[#666] hover:text-white hover:bg-white/5 border-l-2 border-transparent'
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-[#666] dark:hover:text-white dark:hover:bg-white/5 border-l-2 border-transparent'
               )}
             >
               <item.icon size={17} strokeWidth={active ? 2.5 : 2} />
               <span className="flex-1">{item.label}</span>
               {isMessages && unreadMsgs > 0 && (
-                <span className="min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full bg-white text-black text-[10px] font-bold">
+                <span className="min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full bg-slate-900 text-white dark:bg-white dark:text-black text-[10px] font-bold">
                   {unreadMsgs}
                 </span>
               )}
@@ -125,21 +125,21 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
       </nav>
 
       {/* User section */}
-      <div className="border-t border-white/[0.08] p-4">
+      <div className="border-t border-slate-200 dark:border-white/[0.08] p-4">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 bg-[#1A1A1A] border border-white/10 rounded-full flex items-center justify-center flex-shrink-0">
-            <span className="text-white text-xs font-bold">
+          <div className="w-8 h-8 bg-slate-100 border border-slate-200 dark:bg-[#1A1A1A] dark:border-white/10 rounded-full flex items-center justify-center flex-shrink-0">
+            <span className="text-slate-900 dark:text-white text-xs font-bold">
               {userName ? userName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : '…'}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-white truncate">{userName || 'Loading…'}</p>
-            <p className="text-xs text-[#555] truncate">{userEmail}</p>
+            <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{userName || 'Loading…'}</p>
+            <p className="text-xs text-slate-500 dark:text-[#555] truncate">{userEmail}</p>
           </div>
         </div>
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-[#555] hover:text-white transition-colors"
+          className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-[#555] dark:hover:text-white transition-colors"
         >
           <LogOut size={14} />
           Sign Out
@@ -151,9 +151,9 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   return (
     <>
       {/* ── Desktop sidebar (always visible) ── */}
-      <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 flex-col bg-[#0A0A0A] border-r border-white/[0.08] z-40">
+      <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 flex-col bg-white dark:bg-[#0A0A0A] border-r border-slate-200 dark:border-white/[0.08] z-40">
         {/* Logo */}
-        <div className="flex items-center px-6 py-5 border-b border-white/[0.08]">
+        <div className="flex items-center px-6 py-5 border-b border-slate-200 dark:border-white/[0.08]">
           <Image src="/images/logo.png" alt="Tesla Capital" width={120} height={20} className="h-5 w-auto" />
         </div>
         <NavContent />
@@ -172,16 +172,16 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
       {/* Drawer panel */}
       <aside
         className={cn(
-          'lg:hidden fixed left-0 top-0 h-full w-72 flex flex-col bg-[#0A0A0A] border-r border-white/[0.08] z-50 transition-transform duration-300 ease-in-out',
+          'lg:hidden fixed left-0 top-0 h-full w-72 flex flex-col bg-white dark:bg-[#0A0A0A] border-r border-slate-200 dark:border-white/[0.08] z-50 transition-transform duration-300 ease-in-out',
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         {/* Logo + close */}
-        <div className="flex items-center justify-between px-5 py-5 border-b border-white/[0.08]">
+        <div className="flex items-center justify-between px-5 py-5 border-b border-slate-200 dark:border-white/[0.08]">
           <Image src="/images/logo.png" alt="Tesla Capital" width={60} height={10} className="h-2.5 w-auto" />
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center text-[#666] hover:text-white transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:text-[#666] dark:hover:text-white transition-colors"
           >
             <X size={18} />
           </button>

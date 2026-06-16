@@ -87,7 +87,7 @@ export default function BankDepositPage() {
       <div className="p-6 max-w-4xl mx-auto">
         <Link
           href="/dashboard/deposit"
-          className="flex items-center gap-2 text-sm text-slate-500 hover:text-dark-base dark:hover:text-white mb-6 transition-colors"
+          className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 dark:hover:text-white mb-6 transition-colors"
         >
           <ArrowLeft size={14} />
           Back to deposit methods

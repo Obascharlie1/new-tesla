@@ -31,9 +31,9 @@ const timeRanges = ['1D', '1W', '1M', '3M', '1Y', 'ALL']
 
 function statusClasses(status: string) {
   if (status === 'Completed') return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
-  if (status === 'Pending')   return 'bg-white/5 text-slate-300 border border-white/10'
+  if (status === 'Pending')   return 'bg-slate-100 text-slate-600 border border-slate-200 dark:bg-white/5 dark:text-slate-300 dark:border-white/10'
   if (status === 'Rejected')  return 'bg-brand-primary/10 text-brand-primary'
-  return 'bg-white/5 text-slate-400'
+  return 'bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-400'
 }
 
 function formatDate(iso: string) {
@@ -139,7 +139,7 @@ export default function DashboardPage() {
       <div>
         <TopBar title="Dashboard" subtitle="Loading…" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-white/40" />
+          <Loader2 size={24} className="animate-spin text-slate-400 dark:text-white/40" />
         </div>
       </div>
     )
@@ -184,16 +184,16 @@ export default function DashboardPage() {
 
         {/* KYC banner */}
         {!kycDismissed && profile?.kyc_status === 'None' && (
-          <div className="flex items-start gap-3 p-4 bg-white/5 border border-white/10 rounded-2xl">
-            <ShieldAlert size={16} className="text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 p-4 bg-white border border-slate-200 dark:bg-white/5 dark:border-white/10 rounded-2xl">
+            <ShieldAlert size={16} className="text-amber-500 dark:text-amber-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-white">Identity verification required</p>
-              <p className="text-xs text-slate-400 mt-0.5">Complete KYC to unlock full withdrawal access.</p>
-              <Link href="/dashboard/kyc" className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-white underline underline-offset-2">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">Identity verification required</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Complete KYC to unlock full withdrawal access.</p>
+              <Link href="/dashboard/kyc" className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-slate-900 dark:text-white underline underline-offset-2">
                 Verify now <ArrowUpRight size={11} />
               </Link>
             </div>
-            <button onClick={() => setKycDismissed(true)} className="text-slate-500 hover:text-white flex-shrink-0 transition-colors">
+            <button onClick={() => setKycDismissed(true)} className="text-slate-400 hover:text-slate-900 dark:text-slate-500 dark:hover:text-white flex-shrink-0 transition-colors">
               <X size={15} />
             </button>
           </div>
@@ -207,7 +207,7 @@ export default function DashboardPage() {
           </div>
           <div className="relative">
             <p className="text-xs text-slate-500 mb-3 tracking-widest uppercase">Your balance</p>
-            <p className="text-5xl sm:text-6xl font-bold text-white tracking-tight mb-1">
+            <p className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white tracking-tight mb-1">
               ${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
             {profit > 0 && (
@@ -224,7 +224,7 @@ export default function DashboardPage() {
               </Link>
               <Link
                 href="/dashboard/withdraw"
-                className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white text-sm font-bold hover:bg-white/15 border border-white/10 transition-colors"
+                className="flex items-center gap-2 px-6 py-3 rounded-full bg-slate-100 text-slate-900 hover:bg-slate-200 border border-slate-200 dark:bg-white/10 dark:text-white dark:hover:bg-white/15 dark:border-white/10 text-sm font-bold transition-colors"
               >
                 <ArrowUpFromLine size={15} /> Withdraw
               </Link>
@@ -239,9 +239,9 @@ export default function DashboardPage() {
             { label: 'Profit',      value: `+$${profit.toLocaleString()}` },
             { label: 'Active Plan', value: profile?.plan ?? 'None' },
           ].map(s => (
-            <div key={s.label} className="bg-white/5 border border-white/[0.08] rounded-2xl p-4 text-center hover:border-brand-primary/25 transition-colors">
+            <div key={s.label} className="bg-white border border-slate-200 dark:bg-white/5 dark:border-white/[0.08] rounded-2xl p-4 text-center hover:border-brand-primary/25 transition-colors">
               <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1.5">{s.label}</p>
-              <p className="text-sm font-bold text-white truncate">{s.value}</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{s.value}</p>
             </div>
           ))}
         </div>
@@ -256,8 +256,8 @@ export default function DashboardPage() {
               <BarChart2 size={16} className="text-brand-primary" />
             </div>
             <div className="text-left">
-              <p className="text-sm font-bold text-white">Buy Shares</p>
-              <p className="text-xs text-slate-400">Tesla, NVIDIA, Apple &amp; more</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-white">Buy Shares</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Tesla, NVIDIA, Apple &amp; more</p>
             </div>
           </div>
           <ArrowUpRight size={15} className="text-slate-500 group-hover:text-brand-primary transition-colors flex-shrink-0" />
@@ -265,14 +265,14 @@ export default function DashboardPage() {
 
         {/* My Shares */}
         {holdings.length > 0 && (
-          <div className="bg-white/5 border border-white/[0.08] rounded-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.08]">
-              <h2 className="text-sm font-bold text-white">My Shares</h2>
-              <Link href="/dashboard/shares" className="text-xs font-semibold text-slate-400 hover:text-white transition-colors">
+          <div className="bg-white border border-slate-200 dark:bg-white/5 dark:border-white/[0.08] rounded-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-white/[0.08]">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white">My Shares</h2>
+              <Link href="/dashboard/shares" className="text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors">
                 Trade
               </Link>
             </div>
-            <div className="divide-y divide-white/[0.05]">
+            <div className="divide-y divide-slate-200 dark:divide-white/[0.05]">
               {holdings.map(h => {
                 const gainPct = h.total_invested > 0
                   ? (h.total_profit / h.total_invested) * 100
@@ -287,11 +287,11 @@ export default function DashboardPage() {
                       {h.symbol.slice(0, 2)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-white">{h.symbol}</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">{h.symbol}</p>
                       <p className="text-xs text-slate-500">{h.total_quantity.toFixed(4)} shares</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-semibold text-white">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         ${currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </p>
                       <p className={`text-xs font-bold ${gainPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
@@ -312,10 +312,10 @@ export default function DashboardPage() {
 
         {/* Portfolio chart */}
         {balance > 0 && (
-          <div className="bg-white/5 border border-white/8 rounded-2xl p-5">
+          <div className="bg-white border border-slate-200 dark:bg-white/5 dark:border-white/8 rounded-2xl p-5">
             <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
               <div>
-                <h2 className="text-sm font-bold text-white">Portfolio Performance</h2>
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white">Portfolio Performance</h2>
                 <p className="text-xs text-slate-500 mt-0.5">Balance growth</p>
               </div>
               <div className="flex gap-1">
@@ -325,8 +325,8 @@ export default function DashboardPage() {
                     onClick={() => setActiveRange(r)}
                     className={`px-2 py-1 text-[11px] font-semibold rounded-md transition-colors ${
                       activeRange === r
-                        ? 'bg-white text-black'
-                        : 'text-slate-500 hover:text-white'
+                        ? 'bg-slate-900 text-white dark:bg-white dark:text-black'
+                        : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     {r}
@@ -348,10 +348,10 @@ export default function DashboardPage() {
         )}
 
         {/* Recent transactions */}
-        <div className="bg-white/5 border border-white/8 rounded-2xl overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
-            <h2 className="text-sm font-bold text-white">Recent Transactions</h2>
-            <Link href="/dashboard/transactions" className="text-xs font-semibold text-slate-400 hover:text-white transition-colors">
+        <div className="bg-white border border-slate-200 dark:bg-white/5 dark:border-white/8 rounded-2xl overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-white/8">
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white">Recent Transactions</h2>
+            <Link href="/dashboard/transactions" className="text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors">
               View all
             </Link>
           </div>
@@ -359,7 +359,7 @@ export default function DashboardPage() {
           {transactions.length === 0 ? (
             <div className="py-10 text-center">
               <p className="text-sm text-slate-500">No transactions yet.</p>
-              <Link href="/dashboard/deposit" className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-white hover:text-slate-300 transition-colors">
+              <Link href="/dashboard/deposit" className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-slate-900 hover:text-slate-600 dark:text-white dark:hover:text-slate-300 transition-colors">
                 Make your first deposit <ArrowUpRight size={14} />
               </Link>
             </div>
@@ -369,21 +369,21 @@ export default function DashboardPage() {
               <div className="hidden sm:block overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-white/8">
+                    <tr className="border-b border-slate-200 dark:border-white/8">
                       {['Type', 'Amount', 'Method', 'Date', 'Status'].map(h => (
                         <th key={h} className="px-5 py-3 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{h}</th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5">
+                  <tbody className="divide-y divide-slate-200 dark:divide-white/5">
                     {recentTransactions.map(tx => (
-                      <tr key={tx.id} className="hover:bg-white/3 transition-colors">
-                        <td className="px-5 py-4 text-sm font-medium text-white">{tx.type}</td>
-                        <td className="px-5 py-4 text-sm font-semibold text-white">
+                      <tr key={tx.id} className="hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors">
+                        <td className="px-5 py-4 text-sm font-medium text-slate-900 dark:text-white">{tx.type}</td>
+                        <td className="px-5 py-4 text-sm font-semibold text-slate-900 dark:text-white">
                           {tx.type === 'Withdrawal' ? '-' : '+'}${tx.amount.toLocaleString()}
                         </td>
-                        <td className="px-5 py-4 text-sm text-slate-400">{tx.method}</td>
-                        <td className="px-5 py-4 text-sm text-slate-400">{formatDate(tx.created_at)}</td>
+                        <td className="px-5 py-4 text-sm text-slate-500 dark:text-slate-400">{tx.method}</td>
+                        <td className="px-5 py-4 text-sm text-slate-500 dark:text-slate-400">{formatDate(tx.created_at)}</td>
                         <td className="px-5 py-4">
                           <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${statusClasses(tx.status)}`}>{tx.status}</span>
                         </td>
@@ -393,15 +393,15 @@ export default function DashboardPage() {
                 </table>
               </div>
               {/* Mobile */}
-              <div className="sm:hidden divide-y divide-white/5">
-                {transactions.map(tx => (
+              <div className="sm:hidden divide-y divide-slate-200 dark:divide-white/5">
+                {recentTransactions.map(tx => (
                   <div key={tx.id} className="px-5 py-4 flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-sm font-semibold text-white">{tx.type}</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">{tx.type}</p>
                       <p className="text-xs text-slate-500 mt-0.5">{tx.method} · {formatDate(tx.created_at)}</p>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="text-sm font-semibold text-white">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         {tx.type === 'Withdrawal' ? '-' : '+'}${tx.amount.toLocaleString()}
                       </p>
                       <span className={`inline-flex mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${statusClasses(tx.status)}`}>{tx.status}</span>
@@ -416,17 +416,17 @@ export default function DashboardPage() {
         {/* Manage plan CTA */}
         <Link
           href="/dashboard/plans"
-          className="flex items-center justify-between w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/8 hover:bg-white/8 transition-colors group"
+          className="flex items-center justify-between w-full px-5 py-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 dark:bg-white/5 dark:border-white/8 dark:hover:bg-white/8 transition-colors group"
         >
           <div>
-            <p className="text-sm font-bold text-white">
+            <p className="text-sm font-bold text-slate-900 dark:text-white">
               {profile?.plan && profile.plan !== 'None' ? profile.plan : 'No active plan'}
             </p>
             <p className="text-xs text-slate-500 mt-0.5">
               {profile?.plan && profile.plan !== 'None' ? 'Manage your plan' : 'Choose an investment plan'}
             </p>
           </div>
-          <div className="flex items-center gap-2 text-slate-400 group-hover:text-white transition-colors">
+          <div className="flex items-center gap-2 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
             <TrendingUp size={16} />
             <ArrowUpRight size={14} />
           </div>

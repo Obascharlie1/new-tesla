@@ -40,26 +40,26 @@ function FileUploadArea({ label, file, onFile }: { label: string; file: Uploaded
   }
   return (
     <div>
-      <p className="block text-xs font-semibold text-white uppercase tracking-wider mb-2">{label}</p>
+      <p className="block text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">{label}</p>
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
         className={`w-full border-2 border-dashed transition-colors p-6 text-center rounded-xl ${
-          file ? 'border-emerald-400 bg-emerald-900/10' : 'border-white/20 hover:border-white/40 hover:bg-white/[0.03]'
+          file ? 'border-emerald-400 bg-emerald-900/10' : 'border-slate-200 dark:border-white/20 hover:border-white/40 hover:bg-white/[0.03]'
         }`}
       >
         {file ? (
           <div className="flex items-center justify-center gap-3">
             <CheckCircle size={20} className="text-emerald-500 flex-shrink-0" />
             <div className="text-left">
-              <p className="text-sm font-semibold text-white truncate max-w-[200px]">{file.name}</p>
+              <p className="text-sm font-semibold text-slate-900 dark:text-white truncate max-w-[200px]">{file.name}</p>
               <p className="text-xs text-slate-400">{file.size}</p>
             </div>
           </div>
         ) : (
           <div>
             <Upload size={24} className="mx-auto text-slate-400 mb-2" />
-            <p className="text-sm font-medium text-white">Click to upload</p>
+            <p className="text-sm font-medium text-slate-900 dark:text-white">Click to upload</p>
             <p className="text-xs text-slate-400 mt-1">JPG, PNG or PDF · Max 10 MB</p>
           </div>
         )}
@@ -125,7 +125,7 @@ export default function KYCPage() {
       <div>
         <TopBar title="KYC Verification" />
         <div className="flex items-center justify-center h-64">
-          <Loader2 size={24} className="animate-spin text-white" />
+          <Loader2 size={24} className="animate-spin text-slate-400 dark:text-white" />
         </div>
       </div>
     )
@@ -140,11 +140,11 @@ export default function KYCPage() {
           <div className="w-16 h-16 bg-emerald-900/20 flex items-center justify-center mx-auto mb-5">
             <CheckCircle size={32} className="text-emerald-500" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Identity Verified</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Identity Verified</h2>
           <p className="text-sm text-slate-400 leading-relaxed mb-6">
             Your identity has been successfully verified. You have full access to all platform features.
           </p>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-bold text-sm hover:bg-slate-100 transition-colors">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white dark:bg-white dark:text-black font-bold text-sm hover:bg-slate-100 transition-colors">
             Back to Dashboard
           </Link>
         </div>
@@ -161,11 +161,11 @@ export default function KYCPage() {
           <div className="w-16 h-16 bg-amber-900/20 flex items-center justify-center mx-auto mb-5">
             <Shield size={32} className="text-amber-500" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Verification Pending</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Verification Pending</h2>
           <p className="text-sm text-slate-400 leading-relaxed mb-6">
-            Your documents are under review. We&apos;ll notify you within <strong className="text-white">24–48 hours</strong> once verification is complete.
+            Your documents are under review. We&apos;ll notify you within <strong className="text-slate-700 dark:text-white">24–48 hours</strong> once verification is complete.
           </p>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-bold text-sm hover:bg-slate-100 transition-colors">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white dark:bg-white dark:text-black font-bold text-sm hover:bg-slate-100 transition-colors">
             Back to Dashboard
           </Link>
         </div>
@@ -181,26 +181,26 @@ export default function KYCPage() {
           <div className="w-16 h-16 bg-emerald-900/20 flex items-center justify-center mx-auto mb-5">
             <CheckCircle size={32} className="text-emerald-500" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Documents Submitted</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Documents Submitted</h2>
           <p className="text-sm text-slate-400 leading-relaxed mb-6">
             Your identity documents are under review. We&apos;ll notify you within{' '}
-            <strong className="text-white">24–48 hours</strong> once verification is complete.
+            <strong className="text-slate-700 dark:text-white">24–48 hours</strong> once verification is complete.
           </p>
-          <div className="bg-white/5 border border-white/[0.08] rounded-xl p-4 mb-6 text-left space-y-2">
+          <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/[0.08] rounded-xl p-4 mb-6 text-left space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <FileText size={14} className="text-slate-400" />
-              <span className="text-white font-medium">{frontFile?.name}</span>
+              <span className="text-slate-900 dark:text-white font-medium">{frontFile?.name}</span>
               <span className="text-slate-400 text-xs ml-auto">{frontFile?.size}</span>
             </div>
             {backFile && (
               <div className="flex items-center gap-2 text-sm">
                 <FileText size={14} className="text-slate-400" />
-                <span className="text-white font-medium">{backFile.name}</span>
+                <span className="text-slate-900 dark:text-white font-medium">{backFile.name}</span>
                 <span className="text-slate-400 text-xs ml-auto">{backFile.size}</span>
               </div>
             )}
           </div>
-          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-bold text-sm hover:bg-slate-100 transition-colors">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white dark:bg-white dark:text-black font-bold text-sm hover:bg-slate-100 transition-colors">
             Back to Dashboard
           </Link>
         </div>
@@ -212,14 +212,14 @@ export default function KYCPage() {
     <div>
       <TopBar title="KYC Verification" subtitle="Upload your identity document to verify your account" />
       <div className="p-4 sm:p-6 max-w-xl mx-auto space-y-6">
-        <Link href="/dashboard" className="flex items-center gap-2 text-sm text-slate-500 hover:text-dark-base dark:hover:text-white transition-colors">
+        <Link href="/dashboard" className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
           <ArrowLeft size={15} /> Back to Dashboard
         </Link>
 
-        <div className="flex gap-3 p-4 bg-white/5 border border-white/[0.08] rounded-xl">
+        <div className="flex gap-3 p-4 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/[0.08] rounded-xl">
           <Shield size={18} className="text-slate-300 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-semibold text-white">Why we need this</p>
+            <p className="text-sm font-semibold text-slate-900 dark:text-white">Why we need this</p>
             <p className="text-xs text-slate-400 mt-0.5">
               KYC verification is required by financial regulations to protect your account and enable full withdrawal access.
             </p>
@@ -234,13 +234,13 @@ export default function KYCPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <p className="block text-xs font-semibold text-white uppercase tracking-wider mb-3">Select Document Type</p>
+            <p className="block text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-3">Select Document Type</p>
             <div className="space-y-2">
               {docTypes.map(dt => (
                 <label
                   key={dt.value}
                   className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-colors ${
-                    docType === dt.value ? 'border-white/30 bg-white/[0.06]' : 'border-white/[0.08] hover:border-white/20'
+                    docType === dt.value ? 'border-white/30 bg-slate-100 dark:bg-white/[0.06]' : 'border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20'
                   }`}
                 >
                   <input
@@ -252,7 +252,7 @@ export default function KYCPage() {
                     className="mt-0.5 flex-shrink-0 accent-white"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-white">{dt.label}</p>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white">{dt.label}</p>
                     <p className="text-xs text-slate-400 mt-0.5">{dt.desc}</p>
                   </div>
                 </label>
@@ -271,8 +271,8 @@ export default function KYCPage() {
             )}
           </div>
 
-          <div className="bg-white/5 border border-white/[0.08] rounded-xl p-4">
-            <p className="text-xs font-semibold text-white mb-2">Document Requirements</p>
+          <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/[0.08] rounded-xl p-4">
+            <p className="text-xs font-semibold text-slate-900 dark:text-white mb-2">Document Requirements</p>
             <ul className="space-y-1">
               {[
                 'Document must be valid and not expired',
@@ -291,7 +291,7 @@ export default function KYCPage() {
           <button
             type="submit"
             disabled={!canSubmit || loading}
-            className="w-full bg-white hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold py-3.5 text-sm rounded-full flex items-center justify-center gap-2 transition-colors"
+            className="w-full bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed text-white dark:text-black font-bold py-3.5 text-sm rounded-full flex items-center justify-center gap-2 transition-colors"
           >
             {loading
               ? <><Loader2 size={16} className="animate-spin" /> Submitting…</>
