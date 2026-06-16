@@ -37,8 +37,10 @@ export default function LoginPage() {
       sessionStorage.setItem('bit-tesla-session', 'true')
     }
 
-    router.push('/dashboard')
-    router.refresh()
+    // Navigate straight to the dashboard. Avoid router.refresh() here — it would
+    // re-run the auth middleware (getUser + suspension query) a second time and
+    // adds a visible delay after sign-in.
+    router.replace('/dashboard')
   }
 
   return (

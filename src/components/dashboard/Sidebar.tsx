@@ -14,6 +14,7 @@ import {
   X,
   MessageCircle,
   BarChart2,
+  Loader2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState, useCallback } from 'react'
@@ -41,6 +42,7 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   const [userName,    setUserName]    = useState('')
   const [userEmail,   setUserEmail]   = useState('')
   const [unreadMsgs,  setUnreadMsgs]  = useState(0)
+  const [signingOut,  setSigningOut]  = useState(false)
 
   // Close on route change
   useEffect(() => { onClose() }, [pathname])
@@ -84,9 +86,13 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   }, [fetchUnread])
 
   async function handleSignOut() {
+    if (signingOut) return
+    setSigningOut(true)
     const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push('/auth/login')
+    // Local scope clears the session in the browser without a network round-trip
+    // to revoke it server-side — makes sign-out feel instant.
+    await supabase.auth.signOut({ scope: 'local' })
+    router.replace('/auth/login')
   }
 
   function isActive(href: string, exact?: boolean) {
@@ -139,10 +145,11 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
         </div>
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-[#555] dark:hover:text-white transition-colors"
+          disabled={signingOut}
+          className="flex items-center gap-2 w-full px-3 py-2 text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-[#555] dark:hover:text-white transition-colors disabled:opacity-70 disabled:cursor-wait"
         >
-          <LogOut size={14} />
-          Sign Out
+          {signingOut ? <Loader2 size={14} className="animate-spin" /> : <LogOut size={14} />}
+          {signingOut ? 'Signing out…' : 'Sign Out'}
         </button>
       </div>
     </>
