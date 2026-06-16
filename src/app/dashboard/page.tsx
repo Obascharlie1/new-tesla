@@ -161,13 +161,13 @@ export default function DashboardPage() {
       {/* Animated spectrum aurora — main dashboard only, above the layout bg */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div className="aurora-wrap absolute inset-0">
-          <div className="aurora-blob-a absolute -top-32 -left-24 w-[55vw] h-[55vw] rounded-full bg-[#E0241C]/55 blur-[110px]" />
-          <div className="aurora-blob-b absolute top-1/4 -right-24 w-[50vw] h-[50vw] rounded-full bg-[#10B981]/45 blur-[120px]" />
-          <div className="aurora-blob-c absolute bottom-0 left-1/4 w-[48vw] h-[48vw] rounded-full bg-[#3B82F6]/45 blur-[120px]" />
-          <div className="aurora-blob-d absolute top-1/3 left-1/3 w-[42vw] h-[42vw] rounded-full bg-[#A855F7]/40 blur-[110px]" />
+          <div className="aurora-blob-a absolute -top-32 -left-24 w-[55vw] h-[55vw] rounded-full bg-[#E0241C]/30 blur-[130px]" />
+          <div className="aurora-blob-b absolute top-1/4 -right-24 w-[50vw] h-[50vw] rounded-full bg-[#10B981]/22 blur-[140px]" />
+          <div className="aurora-blob-c absolute bottom-0 left-1/4 w-[48vw] h-[48vw] rounded-full bg-[#3B82F6]/22 blur-[140px]" />
+          <div className="aurora-blob-d absolute top-1/3 left-1/3 w-[42vw] h-[42vw] rounded-full bg-[#A855F7]/18 blur-[130px]" />
         </div>
         {/* Veil keeps foreground readable — light in light mode, dark in dark mode */}
-        <div className="absolute inset-0 bg-white/45 dark:bg-[#070707]/45" />
+        <div className="absolute inset-0 bg-white/60 dark:bg-[#070707]/60" />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
